@@ -1,0 +1,80 @@
+
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button [routerLink]="['../protocolo','nuevo']" class="btn btn-outline-success" type="button" name="button" title="Nuevo Protocolo">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Protocolo
+    </button>
+  </div>
+</div>
+<br>
+
+
+
+<div *ngFor="let key of this.keys ; let i = index">
+  {{ this._informes[key].nombre }}
+</div>
+
+<ng-template #noResults>
+  <div class="row" >
+    <div class="col">
+      <div class="alert alert-info text-center " role="alert">
+        <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No existen informes!</h5>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="this._informes?.length > 0; else noResults" class="row">
+  <div class="col-md-12">
+    <div  class= "table-responsive text-center">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th >#</th>
+            <th >Nombre</th>
+            <th >Items - Caracteristicas</th>
+            <th >Creado</th>
+            <th >Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let informe of this._informes ; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ informe.nombre }}</td>
+            <td>
+              <div class="row" *ngFor="let item of informe.items">
+                <div class="col-4">
+                  <b>{{  item.nombre  }}</b>
+                </div>
+                <div class="col-8">
+                  <div class="row" *ngFor="let caracteristica of item.caracteristicas">
+                    <div class="col">
+                      {{ caracteristica.nombre }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+            </td>
+            <td>{{ informe.creado }}</td>
+            <td>
+              <button [routerLink]="['../protocolo', informe._id ]"
+                      type="button" class="btn btn-outline-info"
+                      title="Editar"
+                      style="width: 50px">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+              <button [routerLink]="['../protocolo', informe._id ]"
+                      type="button" class="btn btn-outline-danger"
+                      title="Dar de baja"
+                      style="width: 50px">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
