@@ -1,3 +1,95 @@
-<p>
-  protocolo works!
-</p>
+
+  <div class="row">
+    <div class="col-md-12">
+      <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="guardarProtocolo()" #forma="ngForm">
+        <div class="form-group">
+          <label for="txtNombre">Nombre</label>
+          <input [(ngModel)] = "_informe.nombre"
+                name ="nombre"
+                type="text"
+                class="form-control"
+                id="txtNombre"
+                placeholder="Ingrese el nombre del informe"
+                required>
+        </div>
+        <hr>
+        <h5>Items</h5>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label for="txtNombreItem">Nombre del item</label>
+              <input name ="nombreItem"
+              type="text"
+              class="form-control"
+              id="txtNombreItem"
+              placeholder="Ingrese el nombre del item">
+            </div>
+            <label for="txtCaracteristicaItem">Caracteristicas</label>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Ingrese la caracteristica" aria-label="Ingrese la caracteristica">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" title="Agregar caracteristica"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              </span>
+            </div>
+            <hr>
+            <div>
+              <button type="button" class="btn btn-outline-primary">
+                Caracteristica 1
+                <i class="fa fa-times-circle"
+                   aria-hidden="true"
+                   data-toggle="tooltip"
+                   data-placement="top" title="Eliminar" (click)= "borrarCaracteristica()"></i>
+              </button>
+            </div>
+            <hr>
+
+            <label for="txtCaracteristicaItem">Opciones</label>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" title="Agregar opcion"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              </span>
+            </div>
+            <hr>
+
+            <h5>
+              <span class="badge badge-pill badge-info">
+                Opcion 1
+                <i class="fa fa-times-circle"
+                   aria-hidden="true"
+                   data-toggle="tooltip"
+                   data-placement="top" title="Eliminar" (click)= "borrarOpcion()"></i>
+              </span>
+            </h5>
+
+
+
+            <div>
+              <button class="btn btn-outline-success" type="button" name="button" style="float: right;" title="Agregar Item">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Item
+              </button>
+            </div>
+            
+          </div>
+          <div class="col-md-4">
+            <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-action active">
+                Cras justo odio
+              </a>
+              <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+              <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+              <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+              <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+
+
+
+        <button type="submit" class="btn btn-primary" style="float: right;">Guardar Informe</button>
+      </form>
+
+    </div>
+  </div>
