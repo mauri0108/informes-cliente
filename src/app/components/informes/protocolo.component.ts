@@ -42,6 +42,9 @@ export class ProtocoloComponent implements OnInit {
         });
   }
 
+  borrarCaracteristica(){
+    console.log("Se va a eliminar");
+  }
 
 
 }
