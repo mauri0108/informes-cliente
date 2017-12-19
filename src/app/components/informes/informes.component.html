@@ -42,7 +42,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ informe.nombre }}</td>
             <td>
-              <div class="row" *ngFor="let item of informe.items">
+              <div class="row" *ngFor="let item of informe.items; let ultimo = last">
                 <div class="col-4">
                   <b>{{  item.nombre  }}</b>
                 </div>
@@ -53,9 +53,8 @@
                     </div>
                   </div>
                 </div>
+              <hr *ngIf="!ultimo">
               </div>
-
-              <hr>
             </td>
             <td>{{ informe.creado }}</td>
             <td>
