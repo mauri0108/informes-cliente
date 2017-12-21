@@ -3,6 +3,6 @@ import { Caracteristica } from './caracteristica';
 export class Item{
   constructor(
     public nombre:string,
-    caracteristicas: Caracteristica [],
+    public caracteristicas: Caracteristica [],
   ){}
 }
