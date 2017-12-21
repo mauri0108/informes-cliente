@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
@@ -18,7 +18,13 @@ import { InformesService } from '../../services/informes.service';
 })
 export class ProtocoloComponent implements OnInit {
   public _informe : Informe = new Informe('','',[],'');
+  public _items : Item [] = [];
+  public _caracteristicas : Caracteristica[] = [];
+  public indexC : number;
   public _id : string;
+
+  @ViewChild("cNombre") public cNombre: ElementRef;
+  @ViewChild("oNombre") public oNombre: ElementRef;
 
   constructor(
     private _router : Router,
@@ -42,8 +48,27 @@ export class ProtocoloComponent implements OnInit {
         });
   }
 
+  crearCaracteristica(){
+    let _c : Caracteristica = new Caracteristica(this.cNombre.nativeElement.value,[]);
+
+    this._caracteristicas.push(_c);
+    console.log(this._caracteristicas);
+  }
+
   borrarCaracteristica(){
     console.log("Se va a eliminar");
+  }
+
+  getOptions(index: number){
+    console.log(index);
+    this.indexC = index;
+  }
+
+  agregarOpcion(){
+    for (let i in this._caracteristicas) {
+        this._caracteristicas[i].opciones;
+    }
+
   }
 
 
