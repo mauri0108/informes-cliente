@@ -65,10 +65,9 @@ export class ProtocoloComponent implements OnInit {
   }
 
   agregarOpcion(){
-    for (let i in this._caracteristicas) {
-        this._caracteristicas[i].opciones;
-    }
+    this._caracteristicas[this.indexC].opciones.push(this.oNombre.nativeElement.value);
 
+    console.log(this._caracteristicas);
   }
 
 
