@@ -26,39 +26,39 @@
             </div>
             <label for="txtCaracteristicaItem">Caracteristicas</label>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Ingrese la caracteristica" aria-label="Ingrese la caracteristica">
+              <input type="text" class="form-control" placeholder="Ingrese la caracteristica" aria-label="Ingrese la caracteristica" #cNombre>
               <span class="input-group-btn">
-                <button class="btn btn-success" type="button" title="Agregar caracteristica"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button class="btn btn-success" type="button" title="Agregar caracteristica" (click)="crearCaracteristica()" ><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
             </div>
             <hr>
             <div>
-              <button type="button" class="btn btn-outline-primary">
-                Caracteristica 1
+              <button type="button" class="btn btn-outline-primary" *ngFor="let c of _caracteristicas; let i = index" (click)="getOptions(i)">
+                {{ c.nombre }}
                 <i class="fa fa-times-circle"
                    aria-hidden="true"
                    data-toggle="tooltip"
-                   data-placement="top" title="Eliminar" (click)= "borrarCaracteristica()"></i>
+                   data-placement="top" title="Eliminar" (click)= "borrarCaracteristica(i)"></i>
               </button>
             </div>
             <hr>
 
             <label for="txtCaracteristicaItem">Opciones</label>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion">
+              <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion" #oNombre>
               <span class="input-group-btn">
-                <button class="btn btn-success" type="button" title="Agregar opcion"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button class="btn btn-success" type="button" title="Agregar opcion" (click)="agregarOpcion()"><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
             </div>
             <hr>
 
-            <h5>
+            <h5 *ngFor="let opc of this._caracteristicas[this.indexC]?.opciones">
               <span class="badge badge-pill badge-info">
-                Opcion 1
+                {{ opc }}
                 <i class="fa fa-times-circle"
                    aria-hidden="true"
                    data-toggle="tooltip"
-                   data-placement="top" title="Eliminar" (click)= "borrarOpcion()"></i>
+                   data-placement="top" title="Eliminar" (click)= "borrarOpcion(opc)"></i>
               </span>
             </h5>
 
@@ -69,7 +69,7 @@
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Item
               </button>
             </div>
-            
+
           </div>
           <div class="col-md-4">
             <div class="list-group">
