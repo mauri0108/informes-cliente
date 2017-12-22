@@ -15,14 +15,75 @@
         <hr>
         <h5>Items</h5>
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-5 col-lg-5">
+            <div class="list-group scrolly">
+              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
+                <div class="row">
+                  <div class="col-7">
+                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
+                <div class="row">
+                  <div class="col-7">
+                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
+                <div class="row">
+                  <div class="col-7">
+                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
+                <div class="row">
+                  <div class="col-7">
+                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
+                <div class="row">
+                  <div class="col-7">
+                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="col-md-7">
             <div class="form-group">
               <label for="txtNombreItem">Nombre del item</label>
               <input name ="nombreItem"
               type="text"
               class="form-control"
               id="txtNombreItem"
-              placeholder="Ingrese el nombre del item">
+              placeholder="Ingrese el nombre del item"
+              #iNombre>
             </div>
             <label for="txtCaracteristicaItem">Caracteristicas</label>
             <div class="input-group">
@@ -33,7 +94,7 @@
             </div>
             <hr>
             <div>
-              <button type="button" class="btn btn-outline-primary" *ngFor="let c of _caracteristicas; let i = index" (click)="getOptions(i)">
+              <button type="button" [ngClass]="{'active': this.indexC == i}" class="btn btn-outline-primary mr-1" *ngFor="let c of _caracteristicas; let i = index" (click)="getOptions(i)">
                 {{ c.nombre }}
                 <i class="fa fa-times-circle"
                    aria-hidden="true"
@@ -47,13 +108,13 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion" #oNombre>
               <span class="input-group-btn">
-                <button class="btn btn-success" type="button" title="Agregar opcion" (click)="agregarOpcion()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button  class="btn btn-success" type="button" title="Agregar opcion" (click)="agregarOpcion()" [disabled]= "!isBtnActive"><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
             </div>
             <hr>
 
-            <h5 *ngFor="let opc of this._caracteristicas[this.indexC]?.opciones">
-              <span class="badge badge-pill badge-info">
+            <h5>
+              <span class="badge badge-pill badge-info mr-1" *ngFor="let opc of this._caracteristicas[this.indexC]?.opciones">
                 {{ opc }}
                 <i class="fa fa-times-circle"
                    aria-hidden="true"
@@ -65,23 +126,13 @@
 
 
             <div>
-              <button class="btn btn-outline-success" type="button" name="button" style="float: right;" title="Agregar Item">
+              <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Agregar Item">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Item
               </button>
             </div>
 
           </div>
-          <div class="col-md-4">
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action active">
-                Cras justo odio
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-              <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-              <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-              <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-            </div>
-          </div>
+
         </div>
         <hr>
 
