@@ -21,10 +21,15 @@ export class ProtocoloComponent implements OnInit {
   public _items : Item [] = [];
   public _caracteristicas : Caracteristica[] = [];
   public indexC : number;
+  public indexI :number;
+  public isBtnActive:boolean = false;
   public _id : string;
+  public nuevo : boolean = true;
 
+  @ViewChild("iNombre") public iNombre: ElementRef;
   @ViewChild("cNombre") public cNombre: ElementRef;
   @ViewChild("oNombre") public oNombre: ElementRef;
+
 
   constructor(
     private _router : Router,
@@ -41,6 +46,7 @@ export class ProtocoloComponent implements OnInit {
               this._informesService.getInforme( this._id )
                   .subscribe( res => {
                     this._informe = res;
+                    this.nuevo = false;
                     console.log(this._informe);
                   });
           }
@@ -48,11 +54,23 @@ export class ProtocoloComponent implements OnInit {
         });
   }
 
+  editItem(index :number){
+    this.indexI = index;
+    this.iNombre.nativeElement.value = this._informe.items[index].nombre;
+    this._caracteristicas = this._informe.items[index].caracteristicas;
+
+  }
+
   crearCaracteristica(){
     let _c : Caracteristica = new Caracteristica(this.cNombre.nativeElement.value,[]);
 
-    this._caracteristicas.push(_c);
-    console.log(this._caracteristicas);
+    if (this.nuevo == true) {
+      this._caracteristicas.push(_c);
+      console.log(this._caracteristicas);
+    } else {
+      this._informe.items[0].caracteristicas.push(_c);
+    }
+
   }
 
   borrarCaracteristica(){
@@ -62,12 +80,30 @@ export class ProtocoloComponent implements OnInit {
   getOptions(index: number){
     console.log(index);
     this.indexC = index;
+    this.isBtnActive = true;
   }
 
   agregarOpcion(){
-    this._caracteristicas[this.indexC].opciones.push(this.oNombre.nativeElement.value);
+    if (this.nuevo == true) {
+      this._caracteristicas[this.indexC].opciones.push(this.oNombre.nativeElement.value);
+      console.log(this._caracteristicas);
+    } else {
+      this._informe.items[0].caracteristicas[this.indexC].opciones.push(this.oNombre.nativeElement.value);
+    }
 
-    console.log(this._caracteristicas);
+
+  }
+
+  addItem(){
+    let _i : Item = new Item('',[]);
+
+    if (this.nuevo == true) {
+      _i.caracteristicas = this._caracteristicas;
+      this._informe.items.push(_i);
+    } else {
+      this._informe.items.push(_i);
+    }
+
   }
 
 
