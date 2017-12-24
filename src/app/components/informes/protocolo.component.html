@@ -13,58 +13,20 @@
                 required>
         </div>
         <hr>
-        <h5>Items</h5>
         <div class="row">
           <div class="col-md-5 col-lg-5">
             <div class="list-group scrolly">
-              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
-                <div class="row">
-                  <div class="col-7">
-                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
-                  </div>
-                  <div class="col-5">
-                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                  </div>
-                </div>
+              <div class="mr-3 ml-3">
+                <h5 style="display: inline-block;">Items</h5>
+                <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Nuevo Item" (click)="nuevoItem()">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </button>
               </div>
+
               <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
                 <div class="row">
                   <div class="col-7">
-                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
-                  </div>
-                  <div class="col-5">
-                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-              </div>
-              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
-                <div class="row">
-                  <div class="col-7">
-                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
-                  </div>
-                  <div class="col-5">
-                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-              </div>
-              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
-                <div class="row">
-                  <div class="col-7">
-                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
-                  </div>
-                  <div class="col-5">
-                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-              </div>
-              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
-                <div class="row">
-                  <div class="col-7">
-                    <b>Prueba la logitud del texto de los items de la prueba de la prueba</b>
+                    <b>{{ item.nombre }}</b>
                   </div>
                   <div class="col-5">
                     <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -78,25 +40,29 @@
           <div class="col-md-7">
             <div class="form-group">
               <label for="txtNombreItem">Nombre del item</label>
-              <input name ="nombreItem"
-              type="text"
-              class="form-control"
-              id="txtNombreItem"
-              placeholder="Ingrese el nombre del item"
-              #iNombre>
+              <input name ="iNombre"
+                     type="text"
+                     class="form-control"
+                     id="txtNombreItem"
+                     placeholder="Ingrese el nombre del item"
+                     [(ngModel)] = "iNombre">
             </div>
             <label for="txtCaracteristicaItem">Caracteristicas</label>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Ingrese la caracteristica" aria-label="Ingrese la caracteristica" #cNombre>
+              <input type="text" class="form-control"
+                     placeholder="Ingrese la caracteristica"
+                     aria-label="Ingrese la caracteristica"
+                     name="cNombre"
+                     [(ngModel)] = "cNombre">
               <span class="input-group-btn">
-                <button class="btn btn-success" type="button" title="Agregar caracteristica" (click)="crearCaracteristica()" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button class="btn btn-success" type="button" title="Agregar caracteristica" (click)="crearCaracteristica()" [disabled] ="!this.cNombre "><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
             </div>
             <hr>
             <div>
-              <button type="button" [ngClass]="{'active': this.indexC == i}" class="btn btn-outline-primary mr-1" *ngFor="let c of _caracteristicas; let i = index" (click)="getOptions(i)">
+              <button type="button" [ngClass]="{'active': this.indexC == i}" class="btn btn-outline-primary mr-2" *ngFor="let c of _caracteristicas; let i = index" (click)="getOptions(i)">
                 {{ c.nombre }}
-                <i class="fa fa-times-circle"
+                <i class="fa fa-times-circle pl-3"
                    aria-hidden="true"
                    data-toggle="tooltip"
                    data-placement="top" title="Eliminar" (click)= "borrarCaracteristica(i)"></i>
@@ -106,7 +72,7 @@
 
             <label for="txtCaracteristicaItem">Opciones</label>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion" #oNombre>
+              <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion" name="oNombre" [(ngModel)] = "oNombre">
               <span class="input-group-btn">
                 <button  class="btn btn-success" type="button" title="Agregar opcion" (click)="agregarOpcion()" [disabled]= "!isBtnActive"><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
@@ -114,20 +80,20 @@
             <hr>
 
             <h5>
-              <span class="badge badge-pill badge-info mr-1" *ngFor="let opc of this._caracteristicas[this.indexC]?.opciones">
+              <span class="badge badge-pill badge-info mr-2" *ngFor="let opc of this._caracteristicas[this.indexC]?.opciones; let i = index">
                 {{ opc }}
-                <i class="fa fa-times-circle"
+                <i class="fa fa-times-circle pl-3"
                    aria-hidden="true"
                    data-toggle="tooltip"
-                   data-placement="top" title="Eliminar" (click)= "borrarOpcion(opc)"></i>
+                   data-placement="top" title="Eliminar" (click)= "borrarOpcion(i)"></i>
               </span>
             </h5>
 
 
 
             <div>
-              <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Agregar Item">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Item
+              <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Guardar" [disabled] = "!this.iNombre" (click)="addItem()">
+                <i  [ngClass]="( nItem == true ) ?'fa fa-plus':'fa fa-pencil'" aria-hidden="true"></i> {{ nItem == true ? 'Agregar Item' : 'Guardar Cambios'}}
               </button>
             </div>
 
@@ -138,7 +104,9 @@
 
 
 
-
+        <div class="alert alert-success text-center" *ngIf="this.mensaje"role="alert">
+          {{ this.mensaje }}
+        </div>
         <button type="submit" class="btn btn-primary" style="float: right;">Guardar Informe</button>
       </form>
 
