@@ -25,7 +25,7 @@
 </ng-template>
 
 <div *ngIf="this._informes?.length > 0; else noResults" class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 scrolly-table">
     <div  class= "table-responsive text-center">
       <table class="table table-striped">
         <thead class="thead-dark">
@@ -43,10 +43,10 @@
             <td>{{ informe.nombre }}</td>
             <td>
               <div class="row" *ngFor="let item of informe.items; let ultimo = last">
-                <div class="col-4">
+                <div class="col-sm-12 col-md-4">
                   <b>{{  item.nombre  }}</b>
                 </div>
-                <div class="col-8">
+                <div class="-sm-12 col-md-8">
                   <div class="row" *ngFor="let caracteristica of item.caracteristicas">
                     <div class="col">
                       {{ caracteristica.nombre }}
