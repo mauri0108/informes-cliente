@@ -20,16 +20,20 @@ export class ProtocoloComponent implements OnInit {
   public _informe : Informe = new Informe('','',[],'');
   public _items : Item [] = [];
   public _caracteristicas : Caracteristica[] = [];
+
   public indexC : number;
   public indexI :number;
+
   public isBtnActive:boolean = false;
   public _id : string;
-  public nuevo : boolean = true;
+  public nItem : boolean = true;
 
-  @ViewChild("iNombre") public iNombre: ElementRef;
-  @ViewChild("cNombre") public cNombre: ElementRef;
-  @ViewChild("oNombre") public oNombre: ElementRef;
 
+  public cNombre :string ;
+  public iNombre :string ;
+  public oNombre :string ;
+
+  public mensaje : string;
 
   constructor(
     private _router : Router,
@@ -46,7 +50,6 @@ export class ProtocoloComponent implements OnInit {
               this._informesService.getInforme( this._id )
                   .subscribe( res => {
                     this._informe = res;
-                    this.nuevo = false;
                     console.log(this._informe);
                   });
           }
@@ -54,56 +57,104 @@ export class ProtocoloComponent implements OnInit {
         });
   }
 
+
+
+  nuevoItem(){
+    this.nItem = true;
+    this.iNombre = '';
+    this.cNombre = '';
+    this.oNombre = '';
+    this.indexC = undefined;
+    this._caracteristicas = [];
+  }
+
   editItem(index :number){
+    this.nItem = false;
     this.indexI = index;
-    this.iNombre.nativeElement.value = this._informe.items[index].nombre;
+    this.indexC = undefined;
+    this.iNombre = this._informe.items[index].nombre;
     this._caracteristicas = this._informe.items[index].caracteristicas;
 
   }
 
   crearCaracteristica(){
-    let _c : Caracteristica = new Caracteristica(this.cNombre.nativeElement.value,[]);
+    let _c : Caracteristica = new Caracteristica(this.cNombre,[]);
 
-    if (this.nuevo == true) {
+    if (this.nItem == true) {
       this._caracteristicas.push(_c);
-      console.log(this._caracteristicas);
+      //console.log(this._caracteristicas);
     } else {
-      this._informe.items[0].caracteristicas.push(_c);
+      this._informe.items[this.indexI].caracteristicas.push(_c);
     }
 
   }
 
-  borrarCaracteristica(){
-    console.log("Se va a eliminar");
+  borrarCaracteristica(index: number){
+    if (this.nItem == true) {
+      this._caracteristicas.splice(index,1);
+      //console.log(this._caracteristicas);
+    } else {
+      this._informe.items[this.indexI].caracteristicas.splice(index,1);
+    }
   }
 
   getOptions(index: number){
-    console.log(index);
+    //console.log(index);
     this.indexC = index;
     this.isBtnActive = true;
   }
 
   agregarOpcion(){
-    if (this.nuevo == true) {
-      this._caracteristicas[this.indexC].opciones.push(this.oNombre.nativeElement.value);
-      console.log(this._caracteristicas);
-    } else {
-      this._informe.items[0].caracteristicas[this.indexC].opciones.push(this.oNombre.nativeElement.value);
+    if (this.oNombre.length != 0) {
+      if (this.nItem == true) {
+        this._caracteristicas[this.indexC].opciones.push(this.oNombre);
+        //console.log(this._caracteristicas);
+      } else {
+        this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.push(this.oNombre);
+      }
     }
+  }
 
-
+  borrarOpcion(index: number){
+    if (this.nItem == true) {
+      this._caracteristicas[this.indexC].opciones.splice(index,1);
+    } else {
+      this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.splice(index,1);
+    }
   }
 
   addItem(){
-    let _i : Item = new Item('',[]);
+    let _i : Item = new Item(this.iNombre,[]);
 
-    if (this.nuevo == true) {
+    if (this.nItem == true) {
       _i.caracteristicas = this._caracteristicas;
       this._informe.items.push(_i);
     } else {
       this._informe.items.push(_i);
     }
 
+    this.nuevoItem();
+  }
+
+  guardarProtocolo(){
+
+    console.log(this._informe);
+    this._informesService.saveInforme(this._informe)
+        .subscribe(
+          res => {
+            this._informe = res;
+            this.mensaje = "Se guardaron correctamente los cambios";
+            //this._router.navigate(['protocolo', this._informe._id ]);
+          },
+          error => {
+            this.mensaje = "Se produjo un error";
+
+            setTimeout( ()=>{
+              this.mensaje = undefined;
+            }, 3000);
+
+          }
+        );
   }
 
 
