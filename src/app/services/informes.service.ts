@@ -22,12 +22,10 @@ export class InformesService {
 
   saveInforme( informe : Informe){
     let uri = `${GLOBAL.crearInforme}`;
-    let body = JSON.stringify( informe );
 
-    //console.log(body);
-    let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" });
+    //let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
 
-    return this._http.post( uri, body, { headers} );
+    return this._http.post<Informe>( uri, informe);
   }
 
   register( usuario : Usuario ){
