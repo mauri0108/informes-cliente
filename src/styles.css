@@ -4,31 +4,42 @@
   padding-bottom: 40px;
 }
 
-
-
-  /* @include media-breakpoint-only(sm) {
-      max-height: 180px;
-  }
-  @include media-breakpoint-only(md) {
-      max-height: 300px;
-  }
-  @include media-breakpoint-only(lg) {
-      max-height: 500px;
-  } */
-
-  @include media-breakpoint-up(md) {
-    .scrolly {
-        overflow-y: scroll;
-        max-width: 10px;
-    }
+@media (min-width: 769px) {
+  .scrolly {
+      overflow-y: scroll;
+      max-height: 290px;
   }
 
-@include media-breakpoint-between(md, xl) {
-
+  .scrolly-table{
+    overflow-y: scroll;
+    max-height: 500px;
+  }
 }
 
 
+@media (max-width: 768px) {
+  .scrolly {
+      overflow-y: scroll;
+      max-height: 200px;
+  }
 
+  .scrolly-table{
+    overflow-y: scroll;
+    max-height: 450px;
+  }
+}
+
+@media (max-width: 575px) {
+  .scrolly {
+      overflow-y: scroll;
+      max-height: 125px;
+  }
+
+  .scrolly-table{
+    overflow-y: scroll;
+    max-height: 360px;
+  }
+}
 
 .item-options{
   float: right;
