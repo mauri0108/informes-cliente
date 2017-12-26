@@ -5,7 +5,7 @@ export const GLOBAL = {
   informes : `${API_URL}/informes`,
   informe:  `${API_URL}/informe/`,
   crearInforme : `${API_URL}/informe/crear`,
-  editarHotel : `${API_URL}/informe/editar`,
+  editarInforme : `${API_URL}/informe/editar`,
   registrarse : `${API_URL}/registrarse`,
   login : `${API_URL}/login`,
 }
