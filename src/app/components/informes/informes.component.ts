@@ -12,7 +12,7 @@ import { Informe } from '../../models/informe';
 })
 export class InformesComponent implements OnInit {
 
-  public _informes : any ;
+  public _informes : Informe[] ;
   //public keys: string[];
 
   constructor( private _informeService : InformesService) { }
@@ -22,9 +22,12 @@ export class InformesComponent implements OnInit {
 
     this._informeService.getInformes()
                         .subscribe( res =>  {
-                          this._informes = res;
+                          this._informes = res.informes;
                           //this.keys = Object.keys(this._informes);
                           console.log(res);
+                        },
+                        error =>{
+                          console.log(error);
                         });
   }
 
