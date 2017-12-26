@@ -6,18 +6,20 @@ import { Informe } from '../models/informe';
 import { Usuario } from '../models/usuario';
 import { GLOBAL } from '../global';
 
+import { InformeResponse } from '../models/response';
+
 @Injectable()
 export class InformesService {
 
   constructor(private _http : HttpClient) { }
 
   getInformes(){
-    return this._http.get<Informe[]>(GLOBAL.informes);
+    return this._http.get< InformeResponse >(GLOBAL.informes);
   }
 
   getInforme(id:string){
     let uri =  `${GLOBAL.informe}${id}` ;
-    return this._http.get<Informe>(uri);
+    return this._http.get< InformeResponse >(uri);
   }
 
   saveInforme( informe : Informe){
@@ -25,7 +27,13 @@ export class InformesService {
 
     //let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
 
-    return this._http.post<Informe>( uri, informe);
+    return this._http.post< InformeResponse >( uri, informe);
+  }
+
+  updateInforme( informe : Informe){
+    let uri = `${GLOBAL.editarInforme}`;
+
+    return this._http.post< InformeResponse >( uri, informe);
   }
 
   register( usuario : Usuario ){
