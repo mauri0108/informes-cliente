@@ -27,6 +27,7 @@ export class ProtocoloComponent implements OnInit {
   public isBtnActive:boolean = false;
   public _id : string;
   public nItem : boolean = true;
+  public nuevo: boolean = true;
 
 
   public cNombre :string ;
@@ -34,6 +35,7 @@ export class ProtocoloComponent implements OnInit {
   public oNombre :string ;
 
   public mensaje : string;
+  public errorMensaje :string;
 
   constructor(
     private _router : Router,
@@ -47,11 +49,17 @@ export class ProtocoloComponent implements OnInit {
           this._id = params['id'];
 
           if (this._id !== "nuevo") {
+              this.nuevo = false;
+
               this._informesService.getInforme( this._id )
                   .subscribe( res => {
-                    this._informe = res;
+                    this._informe = res.informe;
                     console.log(this._informe);
-                  });
+                  },
+                  error =>{
+                    this.mensaje = error
+                  }
+                );
           }
 
         });
@@ -137,24 +145,42 @@ export class ProtocoloComponent implements OnInit {
   }
 
   guardarProtocolo(){
+    //console.log(this._informe);
 
-    console.log(this._informe);
-    this._informesService.saveInforme(this._informe)
-        .subscribe(
-          res => {
-            this._informe = res;
-            this.mensaje = "Se guardaron correctamente los cambios";
-            //this._router.navigate(['protocolo', this._informe._id ]);
-          },
-          error => {
-            this.mensaje = "Se produjo un error";
+    if (this.nuevo) {
+      this._informesService.saveInforme(this._informe)
+          .subscribe(
+            res => {
 
-            setTimeout( ()=>{
-              this.mensaje = undefined;
-            }, 3000);
+              //this._informe = res.informe;
+              //this.mensaje = res.message;
+              //this._router.navigate(['protocolo', this._informe._id ]);
+            },
+            error => {
 
-          }
-        );
+
+              setTimeout( ()=>{
+                this.mensaje = undefined;
+              }, 3000);
+
+            }
+          );
+    } else {
+      this._informesService.updateInforme(this._informe)
+          .subscribe(
+            res =>{
+              console.log(res)
+              //this._informe = res.informe;
+              //this.mensaje = res.message;
+            },
+            error =>{
+              this.errorMensaje = new String(error.error).split("<br>")[0];
+              console.log(error)
+            }
+          );
+    }
+
+
   }
 
 
