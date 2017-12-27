@@ -1,20 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-center">
+  <a class="navbar-brand" routerLinkActive = "active" [routerLink] = "['inicio']">
+    <img src="../../../assets/img/logo.png" alt="Instituto Domina" width="35" height="35" class="d-inline-block align-top">
+    Instituto Domina
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          Launch demo modal
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#informesModal">
+          Listado de Informes
         </button>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive = "active" [routerLink] = "['admin']">Administracion</a>
       </li>
     </ul>
   </div>
@@ -23,7 +23,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="informesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
