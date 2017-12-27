@@ -145,42 +145,40 @@ export class ProtocoloComponent implements OnInit {
   }
 
   guardarProtocolo(){
-    //console.log(this._informe);
-
     if (this.nuevo) {
       this._informesService.saveInforme(this._informe)
           .subscribe(
             res => {
-
-              //this._informe = res.informe;
-              //this.mensaje = res.message;
-              //this._router.navigate(['protocolo', this._informe._id ]);
+              this._informe = res.informe;
+              this._router.navigate(['/admin/protocolo', this._informe._id ]);
+              this.mensaje = res.message;
+              this.ocultarMensaje(this.mensaje);
             },
             error => {
-
-
-              setTimeout( ()=>{
-                this.mensaje = undefined;
-              }, 3000);
-
+              this.errorMensaje = new String(error.error).split("<br>")[0];
+              this.ocultarMensaje(this.errorMensaje);
             }
           );
     } else {
       this._informesService.updateInforme(this._informe)
           .subscribe(
             res =>{
-              console.log(res)
-              //this._informe = res.informe;
-              //this.mensaje = res.message;
+              this._informe = res.informe;
+              this.mensaje = res.message;
+              this.ocultarMensaje(this.mensaje);
             },
             error =>{
               this.errorMensaje = new String(error.error).split("<br>")[0];
-              console.log(error)
+              this.ocultarMensaje(this.errorMensaje);
             }
           );
     }
+  }
 
-
+  ocultarMensaje(mensaje:any){
+    setTimeout( ()=>{
+      this.mensaje = undefined;
+    }, 2000);
   }
 
 
