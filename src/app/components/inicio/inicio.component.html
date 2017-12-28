@@ -1,3 +1,42 @@
-<p>
-  inicio works!
-</p>
+<div class="row">
+  <div class="col">
+    <h2>Informes</h2>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar informe" aria-label="Search for...">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h3>Listado de informes</h3>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="list-group text-center scrolly-list">
+          <ul class="lista-informes">
+            <a href="" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
+              <li>
+                <strong class="textoNegro">{{ informe.nombre }}</strong>
+              </li>
+            </a>
+            <a href="" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
+              <li>
+                <strong class="textoNegro">{{ informe.nombre }}</strong>
+              </li>
+            </a>
+            <a href="" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
+              <li>
+                <strong class="textoNegro">{{ informe.nombre }}</strong>
+              </li>
+            </a>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
