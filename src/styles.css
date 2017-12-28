@@ -39,11 +39,51 @@
     overflow-y: scroll;
     max-height: 360px;
   }
+
+  .scrolly-list{
+    overflow-y: scroll;
+    max-height: 340px;
+  }
 }
 
 .item-options{
   float: right;
 }
+
+@media screen and (min-width: 600px){
+  .lista-informes{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    columns: 2;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .lista-informes{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    columns: 2;
+  }
+}
+
+@media screen and (max-width: 440px){
+  .lista-informes{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    columns: 1;
+  }
+}
+
+.textoNegro{
+  color : black;
+}
+/* .item-informes : hover{
+  cursor: pointer;
+  background-color: #cccccc;
+} */
 
 ::-webkit-scrollbar {
   width: 6px;
