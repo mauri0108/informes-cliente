@@ -19,17 +19,7 @@
       <div class="col">
         <div class="list-group text-center scrolly-list">
           <ul class="lista-informes">
-            <a href="" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
-              <li>
-                <strong class="textoNegro">{{ informe.nombre }}</strong>
-              </li>
-            </a>
-            <a href="" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
-              <li>
-                <strong class="textoNegro">{{ informe.nombre }}</strong>
-              </li>
-            </a>
-            <a href="" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
+            <a [routerLink]="['/informe', informe._id ]" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
               <li>
                 <strong class="textoNegro">{{ informe.nombre }}</strong>
               </li>
