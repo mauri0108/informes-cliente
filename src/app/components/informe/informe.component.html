@@ -1,3 +1,46 @@
-<p>
-  informe works!
-</p>
+
+<div class="row">
+  <div class="col">
+    <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="guardarProtocolo()" #content>
+      <div class="row">
+        <div class="col">
+          <h2>{{ this._informe.nombre }}</h2>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group">
+        <h6><label for="txtPaciente">Paciente</label></h6>
+        <input id="txtPaciente" type="text" class="form-control" placeholder="Ingrese el nombre del paciente">
+      </div>
+      <div class="form-group">
+        <h6><label for="txtMedicoS">Medico Solicitante</label></h6>
+        <input id="txtMedicoS" type="text" class="form-control" placeholder="Ingrese el nombre del medico solicitante">
+      </div>
+      <hr>
+      <div class="form-group" *ngFor="let item of this._informe.items; let itemIndex = index">
+          <h3>{{ item.nombre }}</h3>
+          <hr>
+          <div  *ngFor="let caracteristica of item.caracteristicas; let ultimo = last; let caractIndex = index" >
+              <h5>{{ caracteristica.nombre }}</h5>
+              <select class="form-control">
+                <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index"  [value]="opcion">
+                  {{ itemIndex }} - {{ caractIndex }} - {{ opcionIndex }} - {{ opcion }}
+                </option>
+              </select>
+              <hr *ngIf="!ultimo">
+          </div>
+      </div>
+      <hr>
+      <div class="form-group">
+        <h6><label for="txtMediciones">Mediciones</label></h6>
+        <textarea id="txtMediciones" class="form-control" placeholder="Ingrese las mediciones" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <h6><label for="txtConclusion">Conclusion</label></h6>
+        <textarea id="txtConclusion" class="form-control" placeholder="Ingrese su conclusion" rows="3"></textarea>
+      </div>
+    </form>
+    <hr>
+    <button type="button" name="button" (click)="generatePdf()">Generar PDF</button>
+  </div>
+</div>
