@@ -17,38 +17,38 @@ import { InformesService } from '../../services/informes.service';
   styles: []
 })
 export class ProtocoloComponent implements OnInit {
-  public _informe : Informe = new Informe('','',[],'');
-  public _items : Item [] = [];
-  public _caracteristicas : Caracteristica[] = [];
+  public _informe: Informe = new Informe('', '', [], '');
+  public _items: Item [] = [];
+  public _caracteristicas: Caracteristica[] = [];
 
-  public indexC : number;
-  public indexI :number;
+  public indexC: number;
+  public indexI: number;
 
-  public isBtnActive:boolean = false;
-  public _id : string;
-  public nItem : boolean = true;
-  public nuevo: boolean = true;
+  public isBtnActive = false;
+  public _id: string;
+  public nItem = true;
+  public nuevo = true;
 
 
-  public cNombre :string ;
-  public iNombre :string ;
-  public oNombre :string ;
+  public cNombre: string ;
+  public iNombre: string ;
+  public oNombre: string ;
 
-  public mensaje : string;
-  public errorMensaje :string;
+  public mensaje: string;
+  public errorMensaje: string;
 
   constructor(
-    private _router : Router,
-    private _activatedRoute : ActivatedRoute,
-    private _informesService : InformesService
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _informesService: InformesService
   ) {  }
 
   ngOnInit() {
     this._activatedRoute.params
-        .subscribe( params =>{
+        .subscribe( params => {
           this._id = params['id'];
 
-          if (this._id !== "nuevo") {
+          if (this._id !== 'nuevo') {
               this.nuevo = false;
 
               this._informesService.getInforme( this._id )
@@ -56,7 +56,7 @@ export class ProtocoloComponent implements OnInit {
                     this._informe = res.informe;
                     console.log(this._informe);
                   },
-                  error =>{
+                  error => {
                     this.mensaje = error
                   }
                 );
@@ -67,7 +67,7 @@ export class ProtocoloComponent implements OnInit {
 
 
 
-  nuevoItem(){
+  nuevoItem() {
     this.nItem = true;
     this.iNombre = '';
     this.cNombre = '';
@@ -76,7 +76,7 @@ export class ProtocoloComponent implements OnInit {
     this._caracteristicas = [];
   }
 
-  editItem(index :number){
+  editItem(index: number){
     this.nItem = false;
     this.indexI = index;
     this.indexC = undefined;
@@ -86,11 +86,11 @@ export class ProtocoloComponent implements OnInit {
   }
 
   crearCaracteristica(){
-    let _c : Caracteristica = new Caracteristica(this.cNombre,[]);
+    const _c: Caracteristica = new Caracteristica(this.cNombre,[]);
 
-    if (this.nItem == true) {
+    if (this.nItem === true) {
       this._caracteristicas.push(_c);
-      //console.log(this._caracteristicas);
+      // console.log(this._caracteristicas);
     } else {
       this._informe.items[this.indexI].caracteristicas.push(_c);
     }
@@ -98,25 +98,25 @@ export class ProtocoloComponent implements OnInit {
   }
 
   borrarCaracteristica(index: number){
-    if (this.nItem == true) {
+    if (this.nItem === true) {
       this._caracteristicas.splice(index,1);
-      //console.log(this._caracteristicas);
+      // console.log(this._caracteristicas);
     } else {
-      this._informe.items[this.indexI].caracteristicas.splice(index,1);
+      this._informe.items[this.indexI].caracteristicas.splice(index, 1);
     }
   }
 
   getOptions(index: number){
-    //console.log(index);
+    // console.log(index);
     this.indexC = index;
     this.isBtnActive = true;
   }
 
   agregarOpcion(){
-    if (this.oNombre.length != 0) {
-      if (this.nItem == true) {
+    if (this.oNombre.length !== 0) {
+      if (this.nItem === true) {
         this._caracteristicas[this.indexC].opciones.push(this.oNombre);
-        //console.log(this._caracteristicas);
+        // console.log(this._caracteristicas);
       } else {
         this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.push(this.oNombre);
       }
@@ -124,24 +124,24 @@ export class ProtocoloComponent implements OnInit {
   }
 
   borrarOpcion(index: number){
-    if (this.nItem == true) {
+    if (this.nItem === true) {
       this._caracteristicas[this.indexC].opciones.splice(index,1);
     } else {
       this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.splice(index,1);
     }
   }
 
-  addItem(){
-    let _i : Item = new Item(this.iNombre,[]);
+  addItem() {
+    const _i: Item = new Item(this.iNombre, []);
 
-    if (this.nItem == true) {
+    if (this.nItem === true) {
       _i.caracteristicas = this._caracteristicas;
       this._informe.items.push(_i);
     } else {
-      this._informe.items.push(_i);
+      this.nuevoItem();
     }
 
-    this.nuevoItem();
+    // this.nuevoItem();
   }
 
   guardarProtocolo(){
