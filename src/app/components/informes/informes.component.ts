@@ -12,10 +12,10 @@ import { Informe } from '../../models/informe';
 })
 export class InformesComponent implements OnInit {
 
-  public _informes : Informe[] ;
-  //public keys: string[];
+  public _informes: Informe[] ;
+  // public keys: string[];
 
-  constructor( private _informeService : InformesService) { }
+  constructor( private _informeService: InformesService) { }
 
   ngOnInit() {
 
@@ -23,10 +23,10 @@ export class InformesComponent implements OnInit {
     this._informeService.getInformes()
                         .subscribe( res =>  {
                           this._informes = res.informes;
-                          //this.keys = Object.keys(this._informes);
-                          console.log(res);
+                          // this.keys = Object.keys(this._informes);
+                          // console.log(res);
                         },
-                        error =>{
+                        error => {
                           console.log(error);
                         });
   }
