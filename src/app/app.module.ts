@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -17,6 +17,7 @@ import { InformesComponent } from './components/informes/informes.component';
 import { ProtocoloComponent } from './components/informes/protocolo.component';
 
 import { InformesService } from './services/informes.service';
+import { UsuariosService } from './services/usuarios.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { InformesService } from './services/informes.service';
     APP_ROUTING
   ],
   providers: [
-    InformesService
+    InformesService,
+    UsuariosService
   ],
   bootstrap: [AppComponent]
 })
