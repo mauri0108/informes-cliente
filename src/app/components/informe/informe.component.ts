@@ -14,22 +14,24 @@ import { InformesService } from '../../services/informes.service';
   styles: []
 })
 export class InformeComponent implements OnInit {
-  public _informe : Informe = new Informe('','',[],'');
+  public _informe: Informe = new Informe('','',[],'');
   public _id: string;
+  public editItemIndex: number;
+  public editCaractIndex: number;
 
-  @ViewChild('content') content : ElementRef;
+  @ViewChild('content') content: ElementRef;
 
   constructor(
-    private _informesService : InformesService,
-    private _router : Router,
-    private _activatedRoute : ActivatedRoute,) { }
+    private _informesService: InformesService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this._activatedRoute.params
         .subscribe( params =>{
           this._id = params['id'];
 
-          if (this._id !== "nuevo") {
+          if (this._id !== 'nuevo') {
 
 
               this._informesService.getInforme( this._id )
@@ -37,7 +39,7 @@ export class InformeComponent implements OnInit {
                     this._informe = res.informe;
                     console.log(this._informe);
                   },
-                  error =>{
+                  error => {
 
                   }
                 );
@@ -46,8 +48,22 @@ export class InformeComponent implements OnInit {
         });
   }
 
+  editOptions( itemIndex: number, caractIndex: number) {
+    this.editItemIndex = itemIndex;
+    this.editCaractIndex = caractIndex;
+    console.log(this.editItemIndex);
+    console.log(this.editCaractIndex);
+    console.log( this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
+  }
+
+  editOption(optionIndex: number, newValue: string) {
+    this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
+    // console.log(optionIndex);
+    // console.log(this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex]);
+  }
+
   generatePdf(){
-    let doc = new jsPDF();
+    const doc = new jsPDF();
 
     // let specialElementHandlers = {
     //   '#editor' : function( element, renderer){
@@ -55,10 +71,10 @@ export class InformeComponent implements OnInit {
     //   }
     // }
 
-    let content = this.content.nativeElement;
+    const content = this.content.nativeElement;
 
-    //console.log(content);
-    //console.log(content.innerHTML);
+    // console.log(content);
+    // console.log(content.innerHTML);
 
     // html2canvas(content).then(function(canvas) {
     //   let img = canvas.toDataURL("image/png");
@@ -76,7 +92,7 @@ export class InformeComponent implements OnInit {
     //   'elementHandlers' : specialElementHandlers
     // });
 
-    //doc.save('test.pdf');
+    // doc.save('test.pdf');
 
 
   }
