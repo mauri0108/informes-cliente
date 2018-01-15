@@ -21,20 +21,54 @@
           <h3>{{ item.nombre }}</h3>
           <hr>
           <div  *ngFor="let caracteristica of item.caracteristicas; let ultimo = last; let caractIndex = index" >
-              <h5>{{ caracteristica.nombre }}</h5>
-              <select class="form-control">
-                <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index"  [value]="opcion">
-                  {{ itemIndex }} - {{ caractIndex }} - {{ opcionIndex }} - {{ opcion }}
-                </option>
-              </select>
+            <div class="row py-2">
+              <div class="col-6 col-xl-2 col-lg-3 col-md-4 col-sm-4">
+                 <span class="h5 pr-3 align-bottom"> {{ caracteristica.nombre }}</span>
+              </div>
+              <div class="col-6 col-xl-10 col-lg-9 col-md-8 col-sm-8">
+                  <button type="button" 
+                          class="btn btn-outline-primary py-0 btn-edit-op" 
+                          data-toggle="modal" 
+                          data-target="#editOptionsModal" 
+                          (click)="editOptions(itemIndex, caractIndex)" >Editar opciones</button>
+              </div>
+            </div>
+                  <select class="form-control">
+                    <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index" [value]="opcion">
+                      {{ itemIndex }} - {{ caractIndex }} - {{ opcionIndex }} - {{ opcion }}
+                    </option>
+                  </select>
               <hr *ngIf="!ultimo">
           </div>
       </div>
-      <hr>
-      <div class="form-group">
-        <h6><label for="txtMediciones">Mediciones</label></h6>
-        <textarea id="txtMediciones" class="form-control" placeholder="Ingrese las mediciones" rows="3"></textarea>
+
+      <!-- Inicio Modal -->
+      <div class="modal fade" id="editOptionsModal" tabindex="-1" role="dialog" aria-labelledby="editOptionsModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Opciones de {{ this._informe?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.nombre }}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12 py-1" 
+                     *ngFor="let opcion of this._informe?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.opciones; let opcionIndex = index">
+                     <input #newOption  type="text" class="form-control" [value]="opcion" (keyup.enter)="editOption(opcionIndex,newOption.value)">
+                </div>
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- Fin Modal -->
+      <hr>
       <div class="form-group">
         <h6><label for="txtConclusion">Conclusion</label></h6>
         <textarea id="txtConclusion" class="form-control" placeholder="Ingrese su conclusion" rows="3"></textarea>
