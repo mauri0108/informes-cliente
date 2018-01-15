@@ -144,7 +144,7 @@ export class ProtocoloComponent implements OnInit {
     // this.nuevoItem();
   }
 
-  guardarProtocolo(){
+  guardarProtocolo() {
     if (this.nuevo) {
       this._informesService.saveInforme(this._informe)
           .subscribe(
@@ -155,28 +155,28 @@ export class ProtocoloComponent implements OnInit {
               this.ocultarMensaje(this.mensaje);
             },
             error => {
-              this.errorMensaje = new String(error.error).split("<br>")[0];
+              this.errorMensaje = <string>(error.error).split('<br>')[0];
               this.ocultarMensaje(this.errorMensaje);
             }
           );
     } else {
       this._informesService.updateInforme(this._informe)
           .subscribe(
-            res =>{
+            res => {
               this._informe = res.informe;
               this.mensaje = res.message;
               this.ocultarMensaje(this.mensaje);
             },
             error =>{
-              this.errorMensaje = new String(error.error).split("<br>")[0];
+              this.errorMensaje = <string>error.error.split('<br>')[0];
               this.ocultarMensaje(this.errorMensaje);
             }
           );
     }
   }
 
-  ocultarMensaje(mensaje:any){
-    setTimeout( ()=>{
+  ocultarMensaje(mensaje: any){
+    setTimeout( () => {
       this.mensaje = undefined;
     }, 2000);
   }
