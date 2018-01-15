@@ -1,3 +1,67 @@
-<p>
-  usuarios works!
-</p>
+<div class="row">
+    <div class="col-md-12 text-right">
+      <button [routerLink]="['../usuario','nuevo']" class="btn btn-outline-success" type="button" name="button" title="Nuevo Usuario">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Usuario
+      </button>
+    </div>
+  </div>
+  <br>
+  
+  
+  
+  <ng-template #noResults>
+    <div class="row" >
+      <div class="col">
+        <div class="alert alert-info text-center " role="alert">
+          <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No existen usuarios!</h5>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <div *ngIf="this._usuarios?.length > 0; else noResults" class="row">
+    <div class="col-md-12 scrolly-table">
+      <div  class= "table-responsive text-center">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th >#</th>
+              <th >Nombre</th>
+              <th >Apellido</th>
+              <th >E-mail</th>
+              <th >Rol</th>
+              <th >Fecha Alta</th>
+              <th >Fecha Baja</th>
+              <th >Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of this._usuarios ; let i = index">
+              <td scope="row">{{ i + 1 }}</td>
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.apellido }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.role }}</td>
+              <td>{{ usuario.fechaAlta }}</td>
+              <td>{{ usuario.fechaBaja }}</td>
+              <td>
+                <button [routerLink]="['../usuario', usuario._id ]"
+                        type="button" class="btn btn-outline-info"
+                        title="Editar"
+                        style="width: 50px">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button [routerLink]="['../usuario', usuario._id ]"
+                        type="button" class="btn btn-outline-danger"
+                        title="Dar de baja"
+                        style="width: 50px">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
