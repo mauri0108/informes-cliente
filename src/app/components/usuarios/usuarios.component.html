@@ -49,13 +49,19 @@
                         type="button" class="btn btn-outline-info"
                         title="Editar"
                         style="width: 50px">
-                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                <button [routerLink]="['../usuario', usuario._id ]"
+                        type="button" class="btn btn-outline-warning"
+                        title="Resetear contraseña"
+                        style="width: 50px">
+                        <i class="fa fa-key" aria-hidden="true"></i>
                 </button>
                 <button [routerLink]="['../usuario', usuario._id ]"
                         type="button" class="btn btn-outline-danger"
                         title="Dar de baja"
                         style="width: 50px">
-                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
               </td>
             </tr>
