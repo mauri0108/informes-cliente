@@ -1,16 +1,97 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col">
     <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="saveUser()" #forma="ngForm">
-      <div class="form-group">
-        <label for="txtNombre">Nombre</label>
-        <input [(ngModel)] = "this._usuario.nombre"
-              name ="nombre"
-              type="text"
-              class="form-control"
-              id="txtNombre"
-              placeholder="Ingrese el nombre"
-              required>
+      <div class="row">
+         <div class="col">
+            <button type="button" class="btn btn-outline-danger float-right"><i class="fa fa-trash-o" aria-hidden="true"></i>  Dar del baja el usuario</button>
+         </div>
       </div>
-      </form>
+      <div class="row">
+          <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="txtNombre"><b>Nombre</b></label>
+                <input [(ngModel)] = "this._usuario.nombre"
+                      name ="nombre"
+                      type="text"
+                      class="form-control"
+                      id="txtNombre"
+                      placeholder="Ingrese el nombre"
+                      required>
+              </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="txtApellido"><b>Apellido</b></label>
+                <input [(ngModel)] = "this._usuario.apellido"
+                      name ="apellido"
+                      type="text"
+                      class="form-control"
+                      id="txtApellido"
+                      placeholder="Ingrese el apellido"
+                      required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="txtApellido"><b>E-mail</b></label>
+              <input [(ngModel)] = "this._usuario.email"
+                    name ="email"
+                    type="email"
+                    class="form-control"
+                    id="txtEmail"
+                    placeholder="Ingrese el e-mail"
+                    required>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group row">
+                <div class="col">
+                        <label for="txtPass"><b>Contraseña</b></label>
+                        <input [(ngModel)] = "this._usuario.pass"
+                              name ="pass"
+                              type="password"
+                              class="form-control"
+                              id="txtPass"
+                              placeholder="Ingrese la contraseña"
+                              [disabled]="!this.nuevo"
+                              required>
+                </div>
+                <div class="col mt-4" *ngIf="!this.nuevo">
+                    <button type="button" class="btn btn-outline-warning mt-2 float-left"><i class="fa fa-key" aria-hidden="true"></i>  Resetear contraseña</button>
+                </div>
+                
+              </div>
+        </div>
     </div>
+    <div class="row ">
+        <div class="col col-md-6 col-sm-12 "> 
+            <div class="form-group">
+                <label for="sRole"><b>Tipo de usuario</b></label>
+                <select [(ngModel)]="_usuario.role" name="role" id="sRole" class="form-control">
+                    <option value="USER">Usuario Normal</option>
+                    <option value="ADMIN">Administrador</option>
+                </select>  
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="alert alert-danger text-center" *ngIf="this.errorMensaje" role="alert" [innerHtml]="this.errorMensaje"></div>
+
+    <div class="alert alert-success text-center" *ngIf="this.mensaje"role="alert">{{ this.mensaje }}</div>
+
+    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Usuario</button>
+
+    </form>
+  </div>
 </div>
+
+<!-- public nombre: string,
+    public apellido: string,
+    public email: string,
+    public pass: string,
+    public role: string,
+    public fechaAlta: string,
+    public fechaBaja: string -->
