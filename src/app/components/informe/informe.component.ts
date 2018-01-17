@@ -14,12 +14,12 @@ import { InformesService } from '../../services/informes.service';
   styles: []
 })
 export class InformeComponent implements OnInit {
-  public _informe: Informe = new Informe('','',[],'');
+  public _informe: Informe = new Informe('', '', [], '');
   public _id: string;
   public editItemIndex: number;
   public editCaractIndex: number;
 
-  @ViewChild('content') content: ElementRef;
+  // @ViewChild('content') content: ElementRef;
 
   constructor(
     private _informesService: InformesService,
@@ -28,7 +28,7 @@ export class InformeComponent implements OnInit {
 
   ngOnInit() {
     this._activatedRoute.params
-        .subscribe( params =>{
+        .subscribe( params => {
           this._id = params['id'];
 
           if (this._id !== 'nuevo') {
@@ -62,38 +62,15 @@ export class InformeComponent implements OnInit {
     // console.log(this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex]);
   }
 
-  generatePdf(){
+  generatePdf() {
     const doc = new jsPDF();
 
-    // let specialElementHandlers = {
-    //   '#editor' : function( element, renderer){
-    //     return true;
-    //   }
-    // }
+    const cabecera = `<div><h3>${this._informe.nombre}</h3></div>
+                      <br>
+                      <div><b>${this._informe.items[0].nombre}</b></div>`;
 
-    const content = this.content.nativeElement;
-
-    // console.log(content);
-    // console.log(content.innerHTML);
-
-    // html2canvas(content).then(function(canvas) {
-    //   let img = canvas.toDataURL("image/png");
-    //   document.body.appendChild(canvas);
-    //   doc.addImage(img,'PNG',10, 10,150, 150);
-    //
-    //
-    // });
-
-
-
-
-    // doc.fromHTML(content.innerHTML, 15, 15, {
-    //   'width' : 522,
-    //   'elementHandlers' : specialElementHandlers
-    // });
-
-    // doc.save('test.pdf');
-
+    doc.fromHTML(cabecera, 90, 10);
+    doc.save(`${this._informe.nombre}.pdf`);
 
   }
 
