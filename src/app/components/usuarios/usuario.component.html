@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="saveUser()" #forma="ngForm">
-      <div class="row">
+      <div class="row" *ngIf="!this.nuevo">
          <div class="col">
             <button type="button" class="btn btn-outline-danger float-right"><i class="fa fa-trash-o" aria-hidden="true"></i>  Dar del baja el usuario</button>
          </div>
@@ -58,8 +58,8 @@
                               [disabled]="!this.nuevo"
                               required>
                 </div>
-                <div class="col mt-4" *ngIf="!this.nuevo">
-                    <button type="button" class="btn btn-outline-warning mt-2 float-left"><i class="fa fa-key" aria-hidden="true"></i>  Resetear contraseña</button>
+                <div class="col-sm-4 col-md-6 col-lg-4 mt-4 text-center" *ngIf="!this.nuevo">
+                    <button type="button" class="btn btn-outline-warning mt-2"><i class="fa fa-key" aria-hidden="true"></i>  Resetear clave</button>
                 </div>
                 
               </div>
