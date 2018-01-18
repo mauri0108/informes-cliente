@@ -2,11 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
 
+
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { Informe } from '../../models/informe';
+import {  Informe, InformeCompleto } from '../../models/informe';
 import { InformesService } from '../../services/informes.service';
-
 
 @Component({
   selector: 'app-informe',
@@ -15,9 +14,11 @@ import { InformesService } from '../../services/informes.service';
 })
 export class InformeComponent implements OnInit {
   public _informe: Informe = new Informe('', '', [], '');
+  public _informeCompleto: InformeCompleto = new InformeCompleto('', '', '', this._informe, new Date() );
   public _id: string;
   public editItemIndex: number;
   public editCaractIndex: number;
+
 
   // @ViewChild('content') content: ElementRef;
 
