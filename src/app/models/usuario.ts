@@ -1,4 +1,4 @@
-export class Usuario{
+export class Usuario {
   constructor(
     public _id: string,
     public nombre: string,
@@ -8,6 +8,6 @@ export class Usuario{
     public role: string,
     public fechaAlta: string,
     public fechaBaja: string
-  ){}
+  ) {}
 
 }
