@@ -12,9 +12,11 @@ export class Informe {
 export class InformeCompleto {
   constructor(
     public _id: string,
+    public institucion: string,
     public medico: string,
     public paciente: string,
     public infDetalle: Informe,
-    public creado: Date
+    public observacion: string,
+    public creado: string
   ) {}
 }
