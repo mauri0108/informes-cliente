@@ -3,7 +3,7 @@ import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
 import * as moment from 'moment';
 
-
+import * as locale from 'jquery-ui/ui/i18n/datepicker-es.js'
 
 import { Router, ActivatedRoute } from '@angular/router';
 import {  Informe, InformeCompleto } from '../../models/informe';
@@ -22,6 +22,7 @@ export class InformeComponent implements OnInit {
   public _id: string;
   public editItemIndex: number;
   public editCaractIndex: number;
+  public logoImg: any;
 
 
 
@@ -44,7 +45,7 @@ export class InformeComponent implements OnInit {
                   .subscribe( res => {
                     this._informeCompleto.infDetalle = res.informe;
                     // this._informe = res.informe;
-                    console.log(this._informe);
+                    // console.log(this._informe);
                   },
                   error => {
 
@@ -54,16 +55,11 @@ export class InformeComponent implements OnInit {
 
         });
 
-        $( function() {
-           $( '#txtFecha' ).datepicker(
-            {
-              dateFormat: 'dd-mm-yy',
-              changeMonth: true,
-              changeYear: true
-            }
-           );
-          console.log('ready');
-        } );
+        // console.log( moment );
+        // $( function() {  } );
+        $( '#txtFecha' ).datepicker({ dateFormat: 'dd-mm-yy', changeMonth: true, changeYear: true});
+        $.datepicker.regional['es'] = locale;
+        $.datepicker.setDefaults($.datepicker.regional['es']);
   }
 
   editOptions( itemIndex: number, caractIndex: number) {
@@ -79,6 +75,22 @@ export class InformeComponent implements OnInit {
     this._informeCompleto.infDetalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
     // console.log(optionIndex);
     // console.log(this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex]);
+  }
+
+  getImagem(readerEvt) {
+    //console.log('change no input file', readerEvt);
+    
+    const file = readerEvt.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        //console.log('base64 do arquivo',reader.result);
+         this.logoImg = btoa(reader.result);
+        //console.log('base64 do arquivo codificado',midia.binario);
+    };
+    reader.onerror = (error) => {
+        console.log('Erro ao ler a imagem : ', error);
+    };
   }
 
   generatePdf() {
