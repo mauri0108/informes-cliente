@@ -1,11 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
+import * as moment from 'moment';
+
 
 
 import { Router, ActivatedRoute } from '@angular/router';
 import {  Informe, InformeCompleto } from '../../models/informe';
 import { InformesService } from '../../services/informes.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-informe',
@@ -14,10 +18,11 @@ import { InformesService } from '../../services/informes.service';
 })
 export class InformeComponent implements OnInit {
   public _informe: Informe = new Informe('', '', [], '');
-  public _informeCompleto: InformeCompleto = new InformeCompleto('', '', '', this._informe, new Date() );
+  public _informeCompleto: InformeCompleto = new InformeCompleto('', '', '', '', this._informe, '', moment().format('DD-MM-YYYY') );
   public _id: string;
   public editItemIndex: number;
   public editCaractIndex: number;
+
 
 
   // @ViewChild('content') content: ElementRef;
@@ -37,7 +42,8 @@ export class InformeComponent implements OnInit {
 
               this._informesService.getInforme( this._id )
                   .subscribe( res => {
-                    this._informe = res.informe;
+                    this._informeCompleto.infDetalle = res.informe;
+                    // this._informe = res.informe;
                     console.log(this._informe);
                   },
                   error => {
@@ -47,6 +53,17 @@ export class InformeComponent implements OnInit {
           }
 
         });
+
+        $( function() {
+           $( '#txtFecha' ).datepicker(
+            {
+              dateFormat: 'dd-mm-yy',
+              changeMonth: true,
+              changeYear: true
+            }
+           );
+          console.log('ready');
+        } );
   }
 
   editOptions( itemIndex: number, caractIndex: number) {
@@ -54,11 +71,12 @@ export class InformeComponent implements OnInit {
     this.editCaractIndex = caractIndex;
     console.log(this.editItemIndex);
     console.log(this.editCaractIndex);
-    console.log( this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
+    console.log( this._informeCompleto.infDetalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
   }
 
   editOption(optionIndex: number, newValue: string) {
-    this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
+    // this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
+    this._informeCompleto.infDetalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
     // console.log(optionIndex);
     // console.log(this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex]);
   }
@@ -66,7 +84,7 @@ export class InformeComponent implements OnInit {
   generatePdf() {
     const doc = new jsPDF();
 
-    const cabecera = `<div><h3>${this._informe.nombre}</h3></div>
+    const cabecera = `<div><h3>${ this._informeCompleto.infDetalle.nombre }</h3></div>
                       <br>
                       <div><b>${this._informe.items[0].nombre}</b></div>`;
 
