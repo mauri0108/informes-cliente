@@ -4,28 +4,36 @@
     <form (keydown.enter)="$event.preventDefault()" #content>
       <div class="row">
         <div class="col">
-          <h2>{{ this._informe.nombre }}</h2>
+          <h2>{{ this._informeCompleto.infDetalle.nombre }}</h2>
         </div>
       </div>
-      <hr>
+      <hr class="sombraL">
       <div class="form-group">
         <h6><label for="txtPaciente">Paciente</label></h6>
-        <input id="txtPaciente" type="text" class="form-control" placeholder="Ingrese el nombre del paciente">
+        <input id="txtPaciente" [(ngModel)]="_informeCompleto.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente">
+      </div>
+      <div class="form-group">
+        <h6><label for="txtMedicoS">Institucion</label></h6>
+        <input id="txtMedicoS" [(ngModel)]="_informeCompleto.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion">
+      </div>
+      <div class="form-group">
+        <label class="btn btn-outline-primary lbl-input-file">
+          Seleccione el logo de la institucion<input type="file" class="input-file" title="Seleccione las fotos">
+        </label>
       </div>
       <div class="form-group">
         <h6><label for="txtMedicoS">Medico Solicitante</label></h6>
-        <input id="txtMedicoS" type="text" class="form-control" placeholder="Ingrese el nombre del medico solicitante">
+        <input id="txtMedicoS" [(ngModel)]="_informeCompleto.medico" name="medicoNombre" type="text" class="form-control" placeholder="Ingrese el nombre del medico solicitante">
       </div>
       <div class="form-group">
         <h6><label for="txtFecha">Fecha</label></h6>
-        <!-- <date-picker [(ngModel)]="_informeCompleto.creado" name="fecha"></date-picker> -->
-        <input type="date" [(ngModel)]="_informeCompleto.creado" class="form-control" name="fecha" id="txtFecha">
+        <input type="text" [(ngModel)]="_informeCompleto.creado" class="form-control" name="fecha" id="txtFecha">
       </div>
       
-      <hr>
-      <div class="form-group" *ngFor="let item of this._informe.items; let itemIndex = index">
+      <hr class="sombra">
+      <div class="form-group" *ngFor="let item of this._informeCompleto.infDetalle.items; let itemIndex = index">
           <h3>{{ item.nombre }}</h3>
-          <hr>
+          <hr class="sombra">
           <div  *ngFor="let caracteristica of item.caracteristicas; let ultimo = last; let caractIndex = index" >
             <div class="row py-2">
               <div class="col-6 col-xl-2 col-lg-3 col-md-4 col-sm-4">
@@ -41,10 +49,10 @@
             </div>
                   <select class="form-control">
                     <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index" [value]="opcion">
-                      {{ itemIndex }} - {{ caractIndex }} - {{ opcionIndex }} - {{ opcion }}
+                      {{ opcion }}
                     </option>
                   </select>
-              <hr *ngIf="!ultimo">
+              <!-- <hr *ngIf="ultimo" class="sombra"> -->
           </div>
       </div>
 
@@ -53,7 +61,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Opciones de {{ this._informe?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.nombre }}</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Opciones de {{ this._informeCompleto.infDetalle?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.nombre }}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -61,7 +69,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-12 py-1" 
-                     *ngFor="let opcion of this._informe?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.opciones; let opcionIndex = index">
+                     *ngFor="let opcion of this._informeCompleto.infDetalle?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.opciones; let opcionIndex = index">
                      <input #newOption  type="text" class="form-control" [value]="opcion" (keyup.enter)="editOption(opcionIndex,newOption.value)">
                 </div>
               </div>
@@ -74,10 +82,9 @@
         </div>
       </div>
       <!-- Fin Modal -->
-      <hr>
       <div class="form-group">
         <h6><label for="txtConclusion">Conclusion</label></h6>
-        <textarea id="txtConclusion" class="form-control" placeholder="Ingrese su conclusion" rows="3"></textarea>
+        <textarea id="txtConclusion"  [(ngModel)]="_informeCompleto.observacion" name="observacion" class="form-control" placeholder="Ingrese su conclusion" rows="3"></textarea>
       </div>
     </form>
     <hr>
