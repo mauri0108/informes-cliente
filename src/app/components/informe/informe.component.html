@@ -8,18 +8,23 @@
         </div>
       </div>
       <hr class="sombraL">
+      <div class="form-group row">
+          <div class="col-md-6">
+              <h6><label for="txtMedicoS">Institucion</label></h6>
+              <input id="txtMedicoS" [(ngModel)]="_informeCompleto.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion">
+          </div>
+          <div class="col-md-3 text-center  py-2">
+              <label class="btn btn-outline-primary lbl-input-file">
+                  Subir logo de la institucion<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
+              </label>
+          </div>   
+          <div class="col-md-3 text-center">
+              <img class="img-responsive"  src="{{ logoImg | decode64 }}"  style="width: 150px; height: 150"/>
+          </div>
+        </div>
       <div class="form-group">
         <h6><label for="txtPaciente">Paciente</label></h6>
         <input id="txtPaciente" [(ngModel)]="_informeCompleto.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente">
-      </div>
-      <div class="form-group">
-        <h6><label for="txtMedicoS">Institucion</label></h6>
-        <input id="txtMedicoS" [(ngModel)]="_informeCompleto.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion">
-      </div>
-      <div class="form-group">
-        <label class="btn btn-outline-primary lbl-input-file">
-          Seleccione el logo de la institucion<input type="file" class="input-file" title="Seleccione las fotos">
-        </label>
       </div>
       <div class="form-group">
         <h6><label for="txtMedicoS">Medico Solicitante</label></h6>
