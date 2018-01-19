@@ -20,10 +20,7 @@ import { ProtocoloComponent } from './components/informes/protocolo.component';
 import { InformesService } from './services/informes.service';
 import { UsuariosService } from './services/usuarios.service';
 
-
-// import { OverlayModule } from 'angular-io-overlay';
-// import { DatePickerModule } from 'angular-io-datepicker/src/datepicker/index';
-
+import { Decode64Pipe } from './pipes/decode64.pipe';
 
 
 @NgModule({
@@ -36,7 +33,8 @@ import { UsuariosService } from './services/usuarios.service';
     UsuariosComponent,
     UsuarioComponent,
     InformesComponent,
-    ProtocoloComponent
+    ProtocoloComponent,
+    Decode64Pipe
   ],
   imports: [
     BrowserModule,
