@@ -53,7 +53,8 @@
                      placeholder="Ingrese la caracteristica"
                      aria-label="Ingrese la caracteristica"
                      name="cNombre"
-                     [(ngModel)] = "cNombre">
+                     [(ngModel)] = "cNombre"
+                     (keyup.enter)= "crearCaracteristica()">
               <span class="input-group-btn">
                 <button class="btn btn-success" type="button" title="Agregar caracteristica" (click)="crearCaracteristica()" [disabled] ="!this.cNombre "><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
@@ -72,7 +73,14 @@
 
             <label for="txtCaracteristicaItem">Opciones</label>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Ingrese la opcion" aria-label="Ingrese la opcion" name="oNombre" [(ngModel)] = "oNombre">
+              <input type="text" 
+                     class="form-control" 
+                     placeholder="Ingrese la opcion" 
+                     aria-label="Ingrese la opcion" 
+                     name="oNombre" 
+                     [(ngModel)] = "oNombre"
+                     (keyup.enter)= "agregarOpcion()"
+                     [disabled]="!isBtnActive">
               <span class="input-group-btn">
                 <button  class="btn btn-success" type="button" title="Agregar opcion" (click)="agregarOpcion()" [disabled]= "!isBtnActive"><i class="fa fa-plus" aria-hidden="true"></i></button>
               </span>
@@ -89,14 +97,12 @@
               </span>
             </h5>
 
-
-
             <div>
               <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Guardar" [disabled] = "!this.iNombre" (click)="addItem()">
                 <i  [ngClass]="( nItem == true ) ?'fa fa-plus':'fa fa-pencil'" aria-hidden="true"></i> {{ nItem == true ? 'Agregar Item' : 'Guardar Cambios'}}
               </button>
             </div>
-
+            
           </div>
 
         </div>
