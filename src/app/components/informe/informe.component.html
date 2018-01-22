@@ -9,17 +9,17 @@
       </div>
       <hr class="sombraL">
       <div class="form-group row">
-          <div class="col-md-6">
+          <div class="col-md-7 col-sm-8 col-xs-6">
               <h6><label for="txtMedicoS">Institucion</label></h6>
               <input id="txtMedicoS" [(ngModel)]="_informeCompleto.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion">
           </div>
-          <div class="col-md-3 text-center  py-2">
+          <div class="col-md-2 col-sm-4 col-xs-6 align-to-input">
               <label class="btn btn-outline-primary lbl-input-file">
-                  Subir logo de la institucion<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
+                  Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
               </label>
           </div>   
-          <div class="col-md-3 text-center">
-              <img class="img-responsive"  src="{{ logoImg | decode64 }}"  style="width: 150px; height: 150"/>
+          <div class="col-md-3 col-sm-12 text-center">
+              <img class="img-responsive"  src="{{ _informeCompleto.logo | decode64 }}"  style="width: 150px; height: 150"/>
           </div>
         </div>
       <div class="form-group">
@@ -52,7 +52,7 @@
                           (click)="editOptions(itemIndex, caractIndex)" >Editar opciones</button>
               </div>
             </div>
-                  <select class="form-control">
+                  <select class="form-control" #o (change)="selectOption(o.value)"  name="opcion">
                     <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index" [value]="opcion">
                       {{ opcion }}
                     </option>
