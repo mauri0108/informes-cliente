@@ -18,13 +18,10 @@ declare var $: any;
 })
 export class InformeComponent implements OnInit {
   public _informe: Informe = new Informe('', '', [], '');
-  public _informeCompleto: InformeCompleto = new InformeCompleto('', '', '', '', this._informe, '', moment().format('DD-MM-YYYY') );
+  public _informeCompleto: InformeCompleto = new InformeCompleto('', '', '' , '', '', this._informe, '', moment().format('DD-MM-YYYY') );
   public _id: string;
   public editItemIndex: number;
   public editCaractIndex: number;
-  public logoImg: any;
-
-
 
   // @ViewChild('content') content: ElementRef;
 
@@ -85,7 +82,7 @@ export class InformeComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
         //console.log('base64 do arquivo',reader.result);
-         this.logoImg = btoa(reader.result);
+         this._informeCompleto.logo = btoa(reader.result);
         //console.log('base64 do arquivo codificado',midia.binario);
     };
     reader.onerror = (error) => {
@@ -93,15 +90,21 @@ export class InformeComponent implements OnInit {
     };
   }
 
+  selectOption(valor) {
+    console.log(valor);
+  }
+
   generatePdf() {
-    const doc = new jsPDF();
+
+    console.log( JSON.stringify(this._informeCompleto) );
+    /*const doc = new jsPDF();
 
     const cabecera = `<div><h3>${ this._informeCompleto.infDetalle.nombre }</h3></div>
                       <br>
-                      <div><b>${this._informe.items[0].nombre}</b></div>`;
+                      <div><b>${this._informeCompleto.infDetalle.items[0].nombre}</b></div>`;
 
     doc.fromHTML(cabecera, 90, 10);
-    doc.save(`${this._informe.nombre}.pdf`);
+    doc.save(`${this._informe.nombre}.pdf`);*/
 
   }
 
