@@ -13,6 +13,7 @@ export class InformeCompleto {
   constructor(
     public _id: string,
     public institucion: string,
+    public logo: string,
     public medico: string,
     public paciente: string,
     public infDetalle: Informe,
