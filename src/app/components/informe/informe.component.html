@@ -52,8 +52,8 @@
                           (click)="editOptions(itemIndex, caractIndex)" >Editar opciones</button>
               </div>
             </div>
-                  <select class="form-control" #o (change)="selectOption(o.value)"  name="opcion">
-                    <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index" [value]="opcion">
+                  <select class="form-control" #o (change)="selectOption(itemIndex, caractIndex, o.value)"  name="opcion">
+                    <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index" [value]="opcionIndex">
                       {{ opcion }}
                     </option>
                   </select>
