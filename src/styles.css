@@ -82,8 +82,21 @@
   .lbl-input-file{
     width: 100%;
   }
-
 }
+
+@media screen and (min-width: 556px){
+  .align-to-input{
+    padding-top: 34px;
+  }
+}
+
+@media screen and (max-width: 574px){
+  .align-to-input{
+    padding-top: 7px;
+  }
+}
+
+
 
 .textoNegro{
   color : black;
