@@ -85,41 +85,47 @@ export class ProtocoloComponent implements OnInit {
 
   }
 
-  crearCaracteristica(){
-    const _c: Caracteristica = new Caracteristica(this.cNombre,[]);
+  crearCaracteristica() {
+    if (this.cNombre) {
+      const _c: Caracteristica = new Caracteristica(this.cNombre, []);
 
-    if (this.nItem === true) {
-      this._caracteristicas.push(_c);
-      // console.log(this._caracteristicas);
-    } else {
-      this._informe.items[this.indexI].caracteristicas.push(_c);
+      if (this.nItem === true) {
+        this._caracteristicas.push(_c);
+        // console.log(this._caracteristicas);
+        
+      } else {
+        this._informe.items[this.indexI].caracteristicas.push(_c);
+      }
+
+      this.cNombre = '';
     }
-
   }
 
-  borrarCaracteristica(index: number){
+  borrarCaracteristica(index: number) {
     if (this.nItem === true) {
-      this._caracteristicas.splice(index,1);
+      this._caracteristicas.splice(index, 1);
       // console.log(this._caracteristicas);
     } else {
       this._informe.items[this.indexI].caracteristicas.splice(index, 1);
     }
   }
 
-  getOptions(index: number){
+  getOptions(index: number) {
     // console.log(index);
     this.indexC = index;
     this.isBtnActive = true;
   }
 
-  agregarOpcion(){
-    if (this.oNombre.length !== 0) {
+  agregarOpcion() {
+    if (this.oNombre) {
       if (this.nItem === true) {
         this._caracteristicas[this.indexC].opciones.push(this.oNombre);
         // console.log(this._caracteristicas);
       } else {
         this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.push(this.oNombre);
       }
+
+      this.oNombre = '';
     }
   }
 
