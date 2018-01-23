@@ -116,37 +116,7 @@ export class InformeComponent implements OnInit {
   }
 
   generatePdf() {
-
-    console.log( this._informeCompleto);
-    /*const doc = new jsPDF();
-    "logo": 
-    "data:image/png;base64,iVBORw0KGgoAAAANS
-    UhEUgAAASwAAAEsCAYAAAB5fY51AAAABHNCSVQICAg
-    IfAhkiAAAAF96VFh0UmF3IHByb2ZpbGUgdHlwZSBBUF
-    AxAAAImeNKT81LLcpMVigoyk/LzEnlUgADYxMuE0sTS
-    6NEAwMDCwMIMDQwMDYEkkZAtjlUKNEABZgamFmaGZsZ
-    mgMxiM8FAEi2FMk61EMyAAAgAElEQVR4nNS9abAlyX
-    Ue9mVV3fuW7vdev9779Trd0z3dPfsCYBZAGADkBEEA
-    xDIQF4uyCEk0LUWIssMKSXYowqIdNBUh0WaELJpmyD
-    9E22FFkLBAUSahIYABCAIDYDD79Exv08tM9/S+vX77vb
-    fSP3I7mZVVlVl1Xw90Ol7funUrT57MPHnyOyeXYigSk39
-    wPunfsnr4mc/+0cHuyOQzSdL5abDsrsEAazjjXQZ0Ofgo5z
-    xlYByccOKEsyJubnN4iN4sfagkgZW3SMztr9UsXcGYvOXcd9MH
-    ibmKxPV/cZSrdKqNWhSCk7SUXRBr2m7u90LCIif38crkIeRR0GD5u
-    e+nUCkCJA5kVVltbgMVZPZ0BH8t98CwnICtAFhhCbvFeO+VQe/WHy/1
-    Vl7+0Xd++ZxMlADI5HVOcufk2pKSmg2fkUrINQMwANB/+Kl/OLNly898I
-    UvTT4BlH+qtYNPySm98ZYVjZSXHYJBjkHP0+zl4zgsKV6awsXbIvW2nD9W
-    qGvY1Sufa3cjsqo10ANNaIx9gGbj7rbajGaqV3fNjqVi0MLFWhYc/XCgDl
-    wOXKwPENed2O9eW16cUKh23vlXysOqprnycBdddk+oV6XhQFknCkKUMaZY
-    gSxlGuhk6XZaPj3VnE9Y7x/PBd/q9hT/9/vNf+FOZpEtEU5/0T//mM1LqU/
-    0po7UMAM984d8/O9JZ97dynn1ycWkwMjfXw+25FSwu9DHIlZGEwy6MqhEBqaaK2grS27oGbQmL7PRhzN",
-    const cabecera = `<div><h3>${ this._informeCompleto.infDetalle.nombre }</h3></div>
-                      <br>
-                      <div><b>${this._informeCompleto.infDetalle.items[0].nombre}</b></div>`;
-
-    doc.fromHTML(cabecera, 90, 10);
-    doc.save(`${this._informe.nombre}.pdf`);*/
-
+    console.log( JSON.stringify( this._informeCompleto ));
   }
 
 }
