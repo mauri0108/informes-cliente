@@ -18,10 +18,15 @@
                   Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
               </label>
           </div>   
-          <div class="col-md-3 col-sm-12 text-center">
-              <img class="img-responsive"  src="{{ _informe.logo }}"  style="width: 150px; height: 150"/>
+          <div class="col-md-3 col-sm-12 text-center" >
+              <div *ngIf="file ; else elseTemplate">
+                <img class="img-responsive"  src="{{ _informe.logo }}"  style="width: 150px; height: 150"/>
+              </div>
           </div>
         </div>
+        <ng-template #elseTemplate>
+            <img class="img-responsive"  src="{{ _informe.logo | url }}"  style="width: 150px; height: 150"/>
+        </ng-template>
       <div class="form-group">
         <h6><label for="txtPaciente">Paciente</label></h6>
         <input id="txtPaciente" [(ngModel)]="_informe.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente">
@@ -93,6 +98,13 @@
       </div>
     </form>
     <hr>
+
+    <div class="alert alert-danger text-center" *ngIf="this.errorMensaje" role="alert" [innerHtml]="this.errorMensaje">  </div>
+
+    <div class="alert alert-success text-center" *ngIf="this.mensaje"role="alert">
+      {{ this.mensaje }}
+    </div>
+
     <button type="button" name="button" (click)="generatePdf()">Generar PDF</button>
   </div>
 </div>
