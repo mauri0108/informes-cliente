@@ -22,14 +22,18 @@ declare var $: any;
 export class InformeComponent implements OnInit {
   public _detalle: Protocolo = new Protocolo('', '', [], '');
   public _informe: Informe = new Informe('', '', '' , '', '', this._detalle, '', moment().format('DD-MM-YYYY') );
+
   public _idModelo: string;
   public _idInforme: string;
+
   public editItemIndex: number;
   public editCaractIndex: number;
+
   public nuevo = true;
   public file: File;
 
-  // @ViewChild('content') content: ElementRef;
+  public mensaje: string;
+  public errorMensaje: string;
 
   constructor(
     private _protocoloService: ProtocoloService,
@@ -149,27 +153,60 @@ export class InformeComponent implements OnInit {
                             this._informe = res.informe;
 
                             if (this.file) {
-                              this._uploadService.uploadImg( this.file, this._informe._id)
-                                                   .then( res => {
-                                                        console.log( res.json() );
-                                                        return res.json()
-                                                        
-                                                    })
-                                                    .then( resJson => {
-                                                        this._informe.logo = resJson.informe.logo;
-                                                    })
-                                                    .catch( err => {
-                                                       console.log( err );
-                                                    });
+                              this.uploadImg( this.file, this._informe._id );
+                            }else {
+                              this.mensaje = res.message;
+                              this.ocultarMensaje(this.mensaje);
                             }
                           },
                           error => {
-
+                            this.errorMensaje = <string>error.error.split('<br>')[0];
+                            this.ocultarMensaje(this.errorMensaje);
                           }
                         );
     }else {
+      this._informeService.updateInforme( this._informe )
+                          .subscribe( res => {
+                            this._informe = res.informe
 
+                            if ( this.file ) {
+                              this.uploadImg( this.file, this._informe._id );
+                            } else {
+                              this.mensaje = res.message;
+                              this.ocultarMensaje(this.mensaje);
+                            }
+
+                            this._router.navigate(['/modelo', this._detalle._id, 'informe', this._informe._id ]);
+                          },
+                          error => {
+                            this.errorMensaje = <string>error.error.split('<br>')[0];
+                            this.ocultarMensaje(this.errorMensaje);
+                          });
     }
+  }
+
+  uploadImg(file: File, id: string) {
+    this._uploadService.uploadImg( this.file, this._informe._id)
+    .then( res => {
+         //console.log( res.json() );
+         return res.json() 
+     })
+     .then( resJson => {
+         this._informe.logo = resJson.informe.logo;
+         this.mensaje = resJson.message;
+         this.ocultarMensaje(this.mensaje);
+     })
+     .catch( err => {
+        console.log( err );
+        this.errorMensaje = <string>err.error.split('<br>')[0];
+        this.ocultarMensaje(this.errorMensaje);
+     });
+  }
+
+  ocultarMensaje(mensaje: any) {
+    setTimeout( () => {
+      this.mensaje = undefined;
+    }, 3000);
   }
 
 }
