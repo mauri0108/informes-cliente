@@ -21,8 +21,9 @@ import { ProtocoloService } from './services/protocolos.service';
 import { InformesService } from './services/informes.service';
 import { UsuariosService } from './services/usuarios.service';
 import { UploadService } from "./services/upload.service";
+import { UrlPipe } from './pipes/url.pipe';
 
-import { Decode64Pipe } from './pipes/decode64.pipe';
+
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { Decode64Pipe } from './pipes/decode64.pipe';
     UsuarioComponent,
     ProtocolosComponent,
     ProtocoloComponent,
-    Decode64Pipe
+    UrlPipe
   ],
   imports: [
     BrowserModule,
