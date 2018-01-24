@@ -14,11 +14,13 @@ import { InformeComponent } from './components/informe/informe.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { UsuarioComponent } from './components/usuarios/usuario.component';
-import { InformesComponent } from './components/informes/informes.component';
-import { ProtocoloComponent } from './components/informes/protocolo.component';
+import { ProtocolosComponent } from './components/protocolos/protocolos.component';
+import { ProtocoloComponent } from './components/protocolos/protocolo.component';
 
+import { ProtocoloService } from './services/protocolos.service';
 import { InformesService } from './services/informes.service';
 import { UsuariosService } from './services/usuarios.service';
+import { UploadService } from "./services/upload.service";
 
 import { Decode64Pipe } from './pipes/decode64.pipe';
 
@@ -32,7 +34,7 @@ import { Decode64Pipe } from './pipes/decode64.pipe';
     AdminComponent,
     UsuariosComponent,
     UsuarioComponent,
-    InformesComponent,
+    ProtocolosComponent,
     ProtocoloComponent,
     Decode64Pipe
   ],
@@ -42,12 +44,12 @@ import { Decode64Pipe } from './pipes/decode64.pipe';
     FormsModule,
     ReactiveFormsModule,
     APP_ROUTING
-    // ,OverlayModule,
-    // DatePickerModule
   ],
   providers: [
-    InformesService,
-    UsuariosService
+    ProtocoloService,
+    UsuariosService,
+    UploadService,
+    InformesService
   ],
   bootstrap: [AppComponent]
 })

@@ -4,11 +4,11 @@ import { NgForm } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Informe } from '../../models/informe';
+import { Protocolo } from '../../models/protocolo-informe';
 import { Caracteristica } from '../../models/caracteristica';
 import { Item } from '../../models/item';
 
-import { InformesService } from '../../services/informes.service';
+import { ProtocoloService } from '../../services/protocolos.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { InformesService } from '../../services/informes.service';
   styles: []
 })
 export class ProtocoloComponent implements OnInit {
-  public _informe: Informe = new Informe('', '', [], '');
+  public _protocolo: Protocolo = new Protocolo('', '', [], '');
   public _items: Item [] = [];
   public _caracteristicas: Caracteristica[] = [];
 
@@ -40,7 +40,7 @@ export class ProtocoloComponent implements OnInit {
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private _informesService: InformesService
+    private _protocoloService: ProtocoloService
   ) {  }
 
   ngOnInit() {
@@ -51,10 +51,10 @@ export class ProtocoloComponent implements OnInit {
           if (this._id !== 'nuevo') {
               this.nuevo = false;
 
-              this._informesService.getInforme( this._id )
+              this._protocoloService.getProtocolo( this._id )
                   .subscribe( res => {
-                    this._informe = res.informe;
-                    console.log(this._informe);
+                    this._protocolo = res.protocolo ;
+                    console.log(this._protocolo);
                   },
                   error => {
                     this.mensaje = error
@@ -80,8 +80,8 @@ export class ProtocoloComponent implements OnInit {
     this.nItem = false;
     this.indexI = index;
     this.indexC = undefined;
-    this.iNombre = this._informe.items[index].nombre;
-    this._caracteristicas = this._informe.items[index].caracteristicas;
+    this.iNombre = this._protocolo.items[index].nombre;
+    this._caracteristicas = this._protocolo.items[index].caracteristicas;
 
   }
 
@@ -94,7 +94,7 @@ export class ProtocoloComponent implements OnInit {
         // console.log(this._caracteristicas);
         
       } else {
-        this._informe.items[this.indexI].caracteristicas.push(_c);
+        this._protocolo.items[this.indexI].caracteristicas.push(_c);
       }
 
       this.cNombre = '';
@@ -106,7 +106,7 @@ export class ProtocoloComponent implements OnInit {
       this._caracteristicas.splice(index, 1);
       // console.log(this._caracteristicas);
     } else {
-      this._informe.items[this.indexI].caracteristicas.splice(index, 1);
+      this._protocolo.items[this.indexI].caracteristicas.splice(index, 1);
     }
   }
 
@@ -122,7 +122,7 @@ export class ProtocoloComponent implements OnInit {
         this._caracteristicas[this.indexC].opciones.push(this.oNombre);
         // console.log(this._caracteristicas);
       } else {
-        this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.push(this.oNombre);
+        this._protocolo.items[this.indexI].caracteristicas[this.indexC].opciones.push(this.oNombre);
       }
 
       this.oNombre = '';
@@ -131,9 +131,9 @@ export class ProtocoloComponent implements OnInit {
 
   borrarOpcion(index: number){
     if (this.nItem === true) {
-      this._caracteristicas[this.indexC].opciones.splice(index,1);
+      this._caracteristicas[this.indexC].opciones.splice(index, 1);
     } else {
-      this._informe.items[this.indexI].caracteristicas[this.indexC].opciones.splice(index,1);
+      this._protocolo.items[this.indexI].caracteristicas[this.indexC].opciones.splice(index, 1);
     }
   }
 
@@ -142,7 +142,7 @@ export class ProtocoloComponent implements OnInit {
 
     if (this.nItem === true) {
       _i.caracteristicas = this._caracteristicas;
-      this._informe.items.push(_i);
+      this._protocolo.items.push(_i);
     } else {
       this.nuevoItem();
     }
@@ -152,11 +152,11 @@ export class ProtocoloComponent implements OnInit {
 
   guardarProtocolo() {
     if (this.nuevo) {
-      this._informesService.saveInforme(this._informe)
+      this._protocoloService.saveProtocolo(this._protocolo)
           .subscribe(
             res => {
-              this._informe = res.informe;
-              this._router.navigate(['/admin/protocolo', this._informe._id ]);
+              this._protocolo = res.protocolo;
+              this._router.navigate(['/admin/protocolo', this._protocolo._id ]);
               this.mensaje = res.message;
               this.ocultarMensaje(this.mensaje);
             },
@@ -166,10 +166,10 @@ export class ProtocoloComponent implements OnInit {
             }
           );
     } else {
-      this._informesService.updateInforme(this._informe)
+      this._protocoloService.updateProtocolo(this._protocolo)
           .subscribe(
             res => {
-              this._informe = res.informe;
+              this._protocolo = res.protocolo;
               this.mensaje = res.message;
               this.ocultarMensaje(this.mensaje);
             },

@@ -4,7 +4,7 @@
       <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="guardarProtocolo()" #forma="ngForm">
         <div class="form-group">
           <label for="txtNombre">Nombre</label>
-          <input [(ngModel)] = "_informe.nombre"
+          <input [(ngModel)] = "_protocolo.nombre"
                 name ="nombre"
                 type="text"
                 class="form-control"
@@ -23,7 +23,7 @@
                 </button>
               </div>
 
-              <div class="list-group-item text-center" *ngFor="let item of this._informe.items; let i = index" >
+              <div class="list-group-item text-center" *ngFor="let item of this._protocolo.items; let i = index" >
                 <div class="row">
                   <div class="col-7">
                     <b>{{ item.nombre }}</b>
@@ -113,7 +113,7 @@
         <div class="alert alert-success text-center" *ngIf="this.mensaje"role="alert">
           {{ this.mensaje }}
         </div>
-        <button type="submit" class="btn btn-primary" style="float: right;">Guardar Informe</button>
+        <button type="submit" class="btn btn-primary" style="float: right;">Guardar Protocolo</button>
       </form>
 
     </div>

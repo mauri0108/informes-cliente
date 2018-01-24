@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Informe } from '../models/informe';
+
 import { Usuario } from '../models/usuario';
 import { GLOBAL } from '../global';
 

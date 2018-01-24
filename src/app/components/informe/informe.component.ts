@@ -6,8 +6,11 @@ import * as moment from 'moment';
 import * as locale from 'jquery-ui/ui/i18n/datepicker-es.js'
 
 import { Router, ActivatedRoute } from '@angular/router';
-import {  Informe, InformeCompleto } from '../../models/informe';
+import { Informe, Protocolo } from '../../models/protocolo-informe';
+import { ProtocoloService } from '../../services/protocolos.service';
+import { UploadService } from '../../services/upload.service';
 import { InformesService } from '../../services/informes.service';
+import { InformeResponse } from '../../models/response';
 
 declare var $: any;
 
@@ -17,39 +20,58 @@ declare var $: any;
   styles: []
 })
 export class InformeComponent implements OnInit {
-  public _informe: Informe = new Informe('', '', [], '');
-  public _informeCompleto: InformeCompleto = new InformeCompleto('', '', '' , '', '', this._informe, '', moment().format('DD-MM-YYYY') );
-  public _id: string;
+  public _detalle: Protocolo = new Protocolo('', '', [], '');
+  public _informe: Informe = new Informe('', '', '' , '', '', this._detalle, '', moment().format('DD-MM-YYYY') );
+  public _idModelo: string;
+  public _idInforme: string;
   public editItemIndex: number;
   public editCaractIndex: number;
+  public nuevo = true;
+  public file: File;
 
   // @ViewChild('content') content: ElementRef;
 
   constructor(
-    private _informesService: InformesService,
+    private _protocoloService: ProtocoloService,
+    private _uploadService: UploadService,
+    private _informeService: InformesService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this._activatedRoute.params
         .subscribe( params => {
-          this._id = params['id'];
+          this._idModelo = params['idModelo'];
+          this._idInforme = params['idInforme'];
 
-          if (this._id !== 'nuevo') {
+          if (this._idModelo) {
 
 
-              this._informesService.getInforme( this._id )
+              this._protocoloService.getProtocolo( this._idModelo )
                   .subscribe( res => {
-                    this._informeCompleto.infDetalle = res.informe;
+                    this._informe.detalle = res.protocolo;
                     // this._informe = res.informe;
                     // console.log(this._informe);
                   },
                   error => {
-
+                    
                   }
                 );
           }
 
+          if ( this._idInforme !== 'nuevo') {
+            this._informeService.getInforme( this._idInforme )
+                                .subscribe( res => {
+                                  console.log(res);
+                                  this._informe = res.informe
+                                  console.log(this._informe);
+                                },
+                                error => {
+                                  
+                                });
+
+            this.nuevo = false;
+          }
         });
 
         // console.log( moment );
@@ -64,12 +86,12 @@ export class InformeComponent implements OnInit {
     this.editCaractIndex = caractIndex;
     console.log(this.editItemIndex);
     console.log(this.editCaractIndex);
-    console.log( this._informeCompleto.infDetalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
+    console.log( this._informe.detalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
   }
 
   editOption(optionIndex: number, newValue: string) {
     // this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
-    this._informeCompleto.infDetalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
+    this._informe.detalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex] = newValue;
     // console.log(optionIndex);
     // console.log(this._informe.items[this.editItemIndex].caracteristicas[this.editCaractIndex].opciones[optionIndex]);
   }
@@ -77,12 +99,12 @@ export class InformeComponent implements OnInit {
   getImagem(readerEvt) {
     //console.log('change no input file', readerEvt);
     
-    const file = readerEvt.target.files[0];
+    this.file = readerEvt.target.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL( this.file);
     reader.onload = () => {
         // console.log('base64 do arquivo', reader.result);
-         this._informeCompleto.logo = btoa(reader.result);
+         this._informe.logo = reader.result ;
         // console.log(this._informeCompleto.logo)
         //console.log('base64 do arquivo codificado',midia.binario);
     };
@@ -112,11 +134,42 @@ export class InformeComponent implements OnInit {
   selectOption(idItem, idCaracteristica, idOpcion) {
     // tslint:disable-next-line:no-unused-expression
     //this._informeCompleto.infDetalle.items[idItem].caracteristicas[idCaracteristica].opciones;
-    this.move(this._informeCompleto.infDetalle.items[idItem].caracteristicas[idCaracteristica].opciones, idOpcion, 0 );
+    this.move(this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones, idOpcion, 0 );
   }
 
   generatePdf() {
-    console.log( JSON.stringify( this._informeCompleto ));
+    console.log( JSON.stringify( this._informe ));
+
+    if (this.nuevo) {
+
+      this._informe.logo = null;
+
+      this._informeService.saveInforme( this._informe )
+                          .subscribe( res => {
+                            this._informe = res.informe;
+
+                            if (this.file) {
+                              this._uploadService.uploadImg( this.file, this._informe._id)
+                                                   .then( res => {
+                                                        console.log( res.json() );
+                                                        return res.json()
+                                                        
+                                                    })
+                                                    .then( resJson => {
+                                                        this._informe.logo = resJson.informe.logo;
+                                                    })
+                                                    .catch( err => {
+                                                       console.log( err );
+                                                    });
+                            }
+                          },
+                          error => {
+
+                          }
+                        );
+    }else {
+
+    }
   }
 
 }

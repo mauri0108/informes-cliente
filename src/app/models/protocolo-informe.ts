@@ -1,6 +1,6 @@
 import { Item } from './item';
 
-export class Informe {
+export class Protocolo {
   constructor(
     public _id: string,
     public nombre: string,
@@ -9,14 +9,14 @@ export class Informe {
   ) {}
 }
 
-export class InformeCompleto {
+export class Informe {
   constructor(
     public _id: string,
     public institucion: string,
     public logo: string,
     public medico: string,
     public paciente: string,
-    public infDetalle: Informe,
+    public detalle: Protocolo,
     public observacion: string,
     public creado: string
   ) {}

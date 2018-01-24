@@ -14,13 +14,13 @@
   <div class="row" >
     <div class="col">
       <div class="alert alert-info text-center " role="alert">
-        <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No existen informes!</h5>
+        <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No existen protocolos </h5>
       </div>
     </div>
   </div>
 </ng-template>
 
-<div *ngIf="this._informes?.length > 0; else noResults" class="row">
+<div *ngIf="this._protocolos?.length > 0; else noResults" class="row">
   <div class="col-md-12 scrolly-table">
     <div  class= "table-responsive text-center">
       <table class="table table-striped">
@@ -34,11 +34,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let informe of this._informes ; let i = index">
+          <tr *ngFor="let protocolo of this._protocolos ; let i = index">
             <th scope="row">{{ i + 1 }}</th>
-            <td>{{ informe.nombre }}</td>
+            <td>{{ protocolo.nombre }}</td>
             <td>
-              <div class="row" *ngFor="let item of informe.items; let ultimo = last">
+              <div class="row" *ngFor="let item of protocolo.items; let ultimo = last">
                 <div class="col-sm-12 col-md-4">
                   <b>{{  item.nombre  }}</b>
                 </div>
@@ -52,15 +52,15 @@
                 </div>      
               </div>
             </td>
-            <td>{{ informe.creado }}</td>
+            <td>{{ protocolo.creado }}</td>
             <td>
-              <button [routerLink]="['../protocolo', informe._id ]"
+              <button [routerLink]="['../protocolo', protocolo._id ]"
                       type="button" class="btn btn-outline-info"
                       title="Editar"
                       style="width: 50px">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
-              <button [routerLink]="['../protocolo', informe._id ]"
+              <button [routerLink]="['../protocolo', protocolo._id ]"
                       type="button" class="btn btn-outline-danger"
                       title="Dar de baja"
                       style="width: 50px">

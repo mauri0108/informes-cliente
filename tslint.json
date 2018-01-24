@@ -55,7 +55,7 @@
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
-    "no-shadowed-variable": true,
+    "no-shadowed-variable": false,
     "no-string-literal": false,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
@@ -74,9 +74,9 @@
     ],
     "import-destructuring-spacing": true,
     "import-spacing": true,
-    "prefer-const": true,
+    "prefer-const": false,
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "radix": true,

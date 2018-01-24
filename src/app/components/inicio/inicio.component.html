@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <h2>Informes</h2>
+    <h2>Protocolos</h2>
     <hr>
     <div class="row">
       <div class="col">
@@ -13,15 +13,15 @@
       </div>
     </div>
     <br>
-    <h3>Listado de informes</h3>
+    <h3>Listado de Protocolos</h3>
     <hr>
     <div class="row">
       <div class="col">
         <div class="list-group text-center scrolly-list">
           <ul class="lista-informes">
-            <a [routerLink]="['/informe', informe._id ]" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let informe of this._informes" >
+            <a [routerLink]="['/modelo', protocolo._id, 'informe', 'nuevo' ]" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let protocolo of this._protocolos" >
               <li>
-                <strong class="textoNegro">{{ informe.nombre }}</strong>
+                <strong class="textoNegro">{{ protocolo.nombre }}</strong>
               </li>
             </a>
           </ul>
