@@ -76,7 +76,7 @@ export class ProtocoloComponent implements OnInit {
     this._caracteristicas = [];
   }
 
-  editItem(index: number){
+  editItem(index: number) {
     this.nItem = false;
     this.indexI = index;
     this.indexC = undefined;
@@ -129,7 +129,7 @@ export class ProtocoloComponent implements OnInit {
     }
   }
 
-  borrarOpcion(index: number){
+  borrarOpcion(index: number) {
     if (this.nItem === true) {
       this._caracteristicas[this.indexC].opciones.splice(index, 1);
     } else {
@@ -173,7 +173,7 @@ export class ProtocoloComponent implements OnInit {
               this.mensaje = res.message;
               this.ocultarMensaje(this.mensaje);
             },
-            error =>{
+            error => {
               this.errorMensaje = <string>error.error.split('<br>')[0];
               this.ocultarMensaje(this.errorMensaje);
             }
@@ -181,7 +181,7 @@ export class ProtocoloComponent implements OnInit {
     }
   }
 
-  ocultarMensaje(mensaje: any){
+  ocultarMensaje(mensaje: any) {
     setTimeout( () => {
       this.mensaje = undefined;
     }, 2000);
