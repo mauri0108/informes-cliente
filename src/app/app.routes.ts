@@ -35,7 +35,10 @@ const APP_ROUTES: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'inicio' }
     ]
   },
-  { path: 'login', component: LoginComponent, canActivate: [ LoggedGuard ]},
+  { path: 'login', 
+    component: LoginComponent, 
+    canActivate: [ LoggedGuard ]
+  },
   { path: '**', component: NotfoundComponent }
 ];
 

@@ -15,10 +15,10 @@ export class NavbarComponent implements OnInit {
   constructor(public _usuarioService: UsuariosService) { }
 
   ngOnInit() {
-    this._usuarioService.getUsuario( this._usuarioService.id )
+    this._usuarioService.getUsuario( localStorage.getItem('id') )
                         .subscribe( res => {
                           this.usuario = res.usuario
-                          console.log( this.usuario );
+                          //console.log( this.usuario );
                         },
                         error => {
                           

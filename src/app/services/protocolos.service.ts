@@ -10,11 +10,16 @@ import { ProtocoloResponse } from '../models/response';
 
 @Injectable()
 export class ProtocoloService {
+  
+  private token: string; 
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) { 
+    this.token = localStorage.getItem('token') ;
+  }
 
   getProtocolos() {
-    return this._http.get< ProtocoloResponse >(GLOBAL.protocolos);
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token });
+    return this._http.get< ProtocoloResponse >(GLOBAL.protocolos, { headers });
   }
 
   getProtocolo(id: string) {

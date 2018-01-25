@@ -15,12 +15,14 @@ export class UsuariosService {
 
   public id: string;
   public token: string;
+  public rol: string;
 
   constructor(
     private _http: HttpClient,
     private _router: Router
   ) { 
     this.cargarStorage();
+    //this.cargarRol();
   }
 
   getUsuarios() {
@@ -33,15 +35,15 @@ export class UsuariosService {
   }
 
   saveUser(usuario: Usuario) {
-    const uri = `${GLOBAL.crearUsuario}`;
+    const uri = `${GLOBAL.crearEditarUsuario}`;
     // let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
     return this._http.post< UsuarioResponse >( uri, usuario);
   }
 
   updateUser(usuario: Usuario) {
-    const uri = `${GLOBAL.editarUsuario}`;
+    const uri = `${GLOBAL.crearEditarUsuario}`;
     // let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
-    return this._http.post< UsuarioResponse >( uri, usuario);
+    return this._http.put< UsuarioResponse >( uri, usuario);
   }
 
 
@@ -71,7 +73,26 @@ export class UsuariosService {
     return ( this.token.length > 5 ) ? true : false ;
   }
 
+  cargarRol() {
+    //console.log("Se llamo a cargar el rol");
+    this.getUsuario( localStorage.getItem('id'))
+        .subscribe( res => {
+          this.rol = res.usuario.role
+        },
+        error => {
+        
+        });
+  }
+
+  isAdmin() {
+    //this.cargarRol();
+    // console.log("rol", this.rol )
+    // console.log("admin service", (this.rol == 'ADMIN') ? true : false)
+    return  (this.rol === "ADMIN") ? true : false;
+  }
+
   cargarStorage() {
+    console.log("Se llamo a cargar storage")
     if ( localStorage.getItem('token') ) {
       this.token = localStorage.getItem('token');
       this.id = localStorage.getItem('id');
