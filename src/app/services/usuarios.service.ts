@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -7,11 +8,20 @@ import { Usuario } from '../models/usuario';
 import { GLOBAL } from '../global';
 
 import { UsuarioResponse } from '../models/response';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UsuariosService {
 
-  constructor(private _http: HttpClient) { }
+  public id: string;
+  public token: string;
+
+  constructor(
+    private _http: HttpClient,
+    private _router: Router
+  ) { 
+    this.cargarStorage();
+  }
 
   getUsuarios() {
     return this._http.get< UsuarioResponse >(GLOBAL.usuarios);
@@ -35,16 +45,50 @@ export class UsuariosService {
   }
 
 
-  login( email: string, pass: string) {
+  login( usuario: Usuario, recordar: boolean) {
     const uri = `${GLOBAL.login}`;
-    const dataLogin = { email : email, pass : pass};
-    const body = JSON.stringify( dataLogin );
+    
+    if (recordar) {
+      localStorage.setItem('email', usuario.email);
+    }else {
+      localStorage.removeItem('email');
+    }
 
-    return this._http.post( uri, body);
+    return this._http.post( uri, usuario)
+                     .map( (res: any) => {
+                       localStorage.setItem('id', res.usuario._id);
+                       localStorage.setItem('token', res.token);
+                       //localStorage.setItem('usuario', JSON.stringify( res.usuario) );
+                       
+                       this.id = res.usuario.id;
+                       this.token = res.token;
+
+                       return true;
+                     });
   }
 
-  logOut() {
-    const prueba = ``;
+  estaLogueado() {
+    return ( this.token.length > 5 ) ? true : false ;
+  }
+
+  cargarStorage() {
+    if ( localStorage.getItem('token') ) {
+      this.token = localStorage.getItem('token');
+      this.id = localStorage.getItem('id');
+    } else {
+      this.token = '';
+      this.id = '';
+    }
+  }
+
+  logout() {
+    this.id = '';
+    this.token = '';
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+
+    this._router.navigate(['/login']);
   }
 
 }

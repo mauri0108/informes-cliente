@@ -22,6 +22,12 @@ import { InformesService } from './services/informes.service';
 import { UsuariosService } from './services/usuarios.service';
 import { UploadService } from "./services/upload.service";
 import { UrlPipe } from './pipes/url.pipe';
+import { LoginComponent } from './login/login.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { PagesComponent } from './components/pages.component';
+import { LoginGuard } from './services/guards/login.guard';
+import { AdminGuard } from './services/guards/admin.guard';
+import { LoggedGuard } from './services/guards/logged.guard';
 
 
 
@@ -37,7 +43,10 @@ import { UrlPipe } from './pipes/url.pipe';
     UsuarioComponent,
     ProtocolosComponent,
     ProtocoloComponent,
-    UrlPipe
+    UrlPipe,
+    LoginComponent,
+    NotfoundComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +59,10 @@ import { UrlPipe } from './pipes/url.pipe';
     ProtocoloService,
     UsuariosService,
     UploadService,
-    InformesService
+    InformesService,
+    LoginGuard,
+    AdminGuard,
+    LoggedGuard
   ],
   bootstrap: [AppComponent]
 })

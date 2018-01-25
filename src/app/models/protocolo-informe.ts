@@ -18,6 +18,7 @@ export class Informe {
     public paciente: string,
     public detalle: Protocolo,
     public observacion: string,
+    public usuario: string,
     public fecha: string
   ) {}
 }

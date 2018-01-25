@@ -157,3 +157,7 @@ hr.sombraL {
   overflow:hidden;
   display: none;
 }
+
+.btn-logout {
+  width: 90px;
+}

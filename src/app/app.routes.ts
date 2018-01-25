@@ -7,21 +7,36 @@ import { ProtocolosComponent } from './components/protocolos/protocolos.componen
 import { ProtocoloComponent } from './components/protocolos/protocolo.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { UsuarioComponent } from './components/usuarios/usuario.component';
+import { LoginComponent } from './login/login.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { PagesComponent } from './components/pages.component';
+import { LoginGuard } from './services/guards/login.guard';
+import { AdminGuard } from './services/guards/admin.guard';
+import { LoggedGuard } from './services/guards/logged.guard';
 
 const APP_ROUTES: Routes = [
-  { path: 'inicio', component: InicioComponent },
-  { path: 'modelo/:idModelo/informe/:idInforme', component: InformeComponent },
-  { path: 'admin',
-    component: AdminComponent,
-    children : [
-      { path: 'protocolos', component: ProtocolosComponent },
-      { path: 'protocolo/:id', component: ProtocoloComponent },
-      { path: 'usuarios', component: UsuariosComponent },
-      { path: 'usuario/:id', component: UsuarioComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'protocolos' }
+  { path: '', 
+    component: PagesComponent,
+    canActivate: [ LoginGuard ],
+    children: [
+      { path: 'inicio', component: InicioComponent },
+      { path: 'modelo/:idModelo/informe/:idInforme', component: InformeComponent },
+      { path: 'admin',
+        component: AdminComponent,
+        canActivate: [ AdminGuard ],
+        children : [
+          { path: 'protocolos', component: ProtocolosComponent },
+          { path: 'protocolo/:id', component: ProtocoloComponent },
+          { path: 'usuarios', component: UsuariosComponent },
+          { path: 'usuario/:id', component: UsuarioComponent },
+          { path: '**', pathMatch: 'full', redirectTo: 'protocolos' }
+        ]
+      },
+      { path: '', pathMatch: 'full', redirectTo: 'inicio' }
     ]
   },
-  { path: '**', pathMatch: 'full', redirectTo: 'inicio' }
+  { path: 'login', component: LoginComponent, canActivate: [ LoggedGuard ]},
+  { path: '**', component: NotfoundComponent }
 ];
 
-export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES);
+export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, { useHash: true });

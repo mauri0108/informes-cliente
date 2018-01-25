@@ -21,7 +21,7 @@ declare var $: any;
 })
 export class InformeComponent implements OnInit {
   public _detalle: Protocolo = new Protocolo('', '', [], '');
-  public _informe: Informe = new Informe('', '', '' , '', '', this._detalle, '', moment().format('DD-MM-YYYY') );
+  public _informe: Informe = new Informe('', '', '' , '', '', this._detalle, '', localStorage.getItem('id'), moment().format('DD-MM-YYYY') );
 
   public _idModelo: string;
   public _idInforme: string;

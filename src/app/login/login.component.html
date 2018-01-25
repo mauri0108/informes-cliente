@@ -1,0 +1,23 @@
+<div class="text-center">
+  <form ngNativeValidate  #f="ngForm" class="form-signin" (ngSubmit)="ingresar( f )">
+
+    <img class="mb-4" src="../../assets/img/logo.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Ingrese sus datos</h1>
+
+    <label for="inputEmail" class="sr-only">E-mail</label>
+    <input [ngModel]="email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Direccion de E-mail" required autofocus="">
+
+    <label for="inputPassword" class="sr-only">Contraseña</label>
+    <input ngModel name="pass" type="password" id="inputPassword" class="form-control" placeholder="Constraseña" required>
+    
+    <div class="checkbox mb-3">
+      <label>
+        <input [(ngModel)]= "recuerdame" name="recuerdame" type="checkbox" value="remember-me"> Recordarme
+      </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+
+    <p class="mt-5 mb-3 text-muted">©2018</p>
+  </form>
+</div>

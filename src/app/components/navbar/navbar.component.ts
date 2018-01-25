@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuariosService } from '../../services/usuarios.service';
+import { Usuario } from '../../models/usuario';
 
 
 @Component({
@@ -7,12 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class NavbarComponent implements OnInit {
-
-
-  constructor() { }
+  
+  public usuario: Usuario;
+  
+  constructor(public _usuarioService: UsuariosService) { }
 
   ngOnInit() {
-
+    this._usuarioService.getUsuario( this._usuarioService.id )
+                        .subscribe( res => {
+                          this.usuario = res.usuario
+                          console.log( this.usuario );
+                        },
+                        error => {
+                          
+                        });
   }
 
 }
