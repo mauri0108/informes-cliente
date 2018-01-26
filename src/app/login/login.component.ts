@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.recuerdame = true;
     }
 
-    document.body.style.backgroundImage = "url('https://www.abogadivorcio.com/i/wi/informes-medicos-para-solicitar-la-custodia-compartidad.1280x960.1494612128.jpeg')";
+    document.body.style.backgroundImage = "url('assets/img/login-background.jpeg')";
     document.body.style.backgroundPosition = "center center";
     document.body.style.backgroundAttachment = "fixed";
   }
