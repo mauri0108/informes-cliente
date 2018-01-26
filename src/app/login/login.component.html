@@ -1,4 +1,4 @@
-<div class="text-center">
+<!-- <div class="text-center">
   <form ngNativeValidate  #f="ngForm" class="form-signin" (ngSubmit)="ingresar( f )">
 
     <img class="mb-4" src="../../assets/img/logo.png" alt="" width="72" height="72">
@@ -20,4 +20,17 @@
 
     <p class="mt-5 mb-3 text-muted">©2018</p>
   </form>
+</div> -->
+<div class="form-login">
+  <form ngNativeValidate  #f="ngForm"  (ngSubmit)="ingresar( f )">
+    <div class="login-block">
+        <img src="../assets/img/logo.png" alt="" class="img-fluid">
+       
+        <input [ngModel]="email" name="email" type="email" placeholder="E-mail" id="username" required />
+        <input type="password" ngModel name="pass" placeholder="Contraseña" id="password" required/>
+        <button type="submit">Ingresar</button>
+    </div>
+  </form>
 </div>
+
+

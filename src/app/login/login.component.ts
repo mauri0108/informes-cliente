@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../services/usuarios.service';
@@ -9,7 +9,7 @@ import { Usuario } from '../models/usuario';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
    public email: string;
    public recuerdame = false;
 
@@ -23,6 +23,14 @@ export class LoginComponent implements OnInit {
     if (this.email.length > 1) {
       this.recuerdame = true;
     }
+
+    document.body.style.backgroundImage = "url('https://www.abogadivorcio.com/i/wi/informes-medicos-para-solicitar-la-custodia-compartidad.1280x960.1494612128.jpeg')";
+    document.body.style.backgroundPosition = "center center";
+    document.body.style.backgroundAttachment = "fixed";
+  }
+
+  ngOnDestroy() {
+    document.body.style.backgroundImage = "none";
   }
 
   ingresar( forma: NgForm) {

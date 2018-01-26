@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Usuario } from '../models/usuario';
 import { GLOBAL } from '../global';
 
 import { UsuarioResponse } from '../models/response';
 import { Router } from '@angular/router';
+
+//import swal from 'sweetalert';
+declare var swal: any;
 
 @Injectable()
 export class UsuariosService {
@@ -66,8 +72,14 @@ export class UsuariosService {
                        this.token = res.token;
 
                        return true;
-                     });
+                     }).catch ( err => {
+
+                        swal('Error en el ingreso', err.error.message, 'error');
+                         //console.log( err.error.message )
+                         return _throw ( err );
+                     })
   }
+                     
 
   estaLogueado() {
     return ( this.token.length > 5 ) ? true : false ;

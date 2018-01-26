@@ -1,3 +1,13 @@
+/*body {
+  background: url('https://www.abogadivorcio.com/i/wi/informes-medicos-para-solicitar-la-custodia-compartidad.1280x960.1494612128.jpeg') fixed center center;
+  background-size: auto;
+  font-family: Montserrat;
+}
+
+.form-login {
+  padding-top: 80px;
+}*/
+
 
 .main-container{
   padding-top: 25px;
@@ -17,7 +27,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .scrolly {
       overflow-y: scroll;
       max-height: 200px;
@@ -26,6 +36,11 @@
   .scrolly-table{
     overflow-y: scroll;
     max-height: 450px;
+  }
+
+  .scrolly-list{
+    overflow-y: scroll;
+    max-height: 510px;
   }
 }
 
@@ -42,7 +57,7 @@
 
   .scrolly-list{
     overflow-y: scroll;
-    max-height: 340px;
+    max-height: 420px;
   }
 }
 
@@ -50,33 +65,7 @@
   float: right;
 }
 
-@media screen and (min-width: 600px){
-  .lista-informes{
-    list-style-type: none;
-    margin:0;
-    padding:0;
-    columns: 2;
-  }
-}
 
-@media screen and (max-width: 600px){
-  .lista-informes{
-    list-style-type: none;
-    margin:0;
-    padding:0;
-    columns: 2;
-  }
-}
-
-@media screen and (max-width: 440px){
-  .lista-informes{
-    list-style-type: none;
-    margin:0;
-    padding:0;
-    columns: 1;
-  }
-
-}
 
 @media screen and (max-width: 450px){
   .lbl-input-file{
@@ -98,13 +87,6 @@
 
 
 
-.textoNegro{
-  color : black;
-}
-/* .item-informes : hover{
-  cursor: pointer;
-  background-color: #cccccc;
-} */
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -161,3 +143,59 @@ hr.sombraL {
 .btn-logout {
   width: 90px;
 }
+
+/*=============================callout=======================================*/
+.bs-callout {
+  padding: 15px;
+  margin: 8px 0px;
+  border: 1px solid #eee;
+  border-left-width: 6px;
+  border-radius: 4px;
+}
+
+.bs-callout:hover {
+  cursor: pointer;
+  background-color: #f1f1f1;
+
+}
+
+/*.bs-callout:hover .fa {
+  color: #f9f9f9 !important;
+}*/
+
+*.bs-callout:empty {
+ padding: 15px;
+ margin: 0px;
+ border: none;   
+}
+
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code {
+  border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+  margin-top: -5px;
+}
+.bs-callout-default {
+  border-left-color: #777;
+}
+.bs-callout-default h4 {
+  color: #777;
+}
+.bs-callout-primary {
+  border-left-color: #428bca;
+}
+
+.inf-title{
+  padding-left: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/*=============================callout=======================================*/

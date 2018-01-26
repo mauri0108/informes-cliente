@@ -1,50 +1,85 @@
-html,
 body {
+  background: url('https://www.abogadivorcio.com/i/wi/informes-medicos-para-solicitar-la-custodia-compartidad.1280x960.1494612128.jpeg') no-repeat fixed center center !important;
+  background-size: cover;
+  font-family: Montserrat;
   height: 100%;
-  background-color: #c9c6c6 !important;
 }
 
-body {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
- 
+.form-login {
+  padding-top: 80px;
 }
 
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 80px 15px;
+.login-block {
+  width: 320px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  border-top: 5px solid #3b68e2;
   margin: 0 auto;
 }
-.form-signin .checkbox {
-  font-weight: 400;
+
+.login-block h1 {
+  text-align: center;
+  color: #000;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
-.form-signin .form-control {
-  position: relative;
+
+.login-block input {
+  width: 100%;
+  height: 42px;
   box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-family: Montserrat;
+  padding: 0 20px 0 50px;
+  outline: none;
 }
-.form-signin .form-control:focus {
-  z-index: 2;
+
+.login-block input#username {
+  background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+  background-size: 16px 80px;
 }
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+
+.login-block input#username:focus {
+  background: none;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+
+.login-block input#password {
+  background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+  background-size: 16px 80px;
 }
+
+.login-block input#password:focus {
+  background: none;
+}
+
+.login-block input:active, .login-block input:focus {
+  border: 1px solid #3b68e2;
+}
+
+.login-block button {
+  width: 100%;
+  height: 40px;
+  background: #3b68e2;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #3b68e2;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: Montserrat;
+  outline: none;
+  cursor: pointer;
+}
+
+.login-block button:hover {
+  background: #3b68e2;
+}
+
+

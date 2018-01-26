@@ -1,32 +1,32 @@
 <div class="row">
   <div class="col">
-    <h2>Protocolos</h2>
+    <h2><i class="fa fa-list" aria-hidden="true"></i> Protocolos</h2>
     <hr>
     <div class="row">
       <div class="col">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar informe" aria-label="Search for...">
+          <input type="text" class="form-control" placeholder="Buscar protocolo" aria-label="Search for...">
           <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button class="btn btn-primary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
           </span>
         </div>
       </div>
     </div>
     <br>
-    <h3>Listado de Protocolos</h3>
-    <hr>
-    <div class="row">
-      <div class="col">
-        <div class="list-group text-center scrolly-list">
-          <ul class="lista-informes">
-            <a [routerLink]="['/modelo', protocolo._id, 'informe', 'nuevo' ]" class="list-group-item list-group-item-action list-group-item-light item-informes" *ngFor="let protocolo of this._protocolos" >
-              <li>
-                <strong class="textoNegro">{{ protocolo.nombre }}</strong>
-              </li>
-            </a>
-          </ul>
+        <div class="container-fluid">
+            <div class="text-center scrolly-list row">
+                <ng-container *ngFor="let protocolo of this._protocolos; let i = index;">
+                  <div class="col-xs-12 col-md-4 bs-callout bs-callout-primary text-left" 
+                       [routerLink]="['/modelo', protocolo._id , 'informe', 'nuevo' ]" >
+                      
+                      <span class="inf-title"><i class="fa fa-file-text-o fa-2x " style="color: #428bca;" aria-hidden="true"></i>  {{ protocolo.nombre }}</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </ng-container>
+              </div>
         </div>
-      </div>
-    </div>
+         
+        <!-- </div> -->
+
   </div>
 </div>
