@@ -14,6 +14,8 @@
   padding-bottom: 40px;
 }
 
+
+/*Media querys responsive*/
 @media (min-width: 769px) {
   .scrolly {
       overflow-y: scroll;
@@ -23,6 +25,11 @@
   .scrolly-table{
     overflow-y: scroll;
     max-height: 500px;
+  }
+
+  .informes-cards {
+    max-height: 400px;
+    overflow-y: scroll;
   }
 }
 
@@ -42,6 +49,11 @@
     overflow-y: scroll;
     max-height: 510px;
   }
+
+  .informes-cards {
+    max-height: 330px;
+    overflow-y: scroll;
+  }
 }
 
 @media (max-width: 575px) {
@@ -58,6 +70,11 @@
   .scrolly-list{
     overflow-y: scroll;
     max-height: 420px;
+  }
+
+  .informes-cards {
+    max-height: 290px;
+    overflow-y: scroll;
   }
 }
 
@@ -199,3 +216,22 @@ hr.sombraL {
 }
 
 /*=============================callout=======================================*/
+
+@media screen and (max-width: 767px){
+  .modal-dialog {
+    margin: 2.5vh auto;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    overflow: scroll;
+  }
+
+  .modal-body {
+    max-height: calc(100vh - 143px);
+    overflow-y: auto; 
+  }
+}
+
+
+

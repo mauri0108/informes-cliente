@@ -1,0 +1,103 @@
+
+<div class="row m-1 text-center text-md-left d-flex align-items-center">
+  <div class="col-xs-12 col-md-6">
+    <h3>Informes de {{ nombre}}</h3>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <button type="button" class="btn btn-primary float-md-right" data-toggle="modal" data-target="#modalProtocolos" (click)="getModelos()">
+      Crear Nuevo Informe
+    </button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <h4><label for="search">Buscar por</label></h4>
+      <input type="text"
+             class="form-control" 
+             name="" id="search" 
+             aria-describedby="helpId" 
+             placeholder="Tipo, fecha, paciente"
+             (keyup.enter)="searchInforme(search.value)"
+             #search>
+    </div>
+    <ng-template #noResults>
+      <div class="row" >
+        <div class="col">
+          <div class="alert alert-info text-center " role="alert">
+            <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No ha creado informes </h5>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="row informes-cards">
+        <div class="col-md-4 col-sm-6 mb-3" *ngFor= "let informe of _informes; let i = index"> 
+            <div class="card text-center">
+                <div class="card-header">
+                  <h5><b><i class="fa fa-file-text-o" aria-hidden="true"></i> {{ informe.detalle.nombre }}</b></h5> 
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    <b>Paciente:</b> {{ informe.paciente }}
+                  </p>
+                  <a class="btn btn-outline-primary" [routerLink] = "['/modelo', informe.detalle._id, 'informe', informe._id ]" ><i class="fa fa-eye" aria-hidden="true"></i> Ver</a>
+                  <button type="button" class="btn btn-outline-success" (click)="generatePDF(i)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Imprimir</button>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ informe.fecha }}
+                </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="modalProtocolos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Listado de modelos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="text-center row">
+                <ng-container *ngFor="let protocolo of _protocolos; let i = index;">
+                  <div class="col-xs-12 col-sm-4 bs-callout bs-callout-primary text-left"
+                      data-dismiss="modal"
+                      [routerLink]="['/modelo', protocolo._id , 'informe', 'nuevo' ]" >
+                      <span class="inf-title"><i class="fa fa-file-text-o fa-2x " style="color: #428bca;" aria-hidden="true"></i>  {{ protocolo.nombre }}</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </ng-container>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- <div class="container-fluid">
+    <div class="text-center row">
+      <ng-container *ngFor="let protocolo of _protocolos; let i = index;">
+        <div class="col-xs-12 col-md-4 bs-callout bs-callout-primary text-left" 
+            [routerLink]="['/modelo', protocolo._id , 'informe', 'nuevo' ]" >
+            <span class="inf-title"><i class="fa fa-file-text-o fa-2x " style="color: #428bca;" aria-hidden="true"></i>  {{ protocolo.nombre }}</span>
+        </div>
+        <div class="clearfix"></div>
+      </ng-container>
+    </div>
+</div> -->
+

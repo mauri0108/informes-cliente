@@ -1,53 +1,54 @@
 
 <div class="row">
   <div class="col">
-    <form (keydown.enter)="$event.preventDefault()" #content>
+    <form ngNativeValidate #forma="ngForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="submitInforme()">
       <div class="row">
         <div class="col">
-          <h2>{{ _informe.detalle.nombre }}</h2>
+          <h2><i class="fa fa-file-text-o" aria-hidden="true"></i> {{ _informe?.detalle?.nombre }}</h2>
         </div>
       </div>
       <hr class="sombraL">
       <div class="form-group row">
           <div class="col-md-7 col-sm-8 col-xs-6">
-              <h6><label for="txtMedicoS">Institucion</label></h6>
-              <input id="txtMedicoS" [(ngModel)]="_informe.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion">
+              <h6><label for="txtMedicoS"><i class="fa fa-building" aria-hidden="true"></i> Institucion</label></h6>
+              <input id="txtMedicoS" [(ngModel)]="_informe.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion" required>
           </div>
           <div class="col-md-2 col-sm-4 col-xs-6 align-to-input">
               <label class="btn btn-outline-primary lbl-input-file">
-                  Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
+                <i class="fa fa-picture-o" aria-hidden="true"></i> Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
               </label>
           </div>   
           <div class="col-md-3 col-sm-12 text-center" >
-              <div *ngIf="file ; else elseTemplate">
-                <img class="img-responsive"  src="{{ _informe.logo }}"  style="width: 150px; height: 150"/>
+              
+              <div *ngIf="logoTemporal; else elseTemplate">
+                <img class="img-responsive"  src="{{ logoTemporal }}"  style="width: 150px; height: 150"/>
               </div>
           </div>
         </div>
         <ng-template #elseTemplate>
-            <img class="img-responsive"  src="{{ _informe.logo | url }}"  style="width: 150px; height: 150"/>
+            <img class="img-responsive"  src="{{ _informe?.logo | url }}"  style="width: 150px; height: 150"/>
         </ng-template>
       <div class="form-group">
-        <h6><label for="txtPaciente">Paciente</label></h6>
-        <input id="txtPaciente" [(ngModel)]="_informe.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente">
+        <h6><label for="txtPaciente"><i class="fa fa-user" aria-hidden="true"></i> Paciente</label></h6>
+        <input id="txtPaciente" [(ngModel)]="_informe.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente" required>
       </div>
       <div class="form-group">
-        <h6><label for="txtMedicoS">Medico Solicitante</label></h6>
-        <input id="txtMedicoS" [(ngModel)]="_informe.medico" name="medicoNombre" type="text" class="form-control" placeholder="Ingrese el nombre del medico solicitante">
+        <h6><label for="txtMedicoS"><i class="fa fa-user-md" aria-hidden="true"></i> Medico Solicitante</label></h6>
+        <input id="txtMedicoS" [(ngModel)]="_informe.medico" name="medicoNombre" type="text" class="form-control" placeholder="Ingrese el nombre del medico solicitante" required>
       </div>
       <div class="form-group">
-        <h6><label for="txtFecha">Fecha</label></h6>
-        <input type="text" [(ngModel)]="_informe.fecha" class="form-control" name="fecha" id="txtFecha">
+        <h6><label for="txtFecha"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha</label></h6>
+        <input type="text" [(ngModel)]="_informe.fecha" class="form-control" name="fecha" id="txtFecha" required>
       </div>
       
       <hr class="sombra">
-      <div class="form-group" *ngFor="let item of this._informe.detalle.items; let itemIndex = index">
-          <h3>{{ item.nombre }}</h3>
+      <div class="form-group" *ngFor="let item of _informe?.detalle?.items; let itemIndex = index">
+          <h3><i class="fa fa-list-alt" aria-hidden="true"></i> {{ item.nombre }}</h3>
           <hr class="sombra">
-          <div  *ngFor="let caracteristica of item.caracteristicas; let ultimo = last; let caractIndex = index" >
+          <div  *ngFor="let caracteristica of item?.caracteristicas; let ultimo = last; let caractIndex = index" >
             <div class="row py-2">
               <div class="col-6 col-xl-2 col-lg-3 col-md-4 col-sm-4">
-                 <span class="h5 pr-3 align-bottom"> {{ caracteristica.nombre }}</span>
+                 <span class="h5 pr-3 align-bottom"> {{ caracteristica?.nombre }}</span>
               </div>
               <div class="col-6 col-xl-10 col-lg-9 col-md-8 col-sm-8">
                   <button type="button" 
@@ -71,7 +72,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Opciones de {{ _informe.detalle?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.nombre }}</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Opciones de {{ _informe?.detalle?.items[this?.editItemIndex]?.caracteristicas[this?.editCaractIndex]?.nombre }}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -79,7 +80,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-12 py-1" 
-                     *ngFor="let opcion of _informe.detalle?.items[this.editItemIndex]?.caracteristicas[this.editCaractIndex]?.opciones; let opcionIndex = index">
+                     *ngFor="let opcion of _informe?.detalle?.items[this?.editItemIndex]?.caracteristicas[this?.editCaractIndex]?.opciones; let opcionIndex = index">
                      <input #newOption  type="text" class="form-control" [value]="opcion" (keyup.enter)="editOption(opcionIndex,newOption.value)">
                 </div>
               </div>
@@ -94,17 +95,11 @@
       <!-- Fin Modal -->
       <div class="form-group">
         <h6><label for="txtObservaciones">Observaciones</label></h6>
-        <textarea id="txtObservaciones"  [(ngModel)]="_informe.observacion" name="observacion" class="form-control" placeholder="Ingrese la observacion" rows="3"></textarea>
+        <textarea id="txtObservaciones"  [(ngModel)]="_informe.observacion" name="observacion" class="form-control" placeholder="Ingrese la observacion" rows="3" required></textarea>
       </div>
+      <hr>
+    <button type="submit" class="btn btn-outline-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Informe</button>
+    <button type="button" class="btn btn-outline-primary" (click)="generatePdf()"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
     </form>
-    <hr>
-
-    <div class="alert alert-danger text-center" *ngIf="this.errorMensaje" role="alert" [innerHtml]="this.errorMensaje">  </div>
-
-    <div class="alert alert-success text-center" *ngIf="this.mensaje"role="alert">
-      {{ this.mensaje }}
-    </div>
-
-    <button type="button" name="button" (click)="generatePdf()">Generar PDF</button>
   </div>
 </div>

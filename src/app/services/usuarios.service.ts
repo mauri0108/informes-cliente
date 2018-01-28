@@ -21,6 +21,7 @@ export class UsuariosService {
 
   public id: string;
   public token: string;
+  public nombre: string;
   public rol: string;
 
   constructor(
@@ -56,18 +57,13 @@ export class UsuariosService {
   login( usuario: Usuario, recordar: boolean) {
     const uri = `${GLOBAL.login}`;
     
-    if (recordar) {
-      localStorage.setItem('email', usuario.email);
-    }else {
-      localStorage.removeItem('email');
-    }
-
     return this._http.post( uri, usuario)
                      .map( (res: any) => {
                        localStorage.setItem('id', res.usuario._id);
                        localStorage.setItem('token', res.token);
-                       //localStorage.setItem('usuario', JSON.stringify( res.usuario) );
-                       
+                       localStorage.setItem('nombre', `${res.usuario.nombre} ${res.usuario.apellido}`);
+
+                       this.nombre = `${res.usuario.nombre} ${res.usuario.apellido}`;
                        this.id = res.usuario.id;
                        this.token = res.token;
 
@@ -75,15 +71,11 @@ export class UsuariosService {
                      }).catch ( err => {
 
                         swal('Error en el ingreso', err.error.message, 'error');
-                         //console.log( err.error.message )
-                         return _throw ( err );
+                        //console.log( err.error.message )
+                        return _throw ( err );
                      })
   }
                      
-
-  estaLogueado() {
-    return ( this.token.length > 5 ) ? true : false ;
-  }
 
   cargarRol() {
     //console.log("Se llamo a cargar el rol");
@@ -104,7 +96,7 @@ export class UsuariosService {
   }
 
   cargarStorage() {
-    console.log("Se llamo a cargar storage")
+    //console.log("Se llamo a cargar storage")
     if ( localStorage.getItem('token') ) {
       this.token = localStorage.getItem('token');
       this.id = localStorage.getItem('id');
@@ -117,9 +109,11 @@ export class UsuariosService {
   logout() {
     this.id = '';
     this.token = '';
+    this.nombre = '';
 
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    localStorage.removeItem('nombre');
 
     this._router.navigate(['/login']);
   }

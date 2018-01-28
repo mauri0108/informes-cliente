@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { UsuariosService } from '../usuarios.service';
+
+
+import { AuthService } from "../auth.service";
 
 
 @Injectable()
 export class LoginGuard implements CanActivate {
   
   constructor( 
-    private _usuarioService: UsuariosService,
+    private auth: AuthService,
     private _router: Router
    ) {}
 
   canActivate() {
-    if ( this._usuarioService.estaLogueado() ) {
-      console.log("Paso el login guard")
-      return true;
+    if (this.auth.loggedIn()) {
+      return true
     } else {
+      localStorage.removeItem('token');
       this._router.navigate(['/login']);
       return false;
-    }
-    
+    }  
   }
 }

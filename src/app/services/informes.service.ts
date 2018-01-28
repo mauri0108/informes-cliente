@@ -10,8 +10,25 @@ import { InformeResponse } from '../models/response';
 
 @Injectable()
 export class InformesService {
+  
+  private token: string; 
 
-  constructor(private _http: HttpClient) { }
+  constructor( private _http: HttpClient ) { 
+    this.token = localStorage.getItem('token') ;
+  }
+
+  getInformesUsuario( id: string) {
+    const uri = `${GLOBAL.usuarioInformes}${id}`;
+    return this._http.get< InformeResponse>(uri);
+  }
+
+  getInformes() {
+    return this._http.get< InformeResponse>(`${GLOBAL.informes}`);
+  }
+
+  getInformesText(id: string, text: string) {
+    return this._http.get< InformeResponse >(`${GLOBAL.usuarioInformes}${id}/buscar/${text}`);
+  }
 
   getInforme ( id: string) {
     const uri = `${GLOBAL.informe}${id}`;
@@ -19,13 +36,15 @@ export class InformesService {
   }
 
   saveInforme( informe: Informe) {
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token });
     const uri = `${GLOBAL.crearEditarInforme}`
-    return this._http.post< InformeResponse >( uri, informe);
+    return this._http.post< InformeResponse >( uri, informe, { headers });
   }
 
   updateInforme( informe: Informe) {
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token });
     const uri = `${GLOBAL.crearEditarInforme}`
-    return this._http.put< InformeResponse >( uri, informe);
+    return this._http.put< InformeResponse >( uri, informe, { headers });
   }
 
 

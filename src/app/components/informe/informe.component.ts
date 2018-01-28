@@ -10,9 +10,9 @@ import { Informe, Protocolo } from '../../models/protocolo-informe';
 import { ProtocoloService } from '../../services/protocolos.service';
 import { UploadService } from '../../services/upload.service';
 import { InformesService } from '../../services/informes.service';
-import { InformeResponse } from '../../models/response';
 
 declare var $: any;
+declare var swal: any;
 
 @Component({
   selector: 'app-informe',
@@ -31,6 +31,7 @@ export class InformeComponent implements OnInit {
 
   public nuevo = true;
   public file: File;
+  public logoTemporal: string;
 
   public mensaje: string;
   public errorMensaje: string;
@@ -59,6 +60,7 @@ export class InformeComponent implements OnInit {
                   },
                   error => {
                     
+                    swal('Error al buscar modelo', `${error.error.message}, este modelo no existe` , 'error');
                   }
                 );
           }
@@ -71,7 +73,8 @@ export class InformeComponent implements OnInit {
                                   console.log(this._informe);
                                 },
                                 error => {
-                                  
+                                  console.log(error);
+                                  swal('Error al buscar informe', `${error.error.message}, este informe no existe` , 'error');
                                 });
 
             this.nuevo = false;
@@ -101,14 +104,19 @@ export class InformeComponent implements OnInit {
   }
 
   getImagem(readerEvt) {
+    this.file = null;
+    this.logoTemporal = null;
     //console.log('change no input file', readerEvt);
-    
     this.file = readerEvt.target.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL( this.file);
+
+    if (this.file) {
+      reader.readAsDataURL( this.file);
+    }
+    
     reader.onload = () => {
         // console.log('base64 do arquivo', reader.result);
-         this._informe.logo = reader.result ;
+         this.logoTemporal = reader.result ;
         // console.log(this._informeCompleto.logo)
         //console.log('base64 do arquivo codificado',midia.binario);
     };
@@ -141,10 +149,10 @@ export class InformeComponent implements OnInit {
     this.move(this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones, idOpcion, 0 );
   }
 
-  generatePdf() {
-    console.log( JSON.stringify( this._informe ));
+  submitInforme() {
+    console.log( this.nuevo );
 
-    if (this.nuevo) {
+    if ( this.nuevo === true ) {
 
       this._informe.logo = null;
 
@@ -154,14 +162,19 @@ export class InformeComponent implements OnInit {
 
                             if (this.file) {
                               this.uploadImg( this.file, this._informe._id );
+                              swal('Perfecto!', res.message  , 'success');
                             }else {
-                              this.mensaje = res.message;
-                              this.ocultarMensaje(this.mensaje);
+                              swal('Perfecto!', res.message  , 'success');
                             }
+
+                          
+
+                            this._router.navigate(['/modelo', this._informe.detalle._id, 'informe', this._informe._id ]);
                           },
                           error => {
-                            this.errorMensaje = <string>error.error.split('<br>')[0];
-                            this.ocultarMensaje(this.errorMensaje);
+                            console.log(error )
+                            swal('Error al crear el informe!', error.error.message  , 'error');
+
                           }
                         );
     }else {
@@ -171,42 +184,34 @@ export class InformeComponent implements OnInit {
 
                             if ( this.file ) {
                               this.uploadImg( this.file, this._informe._id );
+                              swal('Perfecto!', res.message  , 'success');
                             } else {
-                              this.mensaje = res.message;
-                              this.ocultarMensaje(this.mensaje);
+                              swal('Perfecto!', res.message  , 'success');
                             }
-
-                            this._router.navigate(['/modelo', this._detalle._id, 'informe', this._informe._id ]);
                           },
                           error => {
-                            this.errorMensaje = <string>error.error.split('<br>')[0];
-                            this.ocultarMensaje(this.errorMensaje);
+                            console.log(error )
+                            swal('Error al actualizar!', error.error.message , 'error');
                           });
     }
+  }
+
+  generatePdf() {
+
   }
 
   uploadImg(file: File, id: string) {
     this._uploadService.uploadImg( this.file, this._informe._id)
     .then( res => {
-         //console.log( res.json() );
          return res.json() 
      })
      .then( resJson => {
          this._informe.logo = resJson.informe.logo;
-         this.mensaje = resJson.message;
-         this.ocultarMensaje(this.mensaje);
      })
      .catch( err => {
         console.log( err );
-        this.errorMensaje = <string>err.error.split('<br>')[0];
-        this.ocultarMensaje(this.errorMensaje);
+        swal('Error!', err.message  , 'error');
      });
-  }
-
-  ocultarMensaje(mensaje: any) {
-    setTimeout( () => {
-      this.mensaje = undefined;
-    }, 3000);
   }
 
 }

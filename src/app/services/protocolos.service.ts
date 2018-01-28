@@ -18,8 +18,7 @@ export class ProtocoloService {
   }
 
   getProtocolos() {
-    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token });
-    return this._http.get< ProtocoloResponse >(GLOBAL.protocolos, { headers });
+    return this._http.get< ProtocoloResponse >(GLOBAL.protocolos);
   }
 
   getProtocolo(id: string) {
@@ -28,16 +27,14 @@ export class ProtocoloService {
   }
 
   saveProtocolo( protocolo: Protocolo) {
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token });
     const uri = `${GLOBAL.crearEditarProtocolo}`;
-
-    // let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
-
-    return this._http.post< ProtocoloResponse >( uri, protocolo);
+    return this._http.post< ProtocoloResponse >( uri, protocolo, { headers});
   }
 
   updateProtocolo( protocolo: Protocolo) {
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token });
     const uri = `${GLOBAL.crearEditarProtocolo}`;
-
-    return this._http.put< ProtocoloResponse >( uri, protocolo);
+    return this._http.put< ProtocoloResponse >( uri, protocolo, { headers});
   }
 }

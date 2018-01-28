@@ -45,18 +45,11 @@ body {
   background-size: 16px 80px;
 }
 
-.login-block input#username:focus {
-  background: none;
-}
-
 .login-block input#password {
   background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
   background-size: 16px 80px;
 }
 
-.login-block input#password:focus {
-  background: none;
-}
 
 .login-block input:active, .login-block input:focus {
   border: 1px solid #3b68e2;
