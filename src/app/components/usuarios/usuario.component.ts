@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../models/usuario';
 import { UsuariosService  } from '../../services/usuarios.service';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
@@ -15,8 +17,6 @@ export class UsuarioComponent implements OnInit {
   public _usuario: Usuario = new Usuario('', '', '', '', '', 'USER', '', '');
   public _id: string;
   public nuevo = true;
-  public mensaje: string;
-  public errorMensaje: string;
 
   constructor(private _router: Router,
               private _activatedRoute: ActivatedRoute,
@@ -32,10 +32,9 @@ export class UsuarioComponent implements OnInit {
                 this._usuariosService.getUsuario( this._id )
                     .subscribe( res => {
                       this._usuario = res.usuario;
-                      console.log(this._usuario);
                     },
                     error => {
-                      this.mensaje = error
+                      swal('Error al buscar usuario', `${error.error.message}` , 'error');
                     });
             }
           });
@@ -49,12 +48,10 @@ export class UsuarioComponent implements OnInit {
                               console.log(res);
                               this._usuario = res.usuario;
                               this._router.navigate(['/admin/usuario', this._usuario._id ]);
-                              this.mensaje = res.message;
-                              this.ocultarMensaje(this.mensaje);
+                              swal('Perfecto!', res.message , 'success');
                             },
                             error => {
-                              this.errorMensaje = <string>(error.error).split('<br>')[0];
-                              this.ocultarMensaje(this.errorMensaje);
+                              swal('Error al insertar el  usuario', `${error.error.message}` , 'error');
                             }
 
                            );
@@ -64,21 +61,12 @@ export class UsuarioComponent implements OnInit {
             res => {
               console.log(res);
               this._usuario = res.usuario;
-              this.mensaje = res.message;
-              this.ocultarMensaje(this.mensaje);
+              swal('Perfecto!', res.message , 'success');
             },
             error => {
-              this.errorMensaje = <string>error.error.split('<br>')[0];
-              this.ocultarMensaje(this.errorMensaje);
+              swal('Error al actualizar el  usuario', `${error.error.message}` , 'error');
             }
           );
     }
   }
-
-  ocultarMensaje(mensaje: any){
-    setTimeout( () => {
-      this.mensaje = undefined;
-    }, 3000);
-  }
-
 }

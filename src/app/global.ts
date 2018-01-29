@@ -14,6 +14,7 @@ export const GLOBAL = {
   informes: `${API_URL}/informes`,
   usuarioInformes: `${API_URL}/informes/usuario/`,
   crearEditarInforme : `${API_URL}/informe`,
+  report : 'http://localhost:5488/api/report',
   upload : `${API_URL}/upload/`,
   getImage: `${API_URL}/img/`
 

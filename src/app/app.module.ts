@@ -59,7 +59,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
+        tokenGetter: function() {
           return localStorage.getItem('token');
         },
         whitelistedDomains: [`${GLOBAL.urlBase}` , 'localhost']

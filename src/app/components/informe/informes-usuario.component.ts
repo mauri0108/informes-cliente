@@ -6,6 +6,8 @@ import { Informe, Protocolo } from '../../models/protocolo-informe';
 import { InformesService } from '../../services/informes.service';
 import { ProtocoloService } from '../../services/protocolos.service';
 
+import { saveAs } from 'file-saver';
+
 declare var swal: any;
 declare var $: any;
 
@@ -85,5 +87,18 @@ export class InformesUsuarioComponent implements OnInit {
 
   generatePDF(index: number) {
     console.log(index);
+    let informe = this._informes[index];
+
+    this._informeService.printPDF( informe )
+                        .subscribe( res => {
+                          console.log(res);
+                          let mediaType = 'application/pdf';
+                          let blob = new Blob([res], {type: mediaType});
+                          let filename = 'test.pdf';
+                          saveAs(blob, filename);
+                        },
+                        error => {
+                          console.log(error);
+                        });
   }
 }

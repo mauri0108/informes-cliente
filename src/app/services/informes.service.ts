@@ -47,11 +47,16 @@ export class InformesService {
     return this._http.put< InformeResponse >( uri, informe, { headers });
   }
 
+  printPDF( informe: Informe) {
 
-     
+    let uri = GLOBAL.report;
+    
 
-  
+    let body = { "template" : { "shortid": "Syi75tzSG" }, "options" : { "preview" : true },  "data": informe };
+    console.log(JSON.stringify(body));
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append("Content-Type", "application/json");
 
-
-
+    return this._http.post( uri, JSON.stringify(body), { headers });
+  }
 }

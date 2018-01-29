@@ -9,7 +9,7 @@ import { Caracteristica } from '../../models/caracteristica';
 import { Item } from '../../models/item';
 
 import { ProtocoloService } from '../../services/protocolos.service';
-
+declare var swal: any;
 
 @Component({
   selector: 'app-protocolo',
@@ -34,9 +34,6 @@ export class ProtocoloComponent implements OnInit {
   public iNombre: string ;
   public oNombre: string ;
 
-  public mensaje: string;
-  public errorMensaje: string;
-
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -54,10 +51,9 @@ export class ProtocoloComponent implements OnInit {
               this._protocoloService.getProtocolo( this._id )
                   .subscribe( res => {
                     this._protocolo = res.protocolo ;
-                    console.log(this._protocolo);
                   },
                   error => {
-                    this.mensaje = error
+                    swal('Error al buscar modelo', `${error.error.message}, este modelo no existe` , 'error');
                   }
                 );
           }
@@ -157,12 +153,10 @@ export class ProtocoloComponent implements OnInit {
             res => {
               this._protocolo = res.protocolo;
               this._router.navigate(['/admin/protocolo', this._protocolo._id ]);
-              this.mensaje = res.message;
-              this.ocultarMensaje(this.mensaje);
+              swal('Perfecto!', res.message , 'success');
             },
             error => {
-              this.errorMensaje = <string>(error.error).split('<br>')[0];
-              this.ocultarMensaje(this.errorMensaje);
+              swal('Error al insertar protocolo', `${error.error.message}` , 'error');
             }
           );
     } else {
@@ -170,22 +164,13 @@ export class ProtocoloComponent implements OnInit {
           .subscribe(
             res => {
               this._protocolo = res.protocolo;
-              this.mensaje = res.message;
-              this.ocultarMensaje(this.mensaje);
+              swal('Perfecto!', res.message , 'success');
             },
             error => {
-              this.errorMensaje = <string>error.error.split('<br>')[0];
-              this.ocultarMensaje(this.errorMensaje);
+              swal('Error al actualizar protocolo', `${error.error.message}` , 'error');
             }
           );
     }
   }
-
-  ocultarMensaje(mensaje: any) {
-    setTimeout( () => {
-      this.mensaje = undefined;
-    }, 2000);
-  }
-
 
 }

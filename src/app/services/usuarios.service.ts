@@ -43,14 +43,14 @@ export class UsuariosService {
 
   saveUser(usuario: Usuario) {
     const uri = `${GLOBAL.crearEditarUsuario}`;
-    // let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
-    return this._http.post< UsuarioResponse >( uri, usuario);
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    return this._http.post< UsuarioResponse >( uri, usuario, { headers });
   }
 
   updateUser(usuario: Usuario) {
     const uri = `${GLOBAL.crearEditarUsuario}`;
-    // let headers: HttpHeaders = new HttpHeaders({"Content-Type": "application/json" }); , { headers}
-    return this._http.put< UsuarioResponse >( uri, usuario);
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    return this._http.put< UsuarioResponse >( uri, usuario, { headers });
   }
 
 
@@ -69,7 +69,7 @@ export class UsuariosService {
 
                        return true;
                      }).catch ( err => {
-
+                        console.log( err )
                         swal('Error en el ingreso', err.error.message, 'error');
                         //console.log( err.error.message )
                         return _throw ( err );

@@ -197,7 +197,6 @@ export class InformeComponent implements OnInit {
   }
 
   generatePdf() {
-
   }
 
   uploadImg(file: File, id: string) {
