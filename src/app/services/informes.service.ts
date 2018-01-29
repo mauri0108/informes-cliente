@@ -50,13 +50,17 @@ export class InformesService {
   printPDF( informe: Informe) {
 
     let uri = GLOBAL.report;
+
+    
     
 
-    let body = { "template" : { "shortid": "Syi75tzSG" }, "options" : { "preview" : true },  "data": informe };
+    let body = { template : { shortid: "Syi75tzSG" }, options : { preview : true },  data: informe };
     console.log(JSON.stringify(body));
     let headers: HttpHeaders = new HttpHeaders();
     headers.append("Content-Type", "application/json");
 
-    return this._http.post( uri, JSON.stringify(body), { headers });
+    const options = {headers: headers, responseType: 'blob' as 'blob'};
+
+    return this._http.post( uri, body, options);
   }
 }

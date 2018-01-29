@@ -91,7 +91,7 @@ export class InformesUsuarioComponent implements OnInit {
 
     this._informeService.printPDF( informe )
                         .subscribe( res => {
-                          console.log(res);
+                          //console.log(res);
                           let mediaType = 'application/pdf';
                           let blob = new Blob([res], {type: mediaType});
                           let filename = 'test.pdf';

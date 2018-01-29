@@ -36,6 +36,9 @@ import { LoggedGuard } from './services/guards/logged.guard';
 import { GLOBAL } from "./global";
 import { JwtModule } from '@auth0/angular-jwt';
 
+export function getToken() {
+  return localStorage.getItem('token');
+ }
 
 @NgModule({
   declarations: [
@@ -59,9 +62,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: function() {
-          return localStorage.getItem('token');
-        },
+        tokenGetter: getToken,
         whitelistedDomains: [`${GLOBAL.urlBase}` , 'localhost']
       }
     }),
