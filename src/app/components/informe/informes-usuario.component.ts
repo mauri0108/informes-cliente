@@ -5,8 +5,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Informe, Protocolo } from '../../models/protocolo-informe';
 import { InformesService } from '../../services/informes.service';
 import { ProtocoloService } from '../../services/protocolos.service';
+import { escape } from 'querystring';
 
 import { saveAs } from 'file-saver';
+import printJS from 'print-js';
 
 declare var swal: any;
 declare var $: any;
@@ -94,11 +96,44 @@ export class InformesUsuarioComponent implements OnInit {
                           //console.log(res);
                           let mediaType = 'application/pdf';
                           let blob = new Blob([res], {type: mediaType});
-                          let filename = 'test.pdf';
-                          saveAs(blob, filename);
+                          let filename = `${informe.paciente}-${informe.detalle.nombre}-${informe.fecha}.pdf`;
+                          //saveAs(blob, filename);
+                          //window.open(blob,filename);
+                          //if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                           // window.navigator.msSaveOrOpenBlob(blob);  
+                         // }else {
+                            let pdfUrl = URL.createObjectURL(blob);
+                            //console.log(pdfUrl);
+                            //printJS(pdfUrl);
+                            this.popUp(pdfUrl);  
+                          //}
+                          
+                          //this.showFile(blob)
+                          
+                         // console.log(pdfUrl);
+                          //this.blobToDataURL(blob)
+                          
+                          
                         },
                         error => {
                           console.log(error);
                         });
   }
+
+  popUp(url) {
+    let newWindow = window.open();
+    let iframe = `<iframe src="${url}" frameborder="0" style="position: fixed;
+    background: #000;
+    border: none;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 100%;" ></iframe>`;
+    newWindow.document.open();
+    newWindow.document.write(iframe);
+    newWindow.document.close();
+} 
+
+  
+   
 }

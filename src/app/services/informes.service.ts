@@ -55,11 +55,12 @@ export class InformesService {
     
 
     let body = { template : { shortid: "Syi75tzSG" }, options : { preview : true },  data: informe };
-    console.log(JSON.stringify(body));
+    // console.log(JSON.stringify(body));
     let headers: HttpHeaders = new HttpHeaders();
     headers.append("Content-Type", "application/json");
 
-    const options = {headers: headers, responseType: 'blob' as 'blob'};
+    //const options = {headers: headers, responseType: 'blob' as 'blob'};
+    const options = {headers: headers, responseType: 'arraybuffer' as 'arraybuffer'};
 
     return this._http.post( uri, body, options);
   }
