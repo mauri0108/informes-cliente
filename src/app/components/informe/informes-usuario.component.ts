@@ -8,7 +8,7 @@ import { ProtocoloService } from '../../services/protocolos.service';
 import { escape } from 'querystring';
 
 import { saveAs } from 'file-saver';
-import printJS from 'print-js';
+
 
 declare var swal: any;
 declare var $: any;
@@ -93,27 +93,11 @@ export class InformesUsuarioComponent implements OnInit {
 
     this._informeService.printPDF( informe )
                         .subscribe( res => {
-                          //console.log(res);
                           let mediaType = 'application/pdf';
                           let blob = new Blob([res], {type: mediaType});
                           let filename = `${informe.paciente}-${informe.detalle.nombre}-${informe.fecha}.pdf`;
-                          //saveAs(blob, filename);
-                          //window.open(blob,filename);
-                          //if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                           // window.navigator.msSaveOrOpenBlob(blob);  
-                         // }else {
-                            let pdfUrl = URL.createObjectURL(blob);
-                            //console.log(pdfUrl);
-                            //printJS(pdfUrl);
-                            this.popUp(pdfUrl);  
-                          //}
-                          
-                          //this.showFile(blob)
-                          
-                         // console.log(pdfUrl);
-                          //this.blobToDataURL(blob)
-                          
-                          
+                          let pdfUrl = URL.createObjectURL(blob);
+                          this.popUp(pdfUrl);   
                         },
                         error => {
                           console.log(error);

@@ -1,8 +1,9 @@
-body {
-  background: url('https://www.abogadivorcio.com/i/wi/informes-medicos-para-solicitar-la-custodia-compartidad.1280x960.1494612128.jpeg') no-repeat fixed center center !important;
-  background-size: cover;
-  font-family: Montserrat;
-  height: 100%;
+
+.form-block{
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 130px;
 }
 
 .form-login {
