@@ -11,6 +11,7 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { UsuarioComponent } from './components/usuarios/usuario.component';
 
 import { LoginComponent } from './login/login.component';
+import { ChangepassComponent } from './changepass/changepass.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { PagesComponent } from './components/pages.component';
 
@@ -43,6 +44,9 @@ const APP_ROUTES: Routes = [
   { path: 'login', 
     component: LoginComponent, 
     canActivate: [ LoggedGuard ]
+  },
+  { path: 'nueva-pass', 
+    component: ChangepassComponent
   },
   { path: '**', component: NotfoundComponent }
 ];

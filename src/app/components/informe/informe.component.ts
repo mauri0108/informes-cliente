@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';
 import * as moment from 'moment';
 
 import * as locale from 'jquery-ui/ui/i18n/datepicker-es.js'

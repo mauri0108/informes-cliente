@@ -35,6 +35,7 @@ import { LoggedGuard } from './services/guards/logged.guard';
 
 import { GLOBAL } from "./global";
 import { JwtModule } from '@auth0/angular-jwt';
+import { ChangepassComponent } from './changepass/changepass.component';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -55,7 +56,8 @@ export function getToken() {
     LoginComponent,
     NotfoundComponent,
     PagesComponent,
-    InformesUsuarioComponent
+    InformesUsuarioComponent,
+    ChangepassComponent
   ],
   imports: [
     BrowserModule,

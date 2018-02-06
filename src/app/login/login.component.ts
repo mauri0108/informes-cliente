@@ -3,6 +3,11 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../services/usuarios.service';
 import { Usuario } from '../models/usuario';
+import { _throw } from 'rxjs/observable/throw';
+
+//import swal from 'sweetalert';
+declare var swal: any;
+declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -46,6 +51,26 @@ export class LoginComponent implements OnInit, OnDestroy {
     //console.log(forma.valid);
     //console.log(forma.value);
     
+  }
+
+
+  sendEmail( forma: NgForm) {
+    if ( forma.invalid) {
+      return;
+    }
+
+    this._usuarioService.sendEmailReset(forma.value.emailReset)
+                        .subscribe( res  => {
+                          $('#modalPass').modal('hide');
+                          swal('Perfecto!', res.message , 'success');
+                        },
+                        error => {
+                          $('#modalPass').modal('hide');
+                          console.log( error )
+                          swal('Error al enviar email', error.error.message, 'error');
+                          //console.log( err.error.message )
+                          return _throw ( error );
+                        });
   }
 
 }

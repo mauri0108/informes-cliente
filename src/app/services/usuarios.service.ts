@@ -118,4 +118,22 @@ export class UsuariosService {
     this._router.navigate(['/login']);
   }
 
+  sendEmailReset(email: string) {
+    const uri = `${GLOBAL.resetPass }`;
+    let body = { email: email};
+    return this._http.post< UsuarioResponse >( uri, body);
+  }
+
+  changePassToken(newpass: string, token: string) {
+    const uri = `${GLOBAL.changePassToken }`;
+    let body = { newpass : newpass, token: token};
+    return this._http.post< UsuarioResponse >(uri, body);
+  }
+
+  changePass( email: string, oldpass: string, newpass: string) {
+    const uri = `${GLOBAL.changePass }`;
+    let body = { email: email, oldpass: oldpass, newpass: newpass};
+    return this._http.post< UsuarioResponse >(uri, body);
+  }
+
 }
