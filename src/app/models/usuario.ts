@@ -19,5 +19,5 @@ export class Institucion {
   constructor(
     public nombre: string,
     public logo: string
-  ){}
+  ) {}
 }
