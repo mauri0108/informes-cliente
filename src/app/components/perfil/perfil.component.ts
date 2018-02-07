@@ -73,7 +73,7 @@ export class PerfilComponent implements OnInit {
     if (opcion === 'agregar') {
       this.editInst = false;
       this.instIndex = null;
-      
+      this.instNombre = null;
     } else {
       this.editInst = true;
       this.instIndex = opcion;
@@ -94,7 +94,7 @@ export class PerfilComponent implements OnInit {
                             }else {
                               this.instNombre = null;
                               this.instIndex = null;
-                              swal('Perfecto!', 'Se actulizo correctamente la institucion'  , 'success');
+                              swal('Perfecto!', 'Se actulizo correctamente la institución'  , 'success');
                             }
                            },
                            error => {
@@ -112,6 +112,10 @@ export class PerfilComponent implements OnInit {
 
                               if (this.file) {
                                 this.uploadImg(this.file, this._usuario._id, indexInst);
+                              }else {
+                                this.instNombre = null;
+                                this.instIndex = null;
+                                swal('Perfecto!', 'Se agregó la institución'  , 'success');
                               }
                           },
                           error => {
@@ -128,12 +132,16 @@ export class PerfilComponent implements OnInit {
      })
      .then( resJson => {
          swal('Perfecto!', resJson.message  , 'success');
-         this._usuario.instituciones[instIndex] = resJson.usuario.instituciones[instIndex].logo;
+         this._usuario = resJson.usuario;
      })
      .catch( err => {
         console.log( err );
         swal('Error!', err.message  , 'error');
      });
+  }
+
+  guardarCambios() {
+    console.log('guardar cambios');
   }
 
 

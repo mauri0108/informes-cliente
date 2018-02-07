@@ -57,6 +57,7 @@ export class ChangepassComponent implements OnInit {
       this._usuarioService.changePassToken(this.formChangePass.value.pass, this.token)
                           .subscribe( res => {
                             swal('Perfecto!', res.message , 'success');
+                            this._router.navigate(['/login']);
                           },
                           error => {
                             swal('Error!',  error.error.message , 'error');
