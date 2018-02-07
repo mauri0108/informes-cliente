@@ -4,10 +4,20 @@ export class Usuario {
     public nombre: string,
     public apellido: string,
     public email: string,
+    public instituciones: [
+      Institucion
+    ],
     public pass: string,
     public role: string,
     public fechaAlta: string,
     public fechaBaja: string
   ) {}
 
+}
+
+export class Institucion {
+  constructor(
+    public nombre: string,
+    public logo: string
+  ){}
 }

@@ -1,0 +1,113 @@
+<div class="row" *ngIf="_usuario">
+  <div class="col">
+    <h3>Datos personales</h3>
+    <hr>
+    <form (keydown.enter)="$event.preventDefault()"  #forma="ngForm">
+      <div class="row">
+          <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="txtNombre"><b>Nombre</b></label>
+                <input [(ngModel)] = "_usuario.nombre"
+                      name ="nombre"
+                      type="text"
+                      class="form-control"
+                      id="txtNombre"
+                      placeholder="Ingrese el nombre"
+                      required>
+              </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="txtApellido"><b>Apellido</b></label>
+                <input [(ngModel)] = "_usuario.apellido"
+                      name ="apellido"
+                      type="text"
+                      class="form-control"
+                      id="txtApellido"
+                      placeholder="Ingrese el apellido"
+                      required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="txtApellido"><b>E-mail</b></label>
+              <input [(ngModel)] = "_usuario.email"
+                    name ="email"
+                    type="email"
+                    class="form-control"
+                    id="txtEmail"
+                    placeholder="Ingrese el e-mail"
+                    required>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group row">
+                <div class="col">
+                        <label for="txtPass"><b>Contraseña</b></label>
+                        <input [(ngModel)] = "_usuario.pass"
+                              name ="pass"
+                              type="password"
+                              class="form-control"
+                              id="txtPass"
+                              placeholder="Ingrese la contraseña"
+                              [disabled]="true"
+                              required>
+                </div>
+                <div class="col-sm-4 col-md-6 col-lg-4 mt-4 text-center">
+                    <button type="button" class="btn btn-outline-warning mt-2"><i class="fa fa-key" aria-hidden="true"></i>  Cambiar clave</button>
+                </div>
+                
+              </div>
+        </div>
+    </div>
+    <br>
+    <h3>Instituciones</h3>
+    <hr>
+    <div class="form-group row">
+        <div class="col-md-7 col-sm-8 col-xs-6">
+          <label for="selectIns"><b> Instituciones cargadas</b></label>
+          <select class="form-control" id="selectIns" (change)="getInst($event.target.value)">
+            <option value= "agregar">Agregar nueva institucion</option>
+            <option *ngFor="let institucion of _usuario.instituciones; let i = index" [value]= "i">{{ institucion.nombre }}</option>
+          </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-7 col-sm-8 col-xs-6">
+            <label for="txtInstitucion"><b>Nombre de la institucion</b></label>
+            <input [(ngModel)]= "instNombre"
+                   id="txtInstitucion" 
+                   name="institucion" 
+                   type="text" 
+                   class="form-control" 
+                   placeholder="Ingrese el nombre la institucion" required>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 align-to-input">
+            <label class="btn btn-outline-primary lbl-input-file">
+              <i class="fa fa-picture-o" aria-hidden="true"></i> Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
+            </label>
+        </div>   
+        <div class="col-md-3 col-sm-12 text-center" >
+            <div *ngIf="logoTemporal; else elseTemplate">
+              <img class="img-responsive"  src="{{ logoTemporal }}"  style="width: 150px; height: 150"/>
+            </div>
+        </div>
+      </div>
+      <ng-template #elseTemplate>
+          <img class="img-responsive"  src="{{ _usuario?.instituciones[instIndex]?.logo | url }}"  style="width: 150px; height: 150"/>
+      </ng-template>
+    <div class="row">
+      <div class="col">
+        <button type="submit" class="btn btn-outline-info" (click)="addEditInst()">
+          <i class="fa fa-building" aria-hidden="true"></i> 
+          {{ this.editInst == true ? 'Editar Institucion' : 'Agregar Institucion' }} 
+        </button>
+      </div>
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Perfil</button>
+    </form>
+  </div>
+</div>

@@ -9,6 +9,8 @@ import { ProtocolosComponent } from './components/protocolos/protocolos.componen
 import { ProtocoloComponent } from './components/protocolos/protocolo.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { UsuarioComponent } from './components/usuarios/usuario.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+
 
 import { LoginComponent } from './login/login.component';
 import { ChangepassComponent } from './changepass/changepass.component';
@@ -24,17 +26,18 @@ const APP_ROUTES: Routes = [
     component: PagesComponent,
     canActivate: [ LoginGuard ],
     children: [
-      { path: 'inicio', component: InicioComponent },
-      { path: 'modelo/:idModelo/informe/:idInforme', component: InformeComponent },
-      { path: 'informes/usuario/:id', component: InformesUsuarioComponent },
+      { path: 'inicio', component: InicioComponent, canActivate: [ LoginGuard ] },
+      { path: 'modelo/:idModelo/informe/:idInforme', component: InformeComponent, canActivate: [ LoginGuard ] },
+      { path: 'informes/usuario/:id', component: InformesUsuarioComponent, canActivate: [ LoginGuard ] },
+      { path: 'usuario/:id', component: PerfilComponent, canActivate: [ LoginGuard ] },
       { path: 'admin',
         component: AdminComponent,
         canActivate: [ AdminGuard ],
         children : [
-          { path: 'protocolos', component: ProtocolosComponent },
-          { path: 'protocolo/:id', component: ProtocoloComponent },
-          { path: 'usuarios', component: UsuariosComponent },
-          { path: 'usuario/:id', component: UsuarioComponent },
+          { path: 'protocolos', component: ProtocolosComponent,  canActivate: [ AdminGuard ] },
+          { path: 'protocolo/:id', component: ProtocoloComponent,  canActivate: [ AdminGuard ] },
+          { path: 'usuarios', component: UsuariosComponent,  canActivate: [ AdminGuard ] },
+          { path: 'usuario/:id', component: UsuarioComponent,  canActivate: [ AdminGuard ] },
           { path: '**', pathMatch: 'full', redirectTo: 'protocolos' }
         ]
       },
@@ -48,7 +51,7 @@ const APP_ROUTES: Routes = [
   { path: 'nueva-pass', 
     component: ChangepassComponent
   },
-  { path: '**', component: NotfoundComponent }
+  { path: '**', component: NotfoundComponent, canActivate: [ LoginGuard ]  }
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, { useHash: true });

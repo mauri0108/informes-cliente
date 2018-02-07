@@ -14,7 +14,7 @@ declare var swal: any;
   styles: []
 })
 export class UsuarioComponent implements OnInit {
-  public _usuario: Usuario = new Usuario('', '', '', '', '', 'USER', '', '');
+  public _usuario: Usuario = new Usuario('', '', '', '', null , '', 'USER', '', '');
   public _id: string;
   public nuevo = true;
 

@@ -6,7 +6,6 @@ import * as locale from 'jquery-ui/ui/i18n/datepicker-es.js'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Informe, Protocolo } from '../../models/protocolo-informe';
 import { ProtocoloService } from '../../services/protocolos.service';
-import { UploadService } from '../../services/upload.service';
 import { InformesService } from '../../services/informes.service';
 
 declare var $: any;
@@ -36,7 +35,6 @@ export class InformeComponent implements OnInit {
 
   constructor(
     private _protocoloService: ProtocoloService,
-    private _uploadService: UploadService,
     private _informeService: InformesService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute) { }
@@ -158,12 +156,12 @@ export class InformeComponent implements OnInit {
                           .subscribe( res => {
                             this._informe = res.informe;
 
-                            if (this.file) {
-                              this.uploadImg( this.file, this._informe._id );
+                            //if (this.file) {
+                            //  this.uploadImg( this.file, this._informe._id );
+                            //  swal('Perfecto!', res.message  , 'success');
+                            //}else {
                               swal('Perfecto!', res.message  , 'success');
-                            }else {
-                              swal('Perfecto!', res.message  , 'success');
-                            }
+                           // }
 
                           
 
@@ -180,12 +178,12 @@ export class InformeComponent implements OnInit {
                           .subscribe( res => {
                             this._informe = res.informe
 
-                            if ( this.file ) {
-                              this.uploadImg( this.file, this._informe._id );
+                            //if ( this.file ) {
+                             // this.uploadImg( this.file, this._informe._id );
+                            //  swal('Perfecto!', res.message  , 'success');
+                            //} else {
                               swal('Perfecto!', res.message  , 'success');
-                            } else {
-                              swal('Perfecto!', res.message  , 'success');
-                            }
+                            //}
                           },
                           error => {
                             console.log(error )
@@ -195,20 +193,6 @@ export class InformeComponent implements OnInit {
   }
 
   generatePdf() {
-  }
-
-  uploadImg(file: File, id: string) {
-    this._uploadService.uploadImg( this.file, this._informe._id)
-    .then( res => {
-         return res.json() 
-     })
-     .then( resJson => {
-         this._informe.logo = resJson.informe.logo;
-     })
-     .catch( err => {
-        console.log( err );
-        swal('Error!', err.message  , 'error');
-     });
   }
 
 }

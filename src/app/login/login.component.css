@@ -3,8 +3,12 @@
   background-color: #f0f0f0;
   padding: 15px;
   border-radius: 5px;
-  margin-top: 130px;
+  margin-top: 50px;
   border-top: 5px solid #007bff;
+}
+
+.form-login{
+  padding-top: 15px;
 }
 
 
