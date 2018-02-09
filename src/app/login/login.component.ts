@@ -62,15 +62,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this._usuarioService.sendEmailReset(forma.value.emailReset)
                         .subscribe( res  => {
-                          $('#modalPass').modal('hide');
+                          
                           swal('Perfecto!', res.message , 'success');
+                          $('#modalPass').modal('hide');
                         },
                         error => {
-                          $('#modalPass').modal('hide');
+                          
                           console.log( error )
                           swal('Error al enviar email', error.error.message, 'error');
+                          $('#modalPass').modal('hide');
                           //console.log( err.error.message )
-                          return _throw ( error );
                         });
   }
 

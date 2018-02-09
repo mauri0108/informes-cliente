@@ -87,7 +87,7 @@ export class InformesUsuarioComponent implements OnInit {
     }
   }
 
-  generatePDF(index: number) {
+  generatePDF(index: number, descarga: boolean) {
     console.log(index);
     let informe = this._informes[index];
 
@@ -96,8 +96,13 @@ export class InformesUsuarioComponent implements OnInit {
                           let mediaType = 'application/pdf';
                           let blob = new Blob([res], {type: mediaType});
                           let filename = `${informe.paciente}-${informe.detalle.nombre}-${informe.fecha}.pdf`;
-                          let pdfUrl = URL.createObjectURL(blob);
-                          this.popUp(pdfUrl);   
+
+                          if (descarga) {
+                            saveAs(blob, filename);
+                          } else {
+                            let pdfUrl = URL.createObjectURL(blob);
+                            this.popUp(pdfUrl);
+                          }     
                         },
                         error => {
                           console.log(error);
@@ -107,12 +112,12 @@ export class InformesUsuarioComponent implements OnInit {
   popUp(url) {
     let newWindow = window.open();
     let iframe = `<iframe src="${url}" frameborder="0" style="position: fixed;
-    background: #000;
-    border: none;
-    top: 0; right: 0;
-    bottom: 0; left: 0;
-    width: 100%;
-    height: 100%;" ></iframe>`;
+                    background: #000;
+                    border: none;
+                    top: 0; right: 0;
+                    bottom: 0; left: 0;
+                    width: 100%;
+                    height: 100%;" ></iframe>`;
     newWindow.document.open();
     newWindow.document.write(iframe);
     newWindow.document.close();

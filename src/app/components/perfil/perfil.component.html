@@ -44,19 +44,10 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group row">
-                <div class="col">
-                        <label for="txtPass"><b>Contraseña</b></label>
-                        <input [(ngModel)] = "_usuario.pass"
-                              name ="pass"
-                              type="password"
-                              class="form-control"
-                              id="txtPass"
-                              placeholder="Ingrese la contraseña"
-                              [disabled]="true"
-                              required>
-                </div>
                 <div class="col-sm-4 col-md-6 col-lg-4 mt-4 text-center">
-                    <button type="button" class="btn btn-outline-warning mt-2"><i class="fa fa-key" aria-hidden="true"></i>  Cambiar clave</button>
+                    <button type="button" class="btn btn-outline-warning mt-2" data-toggle="modal" data-target="#modalChangePass">
+                      <i class="fa fa-key" aria-hidden="true"></i>  Cambiar Contraseña
+                    </button>
                 </div>
                 
               </div>
@@ -109,5 +100,56 @@
     <hr>
     <button type="submit" class="btn btn-primary float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Perfil</button>
     </form>
+  </div>
+</div>
+
+<!-- Modal change pass -->
+<div class="modal fade" id="modalChangePass" tabindex="-1" role="dialog" aria-labelledby="modalChangePassLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="text-center">
+              <h3><i class="fa fa-unlock-alt fa-4x"></i></h3>
+              <h2 class="text-center">Cambio de contraseña</h2>
+              <p>En el siguiente formulario podrá cambiar su contraseña.</p>
+              <form [formGroup]="formChangePass" class="form" ngNativeValidate (ngSubmit)="changePass()">
+                <fieldset>
+                  <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        <input class="form-control" type="password" formControlName="passAnt" name="passAnt" placeholder="Ingrese la contraseña actual" id="password0" required/>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                      <input class="form-control" type="password" formControlName="pass" name="pass" placeholder="Ingrese la nueva contraseña" id="password1" required/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                      <input class="form-control" type="password" formControlName="pass2" name="pass2" placeholder="Repita la nueva contraseña" id="password2" required/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div *ngIf="formChangePass.hasError('mismatch')" class="alert alert-danger">
+                      Las contreñas ingresadas no coinciden!
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" value="Cambiar" type="submit">
+                  </div>
+                </fieldset>
+              </form>
+          </div>
+      </div>
+    </div>
   </div>
 </div>

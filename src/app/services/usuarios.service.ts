@@ -132,8 +132,9 @@ export class UsuariosService {
 
   changePass( email: string, oldpass: string, newpass: string) {
     const uri = `${GLOBAL.changePass }`;
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
     let body = { email: email, oldpass: oldpass, newpass: newpass};
-    return this._http.post< UsuarioResponse >(uri, body);
+    return this._http.post< UsuarioResponse >(uri, body, { headers });
   }
 
 }

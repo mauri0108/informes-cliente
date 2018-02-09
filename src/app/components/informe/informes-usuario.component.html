@@ -42,7 +42,8 @@
                     <b>Paciente:</b> {{ informe.paciente }}
                   </p>
                   <a class="btn btn-outline-primary" [routerLink] = "['/modelo', informe.detalle._id, 'informe', informe._id ]" ><i class="fa fa-eye" aria-hidden="true"></i> Ver</a>
-                  <button type="button" class="btn btn-outline-success" (click)="generatePDF(i)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Imprimir</button>
+                  <button type="button" class="btn btn-outline-success" (click)="generatePDF(i, false)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Ver PDF</button>
+                  <button type="button" class="btn btn-outline-info" (click)="generatePDF(i, true)"><i class="fa fa-download" aria-hidden="true"></i> Descargar PDF</button>
                 </div>
                 <div class="card-footer text-muted">
                     {{ informe.fecha }}

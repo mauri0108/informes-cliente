@@ -5,7 +5,11 @@ import { Usuario, Institucion } from '../../models/usuario';
 import { UsuariosService  } from '../../services/usuarios.service';
 import { UploadService } from '../../services/upload.service';
 
+
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 declare var swal: any;
+declare var $: any;
 
 @Component({
   selector: 'app-perfil',
@@ -22,6 +26,8 @@ export class PerfilComponent implements OnInit {
 
   public file: File;
   public logoTemporal: string;
+
+  formChangePass: FormGroup;
     
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -43,6 +49,37 @@ export class PerfilComponent implements OnInit {
                     });
             }
           });
+
+          this.formChangePass = new FormGroup({
+            passAnt: new FormControl( null, Validators.required ),
+            pass: new FormControl( null, Validators.required ),
+            pass2: new FormControl( null,  Validators.required )
+          }, this.passwordMatchValidator );
+  }
+
+  passwordMatchValidator(g: FormGroup) {
+    return g.get('pass').value === g.get('pass2').value ? null : {'mismatch': true};
+  }
+
+  changePass() {
+    if (this.formChangePass.invalid) {
+      return
+    }
+
+    
+      //console.log(this.formChangePass.value.pass);
+      this._usuariosService.changePass( this._usuario.email, this.formChangePass.value.passAnt, this.formChangePass.value.pass)
+                          .subscribe( res => {
+                            swal('Perfecto!', res.message , 'success');
+                            this.formChangePass.reset();
+                            $('#modalChangePass').modal('hide');
+                          },
+                          error => {
+                            swal('Error!',  error.error.message , 'error');
+                          });
+    
+
+    console.log( this.formChangePass.value )
   }
 
   getImagem(readerEvt) {
@@ -143,6 +180,8 @@ export class PerfilComponent implements OnInit {
   guardarCambios() {
     console.log('guardar cambios');
   }
+
+
 
 
 }
