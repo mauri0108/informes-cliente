@@ -9,32 +9,26 @@
       </div>
       <hr class="sombraL">
       <div class="form-group row">
-          <div class="col-md-7 col-sm-8 col-xs-6">
-              <h6><label for="txtMedicoS"><i class="fa fa-building" aria-hidden="true"></i> Institucion</label></h6>
-              <input id="txtMedicoS" [(ngModel)]="_informe.institucion" name="institucion" type="text" class="form-control" placeholder="Ingrese el nombre la institucion" required>
-          </div>
-          <div class="col-md-2 col-sm-4 col-xs-6 align-to-input">
-              <label class="btn btn-outline-primary lbl-input-file">
-                <i class="fa fa-picture-o" aria-hidden="true"></i> Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
-              </label>
-          </div>   
-          <div class="col-md-3 col-sm-12 text-center" >
-              
-              <div *ngIf="logoTemporal; else elseTemplate">
-                <img class="img-responsive"  src="{{ logoTemporal }}"  style="width: 150px; height: 150"/>
-              </div>
+        <div class="col-md-7 col-sm-8 col-xs-6">
+          <h6><label for="txtMedicoS"><i class="fa fa-building" aria-hidden="true"></i> Institucion</label></h6>
+          <select class="form-control" id="selectIns" (change)="setInst($event.target.value)">
+            <option value= "seleccionar">Seleccione una institución</option>
+            <option *ngFor="let institucion of _usuario?.instituciones; let i = index" [value]="_informe?.institucion">{{ institucion.nombre }}</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-sm-12 text-center" >
+          <div>
+            <img class="img-responsive"  src="{{ _informe?.logo | url }}"  style="width: 150px; height: 150"/>
           </div>
         </div>
-        <ng-template #elseTemplate>
-            <img class="img-responsive"  src="{{ _informe?.logo | url }}"  style="width: 150px; height: 150"/>
-        </ng-template>
-      <div class="form-group">
-        <h6><label for="txtPaciente"><i class="fa fa-user" aria-hidden="true"></i> Paciente</label></h6>
-        <input id="txtPaciente" [(ngModel)]="_informe.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente" required>
       </div>
       <div class="form-group">
         <h6><label for="txtMedicoS"><i class="fa fa-user-md" aria-hidden="true"></i> Medico Solicitante</label></h6>
         <input id="txtMedicoS" [(ngModel)]="_informe.medico" name="medicoNombre" type="text" class="form-control" placeholder="Ingrese el nombre del medico solicitante" required>
+      </div>
+      <div class="form-group">
+        <h6><label for="txtPaciente"><i class="fa fa-user" aria-hidden="true"></i> Paciente</label></h6>
+        <input id="txtPaciente" [(ngModel)]="_informe.paciente" name="pacienteNombre" type="text" class="form-control" placeholder="Ingrese el nombre del paciente" required>
       </div>
       <div class="form-group">
         <h6><label for="txtFecha"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha</label></h6>

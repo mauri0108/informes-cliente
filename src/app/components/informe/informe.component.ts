@@ -4,6 +4,10 @@ import * as moment from 'moment';
 import * as locale from 'jquery-ui/ui/i18n/datepicker-es.js'
 
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { Usuario } from "../../models/usuario";
+import { UsuariosService } from "../../services/usuarios.service";
+
 import { Informe, Protocolo } from '../../models/protocolo-informe';
 import { ProtocoloService } from '../../services/protocolos.service';
 import { InformesService } from '../../services/informes.service';
@@ -17,8 +21,11 @@ declare var swal: any;
   styles: []
 })
 export class InformeComponent implements OnInit {
+  public idUsuario = localStorage.getItem('id');
+  public _usuario: Usuario;
+
   public _detalle: Protocolo = new Protocolo('', '', [], '');
-  public _informe: Informe = new Informe('', '', '' , '', '', this._detalle, '', localStorage.getItem('id'), moment().format('DD-MM-YYYY') );
+  public _informe: Informe = new Informe('', '', '' , '', '', this._detalle, '', this.idUsuario, moment().format('DD-MM-YYYY') );
 
   public _idModelo: string;
   public _idInforme: string;
@@ -35,6 +42,7 @@ export class InformeComponent implements OnInit {
 
   constructor(
     private _protocoloService: ProtocoloService,
+    private _usuarioService: UsuariosService,
     private _informeService: InformesService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute) { }
@@ -75,6 +83,16 @@ export class InformeComponent implements OnInit {
 
             this.nuevo = false;
           }
+          
+            this._usuarioService.getUsuario( this.idUsuario )
+                                .subscribe( res => {
+                                  this._usuario = res.usuario;
+                                  this._informe.medico = `${this._usuario.nombre} ${this._usuario.apellido}`;
+                                }, error => {
+                                  console.log(error);
+                                  swal('Error al buscar usuario', `${error.error.message}` , 'error');
+                                });
+          
         });
 
         // console.log( moment );
@@ -143,6 +161,17 @@ export class InformeComponent implements OnInit {
     // tslint:disable-next-line:no-unused-expression
     //this._informeCompleto.infDetalle.items[idItem].caracteristicas[idCaracteristica].opciones;
     this.move(this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones, idOpcion, 0 );
+  }
+
+  setInst(opcion: any) {
+    if (opcion === 'seleccionar') {
+      this._informe.institucion = null;
+      this._informe.logo = null;
+    } else {
+      this._informe.institucion = this._usuario.instituciones[opcion].nombre;
+      this._informe.logo = this._usuario.instituciones[opcion].logo;
+      
+    }
   }
 
   submitInforme() {

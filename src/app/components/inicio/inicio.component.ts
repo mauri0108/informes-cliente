@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProtocoloService } from '../../services/protocolos.service';
 import { Protocolo } from '../../models/protocolo-informe';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -21,6 +23,11 @@ export class InicioComponent implements OnInit {
                         },
                         error => {
                           console.log(error);
+                          if (error.error.message) {
+                            swal('Error en el ingreso', error.error.message, 'error');
+                          } else {
+                            swal('Error en el ingreso', 'La api del servidor no esta conectada', 'error');
+                          }
                         });
   }
 }

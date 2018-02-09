@@ -69,8 +69,13 @@ export class UsuariosService {
 
                        return true;
                      }).catch ( err => {
-                        console.log( err )
-                        swal('Error en el ingreso', err.error.message, 'error');
+                        console.log( err.message )
+
+                        if (err.error.message) {
+                          swal('Error en el ingreso', err.error.message, 'error');
+                        } else {
+                          swal('Error en el ingreso', 'La api del servidor no esta conectada', 'error');
+                        }
                         //console.log( err.error.message )
                         return _throw ( err );
                      })
