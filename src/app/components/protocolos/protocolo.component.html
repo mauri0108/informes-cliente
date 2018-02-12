@@ -18,7 +18,7 @@
             <div class="list-group scrolly">
               <div class="mr-3 ml-3">
                 <h5 style="display: inline-block;">Items</h5>
-                <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Nuevo Item" (click)="nuevoItem()">
+                <button class="btn btn-outline-success mb-1" type="button" name="button" style="float: right;" title="Nuevo Item" (click)="clearForm()">
                   <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
               </div>
@@ -29,7 +29,7 @@
                     <b>{{ item.nombre }}</b>
                   </div>
                   <div class="col-5">
-                    <button type="button" class="btn btn-outline-danger item-options " ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-outline-danger item-options " (click)="deleteItem(i)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-outline-info item-options mr-1"  (click)="editItem(i)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
                   </div>
                 </div>

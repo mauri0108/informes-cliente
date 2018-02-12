@@ -94,7 +94,8 @@
       </div>
       <hr>
     <button type="submit" class="btn btn-outline-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Informe</button>
-    <button type="button" class="btn btn-outline-primary" (click)="generatePdf()"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
+    <button type="button" class="btn btn-outline-success" (click)="generatePDF(false)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Ver PDF</button>
+    <button type="button" class="btn btn-outline-info" (click)="generatePDF(true)"><i class="fa fa-download" aria-hidden="true"></i> Descargar PDF</button>
     </form>
   </div>
 </div>

@@ -15,6 +15,7 @@ declare var swal: any;
   templateUrl: './usuario.component.html',
   styles: []
 })
+
 export class UsuarioComponent implements OnInit {
   public _usuario: Usuario = new Usuario('', '', '', '', null , '', 'USER', '', '');
   public _id: string;
@@ -35,7 +36,7 @@ export class UsuarioComponent implements OnInit {
                 this._usuariosService.getUsuario( this._id )
                     .subscribe( res => {
                       this._usuario = res.usuario;
-                      console.log(this._usuario)
+                      //console.log(this._usuario)
                     },
                     error => {
                       swal('Error al buscar usuario', `${error.error.message}` , 'error');
@@ -126,19 +127,19 @@ export class UsuarioComponent implements OnInit {
   }
 
   saveUser() {
+    //console.log(this._usuario)
     if (this.nuevo) {
       this._usuariosService.saveUser(this._usuario)
                            .subscribe(
-                            res => {
-                              console.log(res);
-                              this._usuario = res.usuario;
-                              this._router.navigate(['/admin/usuario', this._usuario._id ]);
-                              swal('Perfecto!', res.message , 'success');
-                            },
-                            error => {
-                              swal('Error al insertar el  usuario', `${error.error.message}` , 'error');
-                            }
-
+                              res => {
+                                console.log(res);
+                                this._usuario = res.usuario;
+                                this._router.navigate(['/admin/usuario', this._usuario._id ]);
+                                swal('Perfecto!', res.message , 'success');
+                              },
+                              error => {
+                                swal('Error al insertar el  usuario', `${error.error.message}` , 'error');
+                              }
                            );
     } else {
       this._usuariosService.updateUser(this._usuario)

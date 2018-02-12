@@ -12,6 +12,8 @@ import { Informe, Protocolo } from '../../models/protocolo-informe';
 import { ProtocoloService } from '../../services/service.index';
 import { InformesService } from '../../services/service.index';
 
+import { saveAs } from 'file-saver';
+
 declare var $: any;
 declare var swal: any;
 
@@ -232,7 +234,38 @@ export class InformeComponent implements OnInit {
     }
   }
 
-  generatePdf() {
+  generatePDF( descarga: boolean ) {
+    this._informeService.printPDF( this._informe )
+                        .subscribe( res => {
+                          //console.log(res)
+                          let mediaType = 'application/pdf';
+                          let blob = new Blob([res], {type: mediaType});
+                          let filename = `${this._informe.paciente}-${this._informe.detalle.nombre}-${this._informe.fecha}.pdf`;
+
+                          if (descarga) {
+                            saveAs(blob, filename);
+                          } else {
+                            let pdfUrl = URL.createObjectURL(blob);
+                            this.popUp(pdfUrl);
+                          }     
+                        },
+                        error => {
+                          console.log(error);
+                        });
   }
+
+  popUp(url) {
+    let newWindow = window.open();
+    let iframe = `<iframe src="${url}" frameborder="0" style="position: fixed;
+                    background: #000;
+                    border: none;
+                    top: 0; right: 0;
+                    bottom: 0; left: 0;
+                    width: 100%;
+                    height: 100%;" ></iframe>`;
+    newWindow.document.open();
+    newWindow.document.write(iframe);
+    newWindow.document.close();
+  } 
 
 }

@@ -27,7 +27,9 @@ export class UsuariosService {
   constructor(
     private _http: HttpClient,
     private _router: Router
-  ) { }
+  ) {
+    this.token = localStorage.getItem('token');
+  }
 
   getUsuarios() {
     return this._http.get< UsuarioResponse >(GLOBAL.usuarios);

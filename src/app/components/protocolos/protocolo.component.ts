@@ -62,14 +62,34 @@ export class ProtocoloComponent implements OnInit {
   }
 
 
-
-  nuevoItem() {
+//====================TODO ITEM===================================//
+  clearForm() {
     this.nItem = true;
     this.iNombre = '';
     this.cNombre = '';
     this.oNombre = '';
     this.indexC = undefined;
     this._caracteristicas = [];
+  }
+
+  
+  deleteItem(index: number) {
+    this._protocolo.items.splice(index, 1);
+    //this._protocolo.items[index].nombre;
+  }
+
+  addItem() {
+    const _i: Item = new Item(this.iNombre, []);
+
+    if (this.nItem === true) {
+      _i.caracteristicas = this._caracteristicas;
+      this._protocolo.items.push(_i);
+      this.clearForm();
+    } else {
+      this.clearForm();
+    }
+
+    // this.nuevoItem();
   }
 
   editItem(index: number) {
@@ -81,6 +101,9 @@ export class ProtocoloComponent implements OnInit {
 
   }
 
+//====================TODO ITEM===================================//
+
+//====================TODO CARACTERISTICA===================================//
   crearCaracteristica() {
     if (this.cNombre) {
       const _c: Caracteristica = new Caracteristica(this.cNombre, []);
@@ -111,7 +134,9 @@ export class ProtocoloComponent implements OnInit {
     this.indexC = index;
     this.isBtnActive = true;
   }
+//====================TODO CARACTERISTICA===================================//
 
+//====================TODO OPCION===================================//
   agregarOpcion() {
     if (this.oNombre) {
       if (this.nItem === true) {
@@ -132,19 +157,7 @@ export class ProtocoloComponent implements OnInit {
       this._protocolo.items[this.indexI].caracteristicas[this.indexC].opciones.splice(index, 1);
     }
   }
-
-  addItem() {
-    const _i: Item = new Item(this.iNombre, []);
-
-    if (this.nItem === true) {
-      _i.caracteristicas = this._caracteristicas;
-      this._protocolo.items.push(_i);
-    } else {
-      this.nuevoItem();
-    }
-
-    // this.nuevoItem();
-  }
+//====================TODO OPCION===================================//
 
   guardarProtocolo() {
     if (this.nuevo) {

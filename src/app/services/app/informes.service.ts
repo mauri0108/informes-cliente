@@ -50,17 +50,16 @@ export class InformesService {
   printPDF( informe: Informe) {
 
     let uri = GLOBAL.report;
+    let authorization = `Basic ${btoa("admin:a37965546")}`;
 
     
-    
-
     let body = { template : { shortid: "Syi75tzSG" }, options : { preview : true },  data: informe };
     // console.log(JSON.stringify(body));
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.append("Content-Type", "application/json");
-
-    //const options = {headers: headers, responseType: 'blob' as 'blob'};
-    const options = {headers: headers, responseType: 'arraybuffer' as 'arraybuffer'};
+    let headers: HttpHeaders = new HttpHeaders()
+                .set('Content-Type', "application/json")
+                .set('Authorization', authorization);
+    
+    const options = {headers: headers, responseType: 'blob' as 'blob' };
 
     return this._http.post( uri, body, options);
   }

@@ -1,11 +1,6 @@
 <div class="row">
   <div class="col">
-        <div class="row" >
-            <div class="col">
-               
-            </div>
-        </div>
-    <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="saveUser()" #forma="ngForm">
+    <form ngNativeValidate (keydown.enter)="$event.preventDefault()" #forma="ngForm" (ngSubmit)="saveUser()">
       <div class="row">
           <div class="col-md-6 col-sm-12">
               <div class="form-group">
@@ -94,11 +89,3 @@
     </form>
   </div>
 </div>
-
-<!-- public nombre: string,
-    public apellido: string,
-    public email: string,
-    public pass: string,
-    public role: string,
-    public fechaAlta: string,
-    public fechaBaja: string -->

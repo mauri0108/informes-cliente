@@ -88,11 +88,12 @@ export class InformesUsuarioComponent implements OnInit {
   }
 
   generatePDF(index: number, descarga: boolean) {
-    console.log(index);
+    //console.log(index);
     let informe = this._informes[index];
 
     this._informeService.printPDF( informe )
                         .subscribe( res => {
+                          //console.log(res)
                           let mediaType = 'application/pdf';
                           let blob = new Blob([res], {type: mediaType});
                           let filename = `${informe.paciente}-${informe.detalle.nombre}-${informe.fecha}.pdf`;
@@ -121,8 +122,5 @@ export class InformesUsuarioComponent implements OnInit {
     newWindow.document.open();
     newWindow.document.write(iframe);
     newWindow.document.close();
-} 
-
-  
-   
+  } 
 }
