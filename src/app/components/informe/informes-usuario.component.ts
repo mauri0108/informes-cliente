@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Informe, Protocolo } from '../../models/protocolo-informe';
-import { InformesService } from '../../services/informes.service';
-import { ProtocoloService } from '../../services/protocolos.service';
+import { InformesService } from '../../services/service.index';
+import { ProtocoloService } from '../../services/service.index';
 import { escape } from 'querystring';
 
 import { saveAs } from 'file-saver';

@@ -7,10 +7,10 @@ import { _throw } from 'rxjs/observable/throw';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Usuario } from '../models/usuario';
-import { GLOBAL } from '../global';
+import { Usuario } from '../../models/usuario';
+import { GLOBAL } from '../../global';
 
-import { UsuarioResponse } from '../models/response';
+import { UsuarioResponse } from '../../models/response';
 import { Router } from '@angular/router';
 
 //import swal from 'sweetalert';
@@ -27,10 +27,7 @@ export class UsuariosService {
   constructor(
     private _http: HttpClient,
     private _router: Router
-  ) { 
-    this.cargarStorage();
-    //this.cargarRol();
-  }
+  ) { }
 
   getUsuarios() {
     return this._http.get< UsuarioResponse >(GLOBAL.usuarios);
@@ -63,10 +60,6 @@ export class UsuariosService {
                        localStorage.setItem('token', res.token);
                        localStorage.setItem('nombre', `${res.usuario.nombre} ${res.usuario.apellido}`);
 
-                       this.nombre = `${res.usuario.nombre} ${res.usuario.apellido}`;
-                       this.id = res.usuario.id;
-                       this.token = res.token;
-
                        return true;
                      }).catch ( err => {
                         console.log( err.message )
@@ -82,35 +75,6 @@ export class UsuariosService {
   }
                      
 
-  cargarRol() {
-    //console.log("Se llamo a cargar el rol");
-    this.getUsuario( localStorage.getItem('id'))
-        .subscribe( res => {
-          this.rol = res.usuario.role
-        },
-        error => {
-        
-        });
-  }
-
-  isAdmin() {
-    //this.cargarRol();
-    // console.log("rol", this.rol )
-    // console.log("admin service", (this.rol == 'ADMIN') ? true : false)
-    return  (this.rol === "ADMIN") ? true : false;
-  }
-
-  cargarStorage() {
-    //console.log("Se llamo a cargar storage")
-    if ( localStorage.getItem('token') ) {
-      this.token = localStorage.getItem('token');
-      this.id = localStorage.getItem('id');
-    } else {
-      this.token = '';
-      this.id = '';
-    }
-  }
-
   logout() {
     this.id = '';
     this.token = '';
@@ -121,6 +85,12 @@ export class UsuariosService {
     localStorage.removeItem('nombre');
 
     this._router.navigate(['/login']);
+  }
+
+  defaultPass(usuario: Usuario) {
+    const uri = `${GLOBAL.defaultPass }`;
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    return this._http.post< UsuarioResponse >( uri, usuario, { headers });
   }
 
   sendEmailReset(email: string) {

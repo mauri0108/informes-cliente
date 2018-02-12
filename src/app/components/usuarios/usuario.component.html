@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col">
+        <div class="row" >
+            <div class="col">
+               
+            </div>
+        </div>
     <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="saveUser()" #forma="ngForm">
-      <div class="row" *ngIf="!this.nuevo">
-         <div class="col">
-            <button type="button" class="btn btn-outline-danger float-right"><i class="fa fa-trash-o" aria-hidden="true"></i>  Dar del baja el usuario</button>
-         </div>
-      </div>
       <div class="row">
           <div class="col-md-6 col-sm-12">
               <div class="form-group">
@@ -16,6 +16,7 @@
                       class="form-control"
                       id="txtNombre"
                       placeholder="Ingrese el nombre"
+                      autocomplete="given-name"
                       required>
               </div>
           </div>
@@ -28,6 +29,7 @@
                       class="form-control"
                       id="txtApellido"
                       placeholder="Ingrese el apellido"
+                      autocomplete="family-name"
                       required>
           </div>
         </div>
@@ -42,27 +44,18 @@
                     class="form-control"
                     id="txtEmail"
                     placeholder="Ingrese el e-mail"
+                    autocomplete="email"
                     required>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-            <div class="form-group row">
-                <div class="col">
-                        <label for="txtPass"><b>Contraseña</b></label>
-                        <input [(ngModel)] = "this._usuario.pass"
-                              name ="pass"
-                              type="password"
-                              class="form-control"
-                              id="txtPass"
-                              placeholder="Ingrese la contraseña"
-                              [disabled]="!this.nuevo"
-                              required>
-                </div>
-                <div class="col-sm-4 col-md-6 col-lg-4 mt-4 text-center" *ngIf="!this.nuevo">
-                    <button type="button" class="btn btn-outline-warning mt-2"><i class="fa fa-key" aria-hidden="true"></i>  Resetear clave</button>
-                </div>
-                
-              </div>
+        <div class="col-md-6 col-sm-12 mt-4" >
+            <button type="button" 
+                    class="btn btn-outline-warning mt-2" 
+                    *ngIf="!this.nuevo" 
+                    (click)="resetPass()">
+                    <i class="fa fa-key" aria-hidden="true"></i>  
+                    Resetear clave
+            </button>
         </div>
     </div>
     <div class="row ">
@@ -75,6 +68,26 @@
                 </select>  
             </div>
         </div>
+        <div class="col-md-6 col-sm-12 mt-4" *ngIf="_usuario?.fechaBaja === null; else activeUser" >
+                <button type="button" 
+                        class="btn btn-outline-danger mt-2" 
+                        *ngIf="!this.nuevo" 
+                        (click)="setLowDate()">
+                        Dar de baja usuario&nbsp;
+                        <i class="fa fa-user-times" aria-hidden="true"></i> 
+                </button>
+        </div>
+        <ng-template #activeUser>
+                <div class="col-md-6 col-sm-12 mt-4">
+                    <button type="button" 
+                            class="btn btn-outline-primary mt-2" 
+                            *ngIf="!this.nuevo" 
+                            (click)="setLowDate()">
+                            Activar usuario&nbsp;
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> 
+                    </button>
+                </div>
+        </ng-template>
     </div>
     <hr>
     <button type="submit" class="btn btn-primary float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Usuario</button>

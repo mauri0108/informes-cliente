@@ -6,9 +6,7 @@
     </div>
   </div>
   <br>
-  
-  
-  
+
   <ng-template #noResults>
     <div class="row" >
       <div class="col">
@@ -51,18 +49,26 @@
                         style="width: 50px">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </button>
-                <button [routerLink]="['../usuario', usuario._id ]"
-                        type="button" class="btn btn-outline-warning"
+                <button type="button" class="btn btn-outline-warning"
                         title="Resetear contraseña"
+                        (click)="resetPass(i)"
                         style="width: 50px">
                         <i class="fa fa-key" aria-hidden="true"></i>
                 </button>
-                <button [routerLink]="['../usuario', usuario._id ]"
-                        type="button" class="btn btn-outline-danger"
+                <button type="button" class="btn btn-outline-danger" *ngIf="usuario.fechaBaja == null; else activeUser"
                         title="Dar de baja"
+                        (click)="setLowDate(i)"
                         style="width: 50px">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i class="fa fa-user-times" aria-hidden="true"></i>
                 </button>
+                <ng-template #activeUser>
+                    <button type="button" class="btn btn-outline-primary"
+                        title="Activar"
+                        (click)="setLowDate(i)"
+                        style="width: 50px">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </button>
+                </ng-template>  
               </td>
             </tr>
           </tbody>

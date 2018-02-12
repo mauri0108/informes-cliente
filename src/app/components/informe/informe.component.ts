@@ -5,12 +5,12 @@ import * as locale from 'jquery-ui/ui/i18n/datepicker-es.js'
 
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Usuario } from "../../models/usuario";
-import { UsuariosService } from "../../services/usuarios.service";
+import { Usuario, Institucion } from "../../models/usuario";
+import { UsuariosService } from "../../services/service.index";
 
 import { Informe, Protocolo } from '../../models/protocolo-informe';
-import { ProtocoloService } from '../../services/protocolos.service';
-import { InformesService } from '../../services/informes.service';
+import { ProtocoloService } from '../../services/service.index';
+import { InformesService } from '../../services/service.index';
 
 declare var $: any;
 declare var swal: any;
@@ -163,13 +163,24 @@ export class InformeComponent implements OnInit {
     this.move(this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones, idOpcion, 0 );
   }
 
+  filterInstitucion(opcion: string) {
+    for (const inst of this._usuario.instituciones) {
+      if (inst.nombre === opcion ) {
+        console.log(inst)
+        return inst;
+      } 
+    }
+  }
+
   setInst(opcion: any) {
+    console.log(opcion)
     if (opcion === 'seleccionar') {
       this._informe.institucion = null;
       this._informe.logo = null;
     } else {
-      this._informe.institucion = this._usuario.instituciones[opcion].nombre;
-      this._informe.logo = this._usuario.instituciones[opcion].logo;
+      let inst = this.filterInstitucion(opcion);
+      this._informe.institucion = inst.nombre;
+      this._informe.logo =  inst.logo;
       
     }
   }

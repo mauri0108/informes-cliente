@@ -8,7 +8,7 @@ import { Protocolo } from '../../models/protocolo-informe';
 import { Caracteristica } from '../../models/caracteristica';
 import { Item } from '../../models/item';
 
-import { ProtocoloService } from '../../services/protocolos.service';
+import { ProtocoloService } from '../../services/service.index';
 declare var swal: any;
 
 @Component({

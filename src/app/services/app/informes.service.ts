@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Informe } from '../models/protocolo-informe';
-import { GLOBAL } from '../global';
+import { Informe } from '../../models/protocolo-informe';
+import { GLOBAL } from '../../global';
 
-import { InformeResponse } from '../models/response';
+import { InformeResponse } from '../../models/response';
 
 
 @Injectable()

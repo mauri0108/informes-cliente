@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuariosService } from '../services/usuarios.service';
+import { UsuariosService } from '../services/service.index';
 import { Usuario } from '../models/usuario';
 import { _throw } from 'rxjs/observable/throw';
 
@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.recuerdame = true;
     }
 
-    document.body.style.backgroundImage = "url('assets/img/login-background.jpeg')";
+    document.body.style.backgroundImage = "url('assets/img/login-background.jpg')";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundSize = "100% 100%";
     document.body.style.backgroundPosition = "center center";
     document.body.style.backgroundAttachment = "fixed";
   }

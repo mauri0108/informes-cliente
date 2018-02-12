@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GLOBAL } from '../global';
+import { GLOBAL } from '../../global';
 
 
 @Injectable()

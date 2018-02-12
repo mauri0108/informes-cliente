@@ -1,6 +1,6 @@
-export class Caracteristica{
+export class Caracteristica {
   constructor(
-    public nombre:string,
+    public nombre: string,
     public opciones: string[],
-  ){}
+  ) {}
 }

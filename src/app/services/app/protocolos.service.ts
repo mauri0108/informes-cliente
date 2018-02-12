@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Protocolo } from '../models/protocolo-informe';
-import { GLOBAL } from '../global';
+import { Protocolo } from '../../models/protocolo-informe';
+import { GLOBAL } from '../../global';
 
-import { ProtocoloResponse } from '../models/response';
+import { ProtocoloResponse } from '../../models/response';
 
 
 @Injectable()

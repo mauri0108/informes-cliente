@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProtocoloService } from '../../services/protocolos.service';
+import { ProtocoloService } from '../../services/service.index';
 
 import { Protocolo } from '../../models/protocolo-informe';
 

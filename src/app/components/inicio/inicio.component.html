@@ -13,20 +13,26 @@
       </div>
     </div>
     <br>
-        <div class="container-fluid">
-            <div class="text-center scrolly-list row">
-                <ng-container *ngFor="let protocolo of this._protocolos; let i = index;">
-                  <div class="col-xs-12 col-md-4 bs-callout bs-callout-primary text-left" 
-                       [routerLink]="['/modelo', protocolo._id , 'informe', 'nuevo' ]" >
-                      
-                      <span class="inf-title"><i class="fa fa-file-text-o fa-2x " style="color: #428bca;" aria-hidden="true"></i>  {{ protocolo.nombre }}</span>
-                  </div>
-                  <div class="clearfix"></div>
-                </ng-container>
-              </div>
+    <ng-template #noResults>
+      <div class="row" >
+        <div class="col">
+          <div class="alert alert-info text-center " role="alert">
+            <h5><i class="fa fa-info-circle" aria-hidden="true"></i> Todavia no se han creado protocolos </h5>
+          </div>
         </div>
-         
-        <!-- </div> -->
+      </div>
+    </ng-template>
 
+    <div class="container-fluid" *ngIf="this._protocolos?.length > 0; else noResults" >
+      <div class="text-center scrolly-list row">
+        <ng-container *ngFor="let protocolo of this._protocolos; let i = index;">
+            <div class="col-xs-12 col-md-4 bs-callout bs-callout-primary text-left" 
+                [routerLink]="['/modelo', protocolo._id , 'informe', 'nuevo' ]" >
+                  <span class="inf-title"><i class="fa fa-file-text-o fa-2x " style="color: #428bca;" aria-hidden="true"></i>  {{ protocolo.nombre }}</span>
+            </div>
+            <div class="clearfix"></div>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>

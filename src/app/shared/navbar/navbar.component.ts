@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from '../../services/usuarios.service';
 import { Usuario } from '../../models/usuario';
-
+import { UsuariosService } from '../../services/service.index';
 
 @Component({
   selector: 'app-navbar',

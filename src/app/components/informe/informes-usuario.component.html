@@ -31,7 +31,7 @@
       </div>
     </ng-template>
 
-    <div class="row informes-cards">
+    <div class="row informes-cards" *ngIf="_informes?.length > 0; else noResults">
         <div class="col-md-4 col-sm-6 mb-3" *ngFor= "let informe of _informes; let i = index"> 
             <div class="card text-center">
                 <div class="card-header">

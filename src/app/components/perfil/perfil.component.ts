@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Usuario, Institucion } from '../../models/usuario';
-import { UsuariosService  } from '../../services/usuarios.service';
-import { UploadService } from '../../services/upload.service';
+import { UsuariosService  } from '../../services/service.index';
+import { UploadService } from '../../services/service.index';
 
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -119,6 +119,12 @@ export class PerfilComponent implements OnInit {
   }
 
   addEditInst() {
+   
+    if (typeof this.instNombre == "undefined") {
+      swal('Error!', 'Debe ingresar un nombre para poder agregar una institucion' , 'error'); 
+      return;
+    }
+
     if (this.editInst) {
       this._usuario.instituciones[this.instIndex].nombre = this.instNombre;
 
@@ -180,8 +186,4 @@ export class PerfilComponent implements OnInit {
   guardarCambios() {
     console.log('guardar cambios');
   }
-
-
-
-
 }
