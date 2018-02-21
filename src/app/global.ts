@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3030/api/v1';
+const API_URL = 'http://31.220.54.135:3030/api/v1';
 
 export const GLOBAL = {
   urlBase : `${API_URL}`,
@@ -22,7 +22,7 @@ export const GLOBAL = {
   usuarioInformes: `${API_URL}/informes/usuario/`,
   crearEditarInforme : `${API_URL}/informe`,
   //report
-  report : 'http://localhost:5488/api/report',
+  report : 'http://31.220.54.135:5488/api/report',
   //Images
   upload : `${API_URL}/upload/`,
   getImage: `${API_URL}/img/`

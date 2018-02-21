@@ -1,7 +1,13 @@
+_:-ms-lang(x), _:-webkit-full-screen, .form-block 
+{ 
+  width: 340px;
+  height: 542;
+}
+
 .form-block{
     background-color: #f0f0f0;
     padding: 15px;
     border-radius: 5px;
     margin-top: 130px;
     border-top: 5px solid #007bff;
-  }
+}

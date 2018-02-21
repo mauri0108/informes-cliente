@@ -16,6 +16,7 @@
 
 
 /*Media querys responsive*/
+
 @media (min-width: 769px) {
   .scrolly {
       overflow-y: scroll;
@@ -30,6 +31,11 @@
   .informes-cards {
     max-height: 400px;
     overflow-y: scroll;
+  }
+
+  .scrolly-items {
+    overflow-y: scroll;
+    min-height: 277px;
   }
 }
 
@@ -53,6 +59,25 @@
   .informes-cards {
     max-height: 330px;
     overflow-y: scroll;
+  }
+
+  .scrolly-items {
+    overflow-y: scroll;
+    min-height: 150px;
+  }
+
+  .modal-dialog {
+    margin: 2.5vh auto;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    overflow: scroll;
+  }
+
+  .modal-body {
+    max-height: calc(100vh - 143px);
+    overflow-y: auto; 
   }
 }
 
@@ -217,21 +242,7 @@ hr.sombraL {
 
 /*=============================callout=======================================*/
 
-@media screen and (max-width: 767px){
-  .modal-dialog {
-    margin: 2.5vh auto;
-  }
 
-  .modal-content {
-    max-height: 95vh;
-    overflow: scroll;
-  }
-
-  .modal-body {
-    max-height: calc(100vh - 143px);
-    overflow-y: auto; 
-  }
-}
 
 
 
