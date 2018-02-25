@@ -13,21 +13,24 @@ import { Protocolo } from '../../models/protocolo-informe';
 export class ProtocolosComponent implements OnInit {
 
   public _protocolos: Protocolo[] ;
+  public loading = false;
   // public keys: string[];
 
   constructor( private _protocoloService: ProtocoloService) { }
 
   ngOnInit() {
 
-
+    this.loading = true;
     this._protocoloService.getProtocolos()
                         .subscribe( res =>  {
                           this._protocolos = res.protocolos;
+                          this.loading = false;
                           // this.keys = Object.keys(this._informes);
                           // console.log(res);
                         },
                         error => {
                           console.log(error);
+                          this.loading = false;
                         });
   }
 

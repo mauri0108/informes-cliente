@@ -12,6 +12,7 @@ import { SharedModule } from "../shared/shared.module";
 
 //pipes
 import { UrlPipe } from "../pipes/url.pipe";
+import { FilterPipe } from '../pipes/filter.pipe';
 
 //Components
 import { InicioComponent } from './inicio/inicio.component';
@@ -36,7 +37,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     ProtocoloComponent,
     InformesUsuarioComponent,
     PerfilComponent,
-    UrlPipe
+    UrlPipe,
+    FilterPipe
   ],
   exports: [
     InicioComponent,

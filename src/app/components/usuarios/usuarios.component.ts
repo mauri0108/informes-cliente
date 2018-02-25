@@ -15,17 +15,21 @@ import * as moment from 'moment'
 export class UsuariosComponent implements OnInit {
   
   public _usuarios: Usuario[];
+  public loading = false;
 
   constructor( private _usuarioService: UsuariosService) { }
 
   ngOnInit() {
+    this.loading = true;
     this._usuarioService.getUsuarios()
                         .subscribe( res => {
                              this._usuarios = res.usuarios; 
+                             this.loading = false;
                              //console.log(this._usuarios)
                             },
                           error => {
                              console.log(error);
+                             this.loading = false;
                           }
 
     );

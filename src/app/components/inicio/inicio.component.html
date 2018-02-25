@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar protocolo" aria-label="Search for...">
+          <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Buscar protocolo" aria-label="Search for...">
           <span class="input-group-btn">
             <button class="btn btn-primary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
           </span>
@@ -14,18 +14,34 @@
     </div>
     <br>
     <ng-template #noResults>
-      <div class="row" >
-        <div class="col">
-          <div class="alert alert-info text-center " role="alert">
-            <h5><i class="fa fa-info-circle" aria-hidden="true"></i> Todavia no se han creado protocolos </h5>
+      <div *ngIf="loading == false; else load">
+          <div class="row" *ngIf="this._protocolos?.length == 0" >
+              <div class="col">
+                <div class="alert alert-info text-center " role="alert">
+                  <h5><i class="fa fa-info-circle" aria-hidden="true"></i> Todavia no se han creado protocolos </h5>
+                </div>
+              </div>
           </div>
-        </div>
+          <div class="row" *ngIf="(this._protocolos | filter : searchText)?.length == 0" >
+                <div class="col">
+                  <div class="alert alert-warning text-center " role="alert">
+                    <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No se encontraron resultados </h5>
+                  </div>
+                </div>
+          </div>
       </div>
+      <ng-template #load>
+          <div class="row">
+              <div class="col text-center mt-2">
+                  <img src="../../../assets/img/loader.gif" class="img-fluid" width="80px" height=80px alt="Cargando..">
+              </div>
+          </div>
+      </ng-template>
     </ng-template>
 
-    <div class="container-fluid" *ngIf="this._protocolos?.length > 0; else noResults" >
+    <div class="container-fluid" *ngIf="(this._protocolos | filter : searchText)?.length > 0 ; else noResults" >
       <div class="text-center scrolly-list row">
-        <ng-container *ngFor="let protocolo of this._protocolos; let i = index;">
+        <ng-container *ngFor="let protocolo of _protocolos | filter : searchText ; let i = index;">
             <div class="col-xs-12 col-md-4 bs-callout bs-callout-primary text-left" 
                 [routerLink]="['/modelo', protocolo._id , 'informe', 'nuevo' ]" >
                   <span class="inf-title"><i class="fa fa-file-text-o fa-2x " style="color: #428bca;" aria-hidden="true"></i>  {{ protocolo.nombre }}</span>

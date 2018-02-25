@@ -53,18 +53,14 @@
                           (click)="editOptions(itemIndex, caractIndex)" >Editar opciones</button>
               </div>
             </div>
-                  <select class="form-control" #o (change)="selectOption(itemIndex, caractIndex, o.value)"  name="opcion">
-                    <option  *ngFor="let opcion of caracteristica.opciones; let opcionIndex = index" [value]="opcionIndex">
-                      {{ opcion }}
-                    </option>
-                  </select>
+              <input class="form-control" type="text" [value]="caracteristica.opciones[0]" readonly>
               <!-- <hr *ngIf="ultimo" class="sombra"> -->
           </div>
       </div>
 
       <!-- Inicio Modal -->
-      <div class="modal fade" id="editOptionsModal" tabindex="-1" role="dialog" aria-labelledby="editOptionsModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+      <div class="modal fade bd-example-modal-lg" id="editOptionsModal" tabindex="-1" role="dialog" aria-labelledby="editOptionsModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Opciones de {{ _informe?.detalle?.items[this?.editItemIndex]?.caracteristicas[this?.editCaractIndex]?.nombre }}</h5>
@@ -73,16 +69,27 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="row">
-                <div class="col-12 py-1" 
-                     *ngFor="let opcion of _informe?.detalle?.items[this?.editItemIndex]?.caracteristicas[this?.editCaractIndex]?.opciones; let opcionIndex = index">
-                     <input #newOption  type="text" class="form-control" [value]="opcion" (keyup.enter)="editOption(opcionIndex,newOption.value)">
+              <div class="row"
+                  *ngFor="let opcion of _informe?.detalle?.items[this?.editItemIndex]?.caracteristicas[this?.editCaractIndex]?.opciones; let opcionIndex = index">
+    
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <input #o type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" [value]="opcion">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-success" title="Seleccionar opción" type="button" (click)="selectOption(editItemIndex, editCaractIndex, opcionIndex, o.value)">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+
+                 
+
               </div>
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>

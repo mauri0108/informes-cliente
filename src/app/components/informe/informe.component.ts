@@ -107,9 +107,9 @@ export class InformeComponent implements OnInit {
   editOptions( itemIndex: number, caractIndex: number) {
     this.editItemIndex = itemIndex;
     this.editCaractIndex = caractIndex;
-    console.log(this.editItemIndex);
-    console.log(this.editCaractIndex);
-    console.log( this._informe.detalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
+    //console.log(this.editItemIndex);
+    //console.log(this.editCaractIndex);
+    //console.log( this._informe.detalle.items[this.editItemIndex].caracteristicas[this.editCaractIndex] );
   }
 
   editOption(optionIndex: number, newValue: string) {
@@ -159,10 +159,15 @@ export class InformeComponent implements OnInit {
     //return arr;
   }
 
-  selectOption(idItem, idCaracteristica, idOpcion) {
+  selectOption(idItem, idCaracteristica, idOpcion, newOpcion) {
     // tslint:disable-next-line:no-unused-expression
+    //console.log(this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones)
     //this._informeCompleto.infDetalle.items[idItem].caracteristicas[idCaracteristica].opciones;
+    if (this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones[idOpcion] !== newOpcion) {
+      this.editOption( idOpcion, newOpcion);
+    }
     this.move(this._informe.detalle.items[idItem].caracteristicas[idCaracteristica].opciones, idOpcion, 0 );
+    $('#editOptionsModal').modal('hide');
   }
 
   filterInstitucion(opcion: string) {

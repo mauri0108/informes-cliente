@@ -23,6 +23,7 @@ export class InformesUsuarioComponent implements OnInit {
   public _informes: Informe[];
   public usuarioId: string;
   public nombre = localStorage.getItem('nombre');
+  public loading = false;
 
   public _protocolos: Protocolo[];
 
@@ -34,6 +35,7 @@ export class InformesUsuarioComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.loading = true;
     this._activatedRoute.params
         .subscribe( params => {
 
@@ -42,11 +44,13 @@ export class InformesUsuarioComponent implements OnInit {
             this._informeService.getInformesUsuario( this.usuarioId )
                                 .subscribe( res => {
                                   this._informes = res.informes;
+                                  this.loading = false;
                                   //console.log(this._informes);
                                 },
                                 error => {
                                   console.log(error);
                                   swal('Error en la busqueda de informes del usuario', error.name , 'error');
+                                  this.loading = false;
                                 });
 
         });

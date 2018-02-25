@@ -5,17 +5,17 @@
           <img src="../assets/img/logo.png" alt="Instituto Domina" class="img-fluid" style="width: 280px; height: 280px">
           <form class="form form-login" ngNativeValidate  #formLogin="ngForm"  (ngSubmit)="ingresar( formLogin )">
             <fieldset>
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input [ngModel]="email" name="email" placeholder="E-mail" class="form-control" required="" type="email">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
                 </div>
+                <input [ngModel]="email" name="email" placeholder="E-mail" class="form-control" required="" type="email">
               </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                  <input class="form-control" type="password" ngModel name="pass" placeholder="Contraseña" id="password" required/>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
                 </div>
+                <input class="form-control" type="password" ngModel name="pass" placeholder="Contraseña" id="password" required/>
               </div>
               <div class="form-group">
                 <a href="#" data-toggle="modal" data-target="#modalPass">Olvidó su contraseña?</a>
@@ -48,11 +48,11 @@
                   <p>Puede cambiar su contraseña con el siguiente formulario.</p>
                   <form class="form" ngNativeValidate  #formReset="ngForm"  (ngSubmit)="sendEmail( formReset )">
                     <fieldset>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                          <input id="emailInput" ngModel name="emailReset" placeholder="E-mail" class="form-control" required="" type="email">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
                         </div>
+                        <input id="emailInput" ngModel name="emailReset" placeholder="E-mail" class="form-control" required="" type="email">
                       </div>
                       <div class="form-group">
                         <input class="btn btn-lg btn-primary btn-block" value="Enviar las instrucciones" type="submit">

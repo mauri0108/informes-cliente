@@ -8,13 +8,20 @@
   <br>
 
   <ng-template #noResults>
-    <div class="row" >
+    <div class="row" *ngIf="loading == false; else load" >
       <div class="col">
         <div class="alert alert-info text-center " role="alert">
           <h5><i class="fa fa-info-circle" aria-hidden="true"></i> No existen usuarios!</h5>
         </div>
       </div>
     </div>
+    <ng-template #load>
+      <div class="row">
+          <div class="col text-center mt-2">
+              <img src="../../../assets/img/loader.gif" class="img-fluid" width="80px" height=80px alt="Cargando..">
+          </div>
+      </div>
+    </ng-template>
   </ng-template>
   
   <div *ngIf="this._usuarios?.length > 0; else noResults" class="row">
