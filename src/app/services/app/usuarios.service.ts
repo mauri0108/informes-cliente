@@ -27,9 +27,7 @@ export class UsuariosService {
   constructor(
     private _http: HttpClient,
     private _router: Router
-  ) {
-    this.token = localStorage.getItem('token');
-  }
+  ) {}
 
   getUsuarios() {
     return this._http.get< UsuarioResponse >(GLOBAL.usuarios);
@@ -42,13 +40,13 @@ export class UsuariosService {
 
   saveUser(usuario: Usuario) {
     const uri = `${GLOBAL.crearEditarUsuario}`;
-    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": localStorage.getItem('token') }); 
     return this._http.post< UsuarioResponse >( uri, usuario, { headers });
   }
 
   updateUser(usuario: Usuario) {
     const uri = `${GLOBAL.crearEditarUsuario}`;
-    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": localStorage.getItem('token') }); 
     return this._http.put< UsuarioResponse >( uri, usuario, { headers });
   }
 
@@ -91,7 +89,7 @@ export class UsuariosService {
 
   defaultPass(usuario: Usuario) {
     const uri = `${GLOBAL.defaultPass }`;
-    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": localStorage.getItem('token') }); 
     return this._http.post< UsuarioResponse >( uri, usuario, { headers });
   }
 
@@ -109,7 +107,7 @@ export class UsuariosService {
 
   changePass( email: string, oldpass: string, newpass: string) {
     const uri = `${GLOBAL.changePass }`;
-    let headers: HttpHeaders = new HttpHeaders({"Authorization": this.token }); 
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": localStorage.getItem('token') }); 
     let body = { email: email, oldpass: oldpass, newpass: newpass};
     return this._http.post< UsuarioResponse >(uri, body, { headers });
   }

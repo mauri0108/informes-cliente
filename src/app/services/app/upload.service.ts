@@ -4,15 +4,10 @@ import { GLOBAL } from '../../global';
 
 @Injectable()
 export class UploadService {
-  public token: string;
-
-  constructor() {
-    this.token = localStorage.getItem('token') ;
-   }
-
+  
   uploadImg(file: File, id: string, instIndex: number) {
     let headers = new Headers();
-    headers.append("Authorization", this.token);
+    headers.append("Authorization", localStorage.getItem('token') );
 
     let formData = new FormData();
     formData.append( 'image', file, file.name);

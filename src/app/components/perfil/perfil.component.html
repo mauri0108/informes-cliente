@@ -77,7 +77,7 @@
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 align-to-input">
             <label class="btn btn-outline-primary lbl-input-file">
-              <i class="fa fa-picture-o" aria-hidden="true"></i> Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)">
+              <i class="fa fa-picture-o" aria-hidden="true"></i> Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)" [disabled]="saving">
             </label>
         </div>   
         <div class="col-md-3 col-sm-12 text-center" >
@@ -91,10 +91,18 @@
       </ng-template>
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-outline-info" (click)="addEditInst()">
+        <button type="button" class="btn btn-outline-info" (click)="addEditInst()" *ngIf="saving == false; else loading" [disabled]="saving">
           <i class="fa fa-building" aria-hidden="true"></i> 
           {{ this.editInst == true ? 'Editar Institucion' : 'Agregar Institucion' }} 
         </button>
+
+        
+        <ng-template #loading>
+          <button type="button" class="btn btn-outline-info" *ngIf="saving == true" [disabled]="saving">
+            <img src="../../../assets/img/loader.gif" class="img-fluid" width="20px" height=20px alt="Cargando.."> Guardando..
+            
+          </button>
+        </ng-template>
       </div>
     </div>
     <hr>

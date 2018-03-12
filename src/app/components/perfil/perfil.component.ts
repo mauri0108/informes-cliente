@@ -28,7 +28,10 @@ export class PerfilComponent implements OnInit {
   public logoTemporal: string;
 
   formChangePass: FormGroup;
-    
+  
+  // tslint:disable-next-line:no-inferrable-types
+  public saving: boolean = false;
+  
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _uploadService: UploadService,
@@ -83,9 +86,10 @@ export class PerfilComponent implements OnInit {
   }
 
   getImagem(readerEvt) {
+    //console.log('change no input file', readerEvt);
     this.file = null;
     this.logoTemporal = null;
-    //console.log('change no input file', readerEvt);
+    
     this.file = readerEvt.target.files[0];
     //console.log(this.file)
     const reader = new FileReader();
@@ -95,7 +99,7 @@ export class PerfilComponent implements OnInit {
     }
     
     reader.onload = () => {
-        // console.log('base64 do arquivo', reader.result);
+        //console.log('base64 do arquivo', reader.result);
          this.logoTemporal = reader.result ;
         //console.log(this.logoTemporal);
         // console.log(this._informeCompleto.logo)
@@ -111,7 +115,9 @@ export class PerfilComponent implements OnInit {
       this.editInst = false;
       this.instIndex = null;
       this.instNombre = null;
+      this.logoTemporal = null;
     } else {
+      this.logoTemporal = null;
       this.editInst = true;
       this.instIndex = opcion;
       this.instNombre = this._usuario.instituciones[this.instIndex].nombre;
@@ -119,13 +125,16 @@ export class PerfilComponent implements OnInit {
   }
 
   addEditInst() {
-   
+    this.saving = true;
+     //console.log(this.editInst);
     if (typeof this.instNombre == "undefined") {
       swal('Error!', 'Debe ingresar un nombre para poder agregar una institucion' , 'error'); 
       return;
     }
 
     if (this.editInst) {
+      
+
       this._usuario.instituciones[this.instIndex].nombre = this.instNombre;
 
       this._usuariosService.updateUser( this._usuario )
@@ -138,17 +147,20 @@ export class PerfilComponent implements OnInit {
                               this.instNombre = null;
                               this.instIndex = null;
                               swal('Perfecto!', 'Se actulizo correctamente la institución'  , 'success');
+                              this.saving = false;
                             }
                            },
                            error => {
                             console.log(error )
-                            swal('Error al actualizar!', error.error.message , 'error'); 
+                            swal('Error al actualizar!', error.error.message , 'error');
+                            this.saving = false;
                            });
       
     } else {
       let inst: Institucion = new Institucion( this.instNombre , null);
       let indexInst = this._usuario.instituciones.push(inst) - 1;
-      
+      //console.log(inst);
+      //console.log(indexInst);
       this._usuariosService.updateUser(this._usuario)
                           .subscribe( res => {
                               this._usuario = res.usuario;
@@ -159,11 +171,13 @@ export class PerfilComponent implements OnInit {
                                 this.instNombre = null;
                                 this.instIndex = null;
                                 swal('Perfecto!', 'Se agregó la institución'  , 'success');
+                                this.saving = false;
                               }
                           },
                           error => {
                             console.log(error )
                             swal('Error al actualizar!', error.error.message , 'error');
+                            this.saving = false;
                           });
     }
   }
@@ -176,14 +190,25 @@ export class PerfilComponent implements OnInit {
      .then( resJson => {
          swal('Perfecto!', resJson.message  , 'success');
          this._usuario = resJson.usuario;
+         this.saving = false;
      })
      .catch( err => {
         console.log( err );
         swal('Error!', err.message  , 'error');
+        this.saving = false;
      });
   }
 
   guardarCambios() {
-    console.log('guardar cambios');
+    this._usuariosService.updateUser(this._usuario)
+                          .subscribe( res => {
+                              this._usuario = res.usuario;
+                              swal('Perfecto!', res.message  , 'success');
+                          },
+                          error => {
+                            console.log(error )
+                            swal('Error al actualizar!', error.error.message , 'error');
+                            this.saving = false;
+                          });
   }
 }

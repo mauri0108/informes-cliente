@@ -37,15 +37,16 @@
       </div>
       
       <hr class="sombra">
-      <div class="form-group" *ngFor="let item of _informe?.detalle?.items; let itemIndex = index">
+      <div class="masonry">
+        <div class="item form-group" *ngFor="let item of _informe?.detalle?.items; let itemIndex = index">
           <h3><i class="fa fa-list-alt" aria-hidden="true"></i> {{ item.nombre }}</h3>
           <hr class="sombra">
           <div  *ngFor="let caracteristica of item?.caracteristicas; let ultimo = last; let caractIndex = index" >
             <div class="row py-2">
-              <div class="col-6 col-xl-2 col-lg-3 col-md-4 col-sm-4">
+              <div class="col-6 col-xl-6 col-lg-6 col-md-4 col-sm-4">
                  <span class="h5 pr-3 align-bottom"> {{ caracteristica?.nombre }}</span>
               </div>
-              <div class="col-6 col-xl-10 col-lg-9 col-md-8 col-sm-8">
+              <div class="col-6 col-xl-6 col-lg-6 col-md-8 col-sm-8">
                   <button type="button" 
                           class="btn btn-outline-primary py-0 btn-edit-op" 
                           data-toggle="modal" 
@@ -53,10 +54,32 @@
                           (click)="editOptions(itemIndex, caractIndex)" >Editar opciones</button>
               </div>
             </div>
-              <input class="form-control" type="text" [value]="caracteristica.opciones[0]" readonly>
-              <!-- <hr *ngIf="ultimo" class="sombra"> -->
+              <input #opcion class="form-control" type="text" [value]="caracteristica.opciones[0]" (change)="changeOption(opcion.value, itemIndex, caractIndex)"> 
           </div>
+        </div>
       </div>
+
+      <!-- <div class="row d-flex">
+          <div class="form-group col-xl-6 " *ngFor="let item of _informe?.detalle?.items; let itemIndex = index">
+              <h3><i class="fa fa-list-alt" aria-hidden="true"></i> {{ item.nombre }}</h3>
+              <hr class="sombra">
+              <div  *ngFor="let caracteristica of item?.caracteristicas; let ultimo = last; let caractIndex = index" >
+                <div class="row py-2">
+                  <div class="col-6 col-xl-6 col-lg-6 col-md-4 col-sm-4">
+                     <span class="h5 pr-3 align-bottom"> {{ caracteristica?.nombre }}</span>
+                  </div>
+                  <div class="col-6 col-xl-6 col-lg-6 col-md-8 col-sm-8">
+                      <button type="button" 
+                              class="btn btn-outline-primary py-0 btn-edit-op" 
+                              data-toggle="modal" 
+                              data-target="#editOptionsModal" 
+                              (click)="editOptions(itemIndex, caractIndex)" >Editar opciones</button>
+                  </div>
+                </div>
+                  <input #opcion class="form-control" type="text" [value]="caracteristica.opciones[0]" (change)="changeOption(opcion.value, itemIndex, caractIndex)"> 
+              </div>
+        </div>
+      </div> -->
 
       <!-- Inicio Modal -->
       <div class="modal fade bd-example-modal-lg" id="editOptionsModal" tabindex="-1" role="dialog" aria-labelledby="editOptionsModal" aria-hidden="true">
@@ -95,10 +118,6 @@
         </div>
       </div>
       <!-- Fin Modal -->
-      <div class="form-group">
-        <h6><label for="txtObservaciones">Observaciones</label></h6>
-        <textarea id="txtObservaciones"  [(ngModel)]="_informe.observacion" name="observacion" class="form-control" placeholder="Ingrese la observacion" rows="3" required></textarea>
-      </div>
       <hr>
     <button type="submit" class="btn btn-outline-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Informe</button>
     <button type="button" class="btn btn-outline-success" (click)="generatePDF(false)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Ver PDF</button>

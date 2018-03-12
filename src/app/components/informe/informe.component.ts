@@ -104,6 +104,10 @@ export class InformeComponent implements OnInit {
         $.datepicker.setDefaults($.datepicker.regional['es']);
   }
 
+  changeOption(newValue: string, itemIndex: number, caractIndex: number) {
+    this._informe.detalle.items[itemIndex].caracteristicas[caractIndex].opciones[0] = newValue;
+  }
+
   editOptions( itemIndex: number, caractIndex: number) {
     this.editItemIndex = itemIndex;
     this.editCaractIndex = caractIndex;

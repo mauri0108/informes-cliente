@@ -37,6 +37,10 @@
     overflow-y: scroll;
     min-height: 277px;
   }
+
+  .modal-lg {
+    max-width: 90% !important;
+  }
 }
 
 
@@ -241,11 +245,32 @@ hr.sombraL {
 }
 
 /*=============================callout=======================================*/
-
 .brand{
-  
   border-radius: 5px;
 }
 
+/*================Masonry===========*/
+
+@media only screen and (min-width: 960px){
+  .masonry{
+    column-count: 2;
+  }
+}
+
+.masonry { /* Masonry container */
+  column-gap: 1em;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.item { /* Masonry bricks or child elements */
+  display: inline-block;
+  padding: 1em;
+  /*background-color: #f5f5f5;*/
+  margin: 0 0 1em;
+  width: 100%;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+}
 
 
