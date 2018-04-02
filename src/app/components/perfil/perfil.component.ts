@@ -31,6 +31,7 @@ export class PerfilComponent implements OnInit {
   
   // tslint:disable-next-line:no-inferrable-types
   public saving: boolean = false;
+  public editSomething: boolean = false;
   
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -101,6 +102,7 @@ export class PerfilComponent implements OnInit {
     reader.onload = () => {
         //console.log('base64 do arquivo', reader.result);
          this.logoTemporal = reader.result ;
+         this.editSomething = true;
         //console.log(this.logoTemporal);
         // console.log(this._informeCompleto.logo)
         //console.log('base64 do arquivo codificado',midia.binario);
@@ -111,6 +113,8 @@ export class PerfilComponent implements OnInit {
   }
 
   getInst(opcion: any) {
+    this.editSomething = false;
+
     if (opcion === 'agregar') {
       this.editInst = false;
       this.instIndex = null;
@@ -122,6 +126,16 @@ export class PerfilComponent implements OnInit {
       this.instIndex = opcion;
       this.instNombre = this._usuario.instituciones[this.instIndex].nombre;
     }
+  }
+
+  editing(){
+    if (this.instNombre.length > 0 ) {
+      this.editSomething = true;
+    }else{
+      this.editSomething = false;
+      this.logoTemporal = null;
+    }
+    
   }
 
   addEditInst() {

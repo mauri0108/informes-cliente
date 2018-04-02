@@ -57,12 +57,18 @@
     <h3>Instituciones</h3>
     <hr>
     <div class="form-group row">
-        <div class="col-md-7 col-sm-8 col-xs-6">
+        <div class="col-md-7 col-sm-8 col-xs-12">
           <label for="selectIns"><b> Instituciones cargadas</b></label>
           <select class="form-control" id="selectIns" (change)="getInst($event.target.value)">
-            <option value= "agregar">Agregar nueva institucion</option>
+            <option value= "agregar" [selected]="editInst==false">Seleccione una institucion para editar</option>
             <option *ngFor="let institucion of _usuario.instituciones; let i = index" [value]= "i">{{ institucion.nombre }}</option>
           </select>
+        </div>
+        <div class="col-md-5 col-sm-4 col-xs-12 align-to-input">
+          <button type="button" class="btn btn-outline-info" (click)="getInst('agregar')" *ngIf="saving == false; else loading" [disabled]="saving">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+              Nueva Institucion
+          </button>
         </div>
     </div>
     <div class="form-group row">
@@ -73,10 +79,11 @@
                    name="institucion" 
                    type="text" 
                    class="form-control" 
+                   (ngModelChange) = "editing()"
                    placeholder="Ingrese el nombre la institucion" required>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 align-to-input">
-            <label class="btn btn-outline-primary lbl-input-file">
+            <label class="btn btn-outline-primary lbl-input-file" *ngIf="this.instNombre">
               <i class="fa fa-picture-o" aria-hidden="true"></i> Subir logo<input type="file" class="input-file" title="Seleccione el logo" (change)="getImagem($event)" [disabled]="saving">
             </label>
         </div>   
@@ -91,9 +98,9 @@
       </ng-template>
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-outline-info" (click)="addEditInst()" *ngIf="saving == false; else loading" [disabled]="saving">
+        <button type="button" class="btn btn-outline-info" (click)="addEditInst()" *ngIf="( editSomething  || ( editSomething && usuario?.instituciones[instIndex]?.logo ) )   && saving == false; else loading" [disabled]="saving">
           <i class="fa fa-building" aria-hidden="true"></i> 
-          {{ this.editInst == true ? 'Editar Institucion' : 'Agregar Institucion' }} 
+          {{ this.editInst == true ? 'Guardar cambios' : 'Agregar la nueva institucion' }} 
         </button>
 
         
