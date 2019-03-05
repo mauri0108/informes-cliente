@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Usuario, Institucion } from '../../models/usuario';
-import { UsuariosService  } from '../../services/service.index';
-import { UploadService } from '../../services/service.index';
-
+import { UsuariosService } from '../../services/service.index';
+import { ModalInstitucionService } from '../modal-institucion/modal-institucion.service';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -25,7 +24,7 @@ export class PerfilComponent implements OnInit {
   public instNombre: string;
 
   public file: File;
-  public logoTemporal: string;
+  public logoTemporal: any;
 
   formChangePass: FormGroup;
   
@@ -34,7 +33,7 @@ export class PerfilComponent implements OnInit {
   
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _uploadService: UploadService,
+    public _modalInstitucionService: ModalInstitucionService,
     private _usuariosService: UsuariosService) { }
 
   ngOnInit() {
@@ -85,119 +84,118 @@ export class PerfilComponent implements OnInit {
     console.log( this.formChangePass.value )
   }
 
-  getImagem(readerEvt) {
-    //console.log('change no input file', readerEvt);
-    this.file = null;
-    this.logoTemporal = null;
+  // getImagem(readerEvt) {
+  //   //console.log('change no input file', readerEvt);
+  //   this.file = null;
+  //   this.logoTemporal = null;
     
-    this.file = readerEvt.target.files[0];
-    //console.log(this.file)
-    const reader = new FileReader();
+  //   this.file = readerEvt.target.files[0];
+  //   //console.log(this.file)
+  //   const reader = new FileReader();
 
-    if (this.file) {
-      reader.readAsDataURL( this.file);
-    }
+  //   if (this.file) {
+  //     reader.readAsDataURL( this.file);
+  //   }
     
-    reader.onload = () => {
-        //console.log('base64 do arquivo', reader.result);
-         this.logoTemporal = reader.result ;
-        //console.log(this.logoTemporal);
-        // console.log(this._informeCompleto.logo)
-        //console.log('base64 do arquivo codificado',midia.binario);
-    };
-    reader.onerror = (error) => {
-        console.log('Erro ao ler a imagem : ', error);
-    };
-  }
+  //   reader.onload = () => {
+  //       //console.log('base64 do arquivo', reader.result);
+  //        this.logoTemporal = reader.result ;
+  //       //console.log(this.logoTemporal);
+  //       // console.log(this._informeCompleto.logo)
+  //       //console.log('base64 do arquivo codificado',midia.binario);
+  //   };
+  //   reader.onerror = (error) => {
+  //       console.log('Erro ao ler a imagem : ', error);
+  //   };
+  // }
 
-  getInst(opcion: any) {
-    if (opcion === 'agregar') {
-      this.editInst = false;
-      this.instIndex = null;
-      this.instNombre = null;
-      this.logoTemporal = null;
-    } else {
-      this.logoTemporal = null;
-      this.editInst = true;
-      this.instIndex = opcion;
-      this.instNombre = this._usuario.instituciones[this.instIndex].nombre;
-    }
-  }
+  // getInst(opcion: any) {
+  //   if (opcion === 'agregar') {
+  //     this.editInst = false;
+  //     this.instIndex = null;
+  //     this.instNombre = null;
+  //     this.logoTemporal = null;
+  //   } else {
+  //     this.logoTemporal = null;
+  //     this.editInst = true;
+  //     this.instIndex = opcion;
+  //     this.instNombre = this._usuario.instituciones[this.instIndex].nombre;
+  //   }
+  // }
 
-  addEditInst() {
-    this.saving = true;
-     //console.log(this.editInst);
-    if (typeof this.instNombre == "undefined") {
-      swal('Error!', 'Debe ingresar un nombre para poder agregar una institucion' , 'error'); 
-      return;
-    }
+  // addEditInst() {
+  //   this.saving = true;
+  //    //console.log(this.editInst);
+  //   if (typeof this.instNombre == "undefined") {
+  //     swal('Error!', 'Debe ingresar un nombre para poder agregar una institucion' , 'error'); 
+  //     return;
+  //   }
 
-    if (this.editInst) {
+  //   if (this.editInst) {
       
 
-      this._usuario.instituciones[this.instIndex].nombre = this.instNombre;
+  //     this._usuario.instituciones[this.instIndex].nombre = this.instNombre;
 
-      this._usuariosService.updateUser( this._usuario )
-                           .subscribe( res => {
-                            this._usuario = res.usuario;
+  //     this._usuariosService.updateUser( this._usuario )
+  //                          .subscribe( res => {
+  //                           this._usuario = res.usuario;
 
-                            if (this.file) {
-                              this.uploadImg(this.file, this._usuario._id, this.instIndex);
-                            }else {
-                              this.instNombre = null;
-                              this.instIndex = null;
-                              swal('Perfecto!', 'Se actulizo correctamente la institución'  , 'success');
-                              this.saving = false;
-                            }
-                           },
-                           error => {
-                            console.log(error )
-                            swal('Error al actualizar!', error.error.message , 'error');
-                            this.saving = false;
-                           });
+  //                           if (this.file) {
+  //                             this.uploadImg(this.file, this._usuario._id, this.instIndex);
+  //                           }else {
+  //                             this.instNombre = null;
+  //                             this.instIndex = null;
+  //                             swal('Perfecto!', 'Se actulizo correctamente la institución'  , 'success');
+  //                             this.saving = false;
+  //                           }
+  //                          },
+  //                          error => {
+  //                           console.log(error )
+  //                           swal('Error al actualizar!', error.error.message , 'error');
+  //                           this.saving = false;
+  //                          });
       
-    } else {
-      let inst: Institucion = new Institucion( this.instNombre , null);
-      let indexInst = this._usuario.instituciones.push(inst) - 1;
-      //console.log(inst);
-      //console.log(indexInst);
-      this._usuariosService.updateUser(this._usuario)
-                          .subscribe( res => {
-                              this._usuario = res.usuario;
+  //   } else {
+  //     let inst: Institucion = new Institucion( this.instNombre , null);
+  //     let indexInst = this._usuario.instituciones.push(inst) - 1;
 
-                              if (this.file) {
-                                this.uploadImg(this.file, this._usuario._id, indexInst);
-                              }else {
-                                this.instNombre = null;
-                                this.instIndex = null;
-                                swal('Perfecto!', 'Se agregó la institución'  , 'success');
-                                this.saving = false;
-                              }
-                          },
-                          error => {
-                            console.log(error )
-                            swal('Error al actualizar!', error.error.message , 'error');
-                            this.saving = false;
-                          });
-    }
-  }
+  //     this._usuariosService.updateUser(this._usuario)
+  //                         .subscribe( res => {
+  //                             this._usuario = res.usuario;
 
-  uploadImg(file: File, id: string, instIndex: number) {
-    this._uploadService.uploadImg( file, id , instIndex)
-    .then( res => {
-         return res.json() 
-     })
-     .then( resJson => {
-         swal('Perfecto!', resJson.message  , 'success');
-         this._usuario = resJson.usuario;
-         this.saving = false;
-     })
-     .catch( err => {
-        console.log( err );
-        swal('Error!', err.message  , 'error');
-        this.saving = false;
-     });
-  }
+  //                             if (this.file) {
+  //                               this.uploadImg(this.file, this._usuario._id, indexInst);
+  //                             } else {
+  //                               this.instNombre = null;
+  //                               this.instIndex = null;
+  //                               swal('Perfecto!', 'Se agregó la institución'  , 'success');
+  //                               this.saving = false;
+  //                             }
+  //                         },
+  //                         error => {
+  //                           console.log(error )
+  //                           swal('Error al actualizar!', error.error.message , 'error');
+  //                           this.saving = false;
+  //                         });
+  //   }
+  // }
+
+  // uploadImg(file: File, id: string, instIndex: number) {
+  //   this._uploadService.uploadImg( file, id , instIndex)
+  //   .then( res => {
+  //        return res.json() 
+  //    })
+  //    .then( resJson => {
+  //        swal('Perfecto!', resJson.message  , 'success');
+  //        this._usuario = resJson.usuario;
+  //        this.saving = false;
+  //    })
+  //    .catch( err => {
+  //       console.log( err );
+  //       swal('Error!', err.message  , 'error');
+  //       this.saving = false;
+  //    });
+  // }
 
   guardarCambios() {
     this._usuariosService.updateUser(this._usuario)

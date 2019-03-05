@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,21 +12,39 @@ import { GLOBAL } from '../../global';
 import { UsuarioResponse } from '../../models/response';
 import { Router } from '@angular/router';
 
-//import swal from 'sweetalert';
 declare var swal: any;
 
 @Injectable()
 export class UsuariosService {
 
-  public id: string;
-  public token: string;
-  public nombre: string;
-  public rol: string;
+  usuario: Usuario;
+  token: string;
 
   constructor(
     private _http: HttpClient,
     private _router: Router
-  ) {}
+  ) {
+    this.cargarStorage();
+  }
+
+  guardarStorage(id: string, token: string, usuario: Usuario ) {
+    localStorage.setItem('id', id);
+    localStorage.setItem('token', token);
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+
+    this.usuario = usuario;
+    this.token = token;
+  }
+
+  cargarStorage() {
+    if ( localStorage.getItem('token') ) {
+      this.token = localStorage.getItem('token');
+      this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    } else {
+      this.token = '';
+      this.usuario = null;
+    }
+  }
 
   getUsuarios() {
     return this._http.get< UsuarioResponse >(GLOBAL.usuarios);
@@ -56,11 +73,10 @@ export class UsuariosService {
     
     return this._http.post( uri, usuario)
                      .map( (res: any) => {
-                       localStorage.setItem('id', res.usuario._id);
-                       localStorage.setItem('token', res.token);
-                       localStorage.setItem('nombre', `${res.usuario.nombre} ${res.usuario.apellido}`);
+                    
+                      this.guardarStorage(res.usuario._id, res.token, res.usuario);
+                      return true;
 
-                       return true;
                      }).catch ( err => {
                         console.log( err.message )
 
@@ -76,13 +92,12 @@ export class UsuariosService {
                      
 
   logout() {
-    this.id = '';
     this.token = '';
-    this.nombre = '';
+    this.usuario = null;
 
     localStorage.removeItem('token');
     localStorage.removeItem('id');
-    localStorage.removeItem('nombre');
+    localStorage.removeItem('usuario');
 
     this._router.navigate(['/login']);
   }
@@ -111,5 +126,4 @@ export class UsuariosService {
     let body = { email: email, oldpass: oldpass, newpass: newpass};
     return this._http.post< UsuarioResponse >(uri, body, { headers });
   }
-
 }

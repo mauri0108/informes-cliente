@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProtocoloService } from '../../services/service.index';
 import { Protocolo } from '../../models/protocolo-informe';
+import { ModalInstitucionService } from '../modal-institucion/modal-institucion.service';
 
 declare var swal: any;
 
@@ -14,7 +15,7 @@ export class InicioComponent implements OnInit {
   public searchText: String;
   public loading = false;
 
-  constructor(private _protocoloService: ProtocoloService) { }
+  constructor(private _protocoloService: ProtocoloService, public _modalInstitucionService: ModalInstitucionService ) { }
 
   ngOnInit() {
     this.loading = true;

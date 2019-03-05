@@ -1,4 +1,7 @@
-const API_URL = 'http://31.220.54.135:3030/api/v1';
+import { environment } from 'environments/environment';
+
+
+const API_URL = environment.apiUrl;
 
 export const GLOBAL = {
   urlBase : `${API_URL}`,

@@ -1,13 +1,12 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { PagesComponent } from './components/pages.component';
 import { LoginComponent } from './login/login.component';
 import { ChangepassComponent } from './changepass/changepass.component';
-import { PagesComponent } from './components/pages.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
 
 import { LoginGuard } from './services/guards/login.guard';
-import { AdminGuard } from './services/guards/admin.guard';
 import { LoggedGuard } from './services/guards/logged.guard';
 
 const APP_ROUTES: Routes = [

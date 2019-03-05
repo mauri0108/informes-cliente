@@ -37,7 +37,7 @@ export class InformeComponent implements OnInit {
 
   public nuevo = true;
   public file: File;
-  public logoTemporal: string;
+  public logoTemporal: any;
 
   public mensaje: string;
   public errorMensaje: string;
@@ -224,7 +224,7 @@ export class InformeComponent implements OnInit {
 
                           }
                         );
-    }else {
+    } else {
       this._informeService.updateInforme( this._informe )
                           .subscribe( res => {
                             this._informe = res.informe

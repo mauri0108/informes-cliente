@@ -10,10 +10,6 @@ import { PAGES_ROUTES } from './pages.routes';
 //modulos
 import { SharedModule } from "../shared/shared.module";
 
-//pipes
-import { UrlPipe } from "../pipes/url.pipe";
-import { FilterPipe } from '../pipes/filter.pipe';
-
 //Components
 import { InicioComponent } from './inicio/inicio.component';
 import { InformeComponent } from './informe/informe.component';
@@ -24,7 +20,7 @@ import { ProtocolosComponent } from './protocolos/protocolos.component';
 import { ProtocoloComponent } from './protocolos/protocolo.component';
 import { InformesUsuarioComponent } from './informe/informes-usuario.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
+import { PipesModule } from 'app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -36,9 +32,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     ProtocolosComponent,
     ProtocoloComponent,
     InformesUsuarioComponent,
-    PerfilComponent,
-    UrlPipe,
-    FilterPipe
+    PerfilComponent
   ],
   exports: [
     InicioComponent,
@@ -52,12 +46,12 @@ import { PerfilComponent } from './perfil/perfil.component';
     PerfilComponent
   ],
   imports: [
-    //BrowserModule,
+    PAGES_ROUTES,
     CommonModule,
     SharedModule,
-    PAGES_ROUTES,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ]
 })
 

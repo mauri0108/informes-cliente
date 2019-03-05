@@ -56,6 +56,44 @@
     <br>
     <h3>Instituciones</h3>
     <hr>
+
+      <div class="col-md-12 scrolly-table">
+        <div  class= "table-responsive text-center">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th >#</th>
+                <th >Nombre</th>
+                <th >Logo</th>
+                <th >Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let institucion of _usuario.instituciones; let i = index">
+                <td scope="row">{{ i + 1 }}</td>
+                <td>{{ institucion.nombre }}</td>
+                <td> <img [src]="institucion.logo | url" class="w150" alt=""></td>
+                <td>
+                  <button (click)="_modalInstitucionService.mostrarModal(i,institucion)" type="button" class="btn btn-outline-info mr-1"
+                          title="Editar"
+                          style="width: 50px">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                  
+                  <button type="button" class="btn btn-outline-danger"
+                          title="Eliminar"
+                          style="width: 50px">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
     <div class="form-group row">
         <div class="col-md-7 col-sm-8 col-xs-6">
           <label for="selectIns"><b> Instituciones cargadas</b></label>

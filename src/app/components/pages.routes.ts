@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 
-import { PagesComponent } from './pages.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { InformeComponent } from './informe/informe.component';
 import { InformesUsuarioComponent } from './informe/informes-usuario.component';
@@ -13,8 +12,6 @@ import { UsuarioComponent } from './usuarios/usuario.component';
 
 import { LoginGuard } from '../services/guards/login.guard';
 import { AdminGuard } from '../services/guards/admin.guard';
-
-
 
 const PAGES: Routes = [
       { path: 'inicio', component: InicioComponent, canActivate: [ LoginGuard ] },
@@ -32,7 +29,7 @@ const PAGES: Routes = [
           { path: '**', pathMatch: 'full', redirectTo: 'protocolos' }
         ]
       },
-      { path: '', pathMatch: 'full', redirectTo: 'inicio' }
+      { path: '', pathMatch: 'full', redirectTo: '/inicio' }
     ];
 
 export const PAGES_ROUTES = RouterModule.forChild( PAGES );

@@ -8,19 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { APP_ROUTING } from './app.routes';
 
 //modulos
-//import { PagesModule } from './components/pages.module';
 import { SharedModule } from './shared/shared.module';
 
 //componentes
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ChangepassComponent } from './changepass/changepass.component';
 
 import { PagesComponent } from './components/pages.component';
-
-
 
 //Servicios
 import { ServiceModule } from './services/service.module';
@@ -32,6 +28,7 @@ import { LoggedGuard } from './services/guards/logged.guard';
 
 import { GLOBAL } from "./global";
 import { JwtModule } from '@auth0/angular-jwt';
+import { PipesModule } from './pipes/pipes.module';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -43,10 +40,12 @@ export function getToken() {
     LoginComponent,
     NotfoundComponent,
     PagesComponent,
-    ChangepassComponent,
+    ChangepassComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    APP_ROUTING,
     HttpClientModule,
     JwtModule.forRoot({
       config: {
@@ -54,10 +53,7 @@ export function getToken() {
         whitelistedDomains: [`${GLOBAL.urlBase}` , 'localhost']
       }
     }),
-    FormsModule,
     ReactiveFormsModule,
-    //PagesModule,
-    APP_ROUTING,
     ServiceModule,
     SharedModule
   ],

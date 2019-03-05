@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Usuario } from '../../models/usuario';
-import { UsuariosService  } from '../../services/service.index';
+import { UsuariosService } from '../../services/service.index';
 
 import * as moment from 'moment'
 
