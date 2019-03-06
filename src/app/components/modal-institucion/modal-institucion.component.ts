@@ -61,6 +61,39 @@ export class ModalInstitucionComponent implements OnInit {
 
   crearActualizarInstitucion() {
     if (this._modalInstitucionService.institucion) {
+        this.usuario.instituciones[this._modalInstitucionService.indexInst].nombre = this.nombreInstitucion;
+
+       this._usuarioService.updateUser( this.usuario )
+                            .subscribe( res => {
+                             
+                              this.usuario = res.usuario;
+
+                              if (this.imagenSubir) {
+                                this._uploadService.uploadImg( this.imagenSubir, this.usuario._id , this._modalInstitucionService.indexInst)
+                                .then( res => res.json())
+                                .then( resJson => {
+                                  swal('Perfecto!', resJson.message  , 'success');
+
+                                  
+                                  this.usuario = resJson.usuario;
+                                  this._usuarioService.guardarStorage(this.usuario._id, this._usuarioService.token, this.usuario);
+
+                                  this.cerrarModal();
+                                })
+                                .catch( err => {
+                                    swal('Error!', err.message  , 'error');
+                                });
+                              } else {
+
+                                swal('Perfecto!', 'Se actulizo correctamente la institución'  , 'success');
+                                this._usuarioService.guardarStorage(this.usuario._id, this._usuarioService.token, this.usuario);
+                              }
+                            },
+                            error => {
+                              console.log(error )
+                              swal('Error al actualizar!', error.error.message , 'error');
+                            });
+
 
     } else {
       let inst: Institucion = new Institucion( this.nombreInstitucion , null);
@@ -87,6 +120,9 @@ export class ModalInstitucionComponent implements OnInit {
                                     swal('Error!', err.message  , 'error');
                                 });
 
+                              }else{
+                                swal('Perfecto!', 'Se creo correctamente la institución'  , 'success');
+                                this._usuarioService.guardarStorage(this.usuario._id, this._usuarioService.token, this.usuario);
                               }
                           },
                           error => {
